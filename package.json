@@ -1,0 +1,14 @@
+{
+  "name": "Bracket",
+  "description": "A quick setup of bracket championships.",
+  "version": "0.0.1",
+  "author": "Trevor Clarke",
+  "dependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jasmine": "~0.6.4"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-concat": "~0.5.1"
+  }
+}
