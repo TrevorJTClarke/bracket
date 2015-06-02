@@ -112,8 +112,8 @@
 /* base */
 html,
 body {
-  background: #030303;
-  color: #FBC82F;
+  background: #FFFFFF;
+  color: #010101;
   padding: 0;
   margin: 0;
   font-family: "Oswald", Helvetica, Arial, sans-serif;
@@ -192,7 +192,7 @@ section {
 li:hover .bracket-item,
 li.active .bracket-item {
   background: #F5C531;
-  color: #030303; }
+  color: #010101; }
 
 li:hover .bracket-item.default,
 li.active .bracket-item.default {

@@ -68,26 +68,41 @@ gulp.task('sass:watch', function () {
 /**
  * watchers
  */
-var watcher = gulp.watch('js/**/*.js', [
-    // 'scripts',
-    'compress'
-], { cwd: 'public' }, reload);
-watcher.on('change', function(event) {
-  console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-});
+var watcherJs = gulp.watch('js/**/*.js', [
+    'smash',
+    'compress',
+    'templatify',
+    'copy'
+], { cwd: 'dist' }, reload);
+var watcherSass = gulp.watch('./public/css/**/*.scss', [
+    'sass',
+    'sass:watch'
+], { cwd: 'dist' }, reload);
 
 // watch files for changes and reload
 gulp.task('serve', function() {
     browserSync({
         server: {
-            baseDir: 'public'
+            baseDir: 'dist'
         }
     });
-    watcher.on('change', function(event) {
-        console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+    watcherJs.on('change', function(event) {
+        console.log('JS File was ' + event.type + ', running tasks...'); // ' + event.path + '
     });
+    watcherSass.on('change', function(event) {
+        console.log('Sass File was ' + event.type + ', running tasks...');
+    });
+    gulp.watch('./public/**/**').on('change', reload);
 });
 
 
 // setup defaults
-// gulp.task('default', ['scripts']);
+gulp.task('default', [
+    'smash',
+    'compress',
+    'templatify',
+    'copy',
+    'sass',
+    'sass:watch',
+    'serve'
+]);
