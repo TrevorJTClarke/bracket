@@ -205,7 +205,6 @@ li.active .bracket-item.default {
 @media (max-width: 768px) {
   header {
     margin: 10px 0; }
-
   .menu li {
     padding: 0 2px;
     box-sizing: border-box; }
@@ -216,17 +215,14 @@ li.active .bracket-item.default {
       font-size: 14px;
       line-height: 18px;
       opacity: 0.7; }
-    .menu li:hover a, .menu li.active a {
+    .menu li:hover a,
+    .menu li.active a {
       background: transparent;
       opacity: 1; }
-
   section {
     overflow: hidden;
     padding: 20px 0;
     width: 100%;
     height: 100vh; }
-
   .overwrap {
     width: 400%; } }
-
-/*# sourceMappingURL=bracket.css.map */

@@ -1,10 +1,11 @@
-var gulp = require('gulp');
-var uglify = require('gulp-uglifyjs');
-var concat = require('gulp-concat');
-var jasmine = require('gulp-jasmine');
-var sass = require('gulp-sass');
+var gulp        = require('gulp');
+var uglify      = require('gulp-uglifyjs');
+var concat      = require('gulp-concat');
+var template    = require('gulp-template-compile');
+var jasmine     = require('gulp-jasmine');
+var sass        = require('gulp-sass');
 var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+var reload      = browserSync.reload;
 
 // concat the JS files
 gulp.task('smash', function() {
@@ -26,6 +27,29 @@ gulp.task('compress', function() {
             mangle: true
         }))
         .pipe(gulp.dest('dist'));
+});
+// compile all the templates into something worth using
+gulp.task('templatify', function () {
+    gulp.src('./public/templates/*.html')
+        .pipe(template())
+        .pipe(concat('templates.js'))
+        .pipe(gulp.dest('dist'));
+});
+// copy index over to dist
+gulp.task('copy', function(){
+    gulp.src('./public/index.html')
+        .pipe(gulp.dest('dist'));
+});
+
+
+gulp.task('sass', function () {
+    gulp.src('./public/css/**/*.scss')
+        .pipe(sass('bracket.css').on('error', sass.logError))
+        .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('sass:watch', function () {
+    gulp.watch('./sass/**/*.scss', ['sass']);
 });
 
 
@@ -59,12 +83,9 @@ gulp.task('serve', function() {
             baseDir: 'public'
         }
     });
-
-    // gulp.watch([
-    //     '*.html',
-    //     'styles/**/*.css',
-    //     'scripts/**/*.js'
-    // ], { cwd: 'public' }, reload);
+    watcher.on('change', function(event) {
+        console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+    });
 });
 
 
