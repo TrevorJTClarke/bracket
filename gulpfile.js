@@ -54,16 +54,16 @@ gulp.task('sass:watch', function () {
 
 
 // // run tests
-// gulp.task('test', function () {
-//     return gulp.src([
-//         './libs/backbone.js',
-//         './libs/backbone.localStorage.js',
-//         './libs/underscore.js',
-//         './js/*.js',
-//         './spec/*.js'
-//     ])
-//     .pipe(jasmine());
-// });
+gulp.task('test', function () {
+    return gulp.src([
+        './dist/libs/backbone.js',
+        './dist/libs/backbone.localStorage.js',
+        './dist/libs/underscore.js',
+        './public/js/**/*.js',
+        './spec/**/*.js'
+    ])
+    .pipe(jasmine());
+});
 
 /**
  * watchers
