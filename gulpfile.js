@@ -83,15 +83,15 @@ var watcherSass = gulp.watch('./public/css/**/*.scss', [
 gulp.task('serve', function() {
     browserSync({
         server: {
-            baseDir: 'dist'
+            baseDir: 'public'
         }
     });
-    watcherJs.on('change', function(event) {
-        console.log('JS File was ' + event.type + ', running tasks...'); // ' + event.path + '
-    });
-    watcherSass.on('change', function(event) {
-        console.log('Sass File was ' + event.type + ', running tasks...');
-    });
+    // watcherJs.on('change', function(event) {
+    //     console.log('JS File was ' + event.type + ', running tasks...'); // ' + event.path + '
+    // });
+    // watcherSass.on('change', function(event) {
+    //     console.log('Sass File was ' + event.type + ', running tasks...');
+    // });
     gulp.watch('./public/**/**').on('change', reload);
 });
 
