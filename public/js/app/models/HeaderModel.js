@@ -1,32 +1,28 @@
 // HeaderModel.js
 // --------
-define(["jquery", "backbone"],
+define('HeaderModel', ["jquery", "backbone"], function(jquery, backbone) {
 
-    function($, Backbone) {
+    // Creates a new Backbone Model class object
+    var HeaderModel = backbone.Model.extend({
 
-        // Creates a new Backbone Model class object
-        var HeaderModel = Backbone.Model.extend({
+        // Model Constructor
+        initialize: function() {
 
-            // Model Constructor
-            initialize: function() {
+        },
 
-            },
+        // Default values for all of the Model attributes
+        defaults: {
 
-            // Default values for all of the Model attributes
-            defaults: {
+        },
 
-            },
+        // Gets called automatically by Backbone when the set and/or save methods are called (Add your own logic)
+        validate: function(attrs) {
 
-            // Gets called automatically by Backbone when the set and/or save methods are called (Add your own logic)
-            validate: function(attrs) {
+        }
 
-            }
+    });
 
-        });
+    // Returns the Model class
+    return HeaderModel;
 
-        // Returns the Model class
-        return HeaderModel;
-
-    }
-
-);
+});

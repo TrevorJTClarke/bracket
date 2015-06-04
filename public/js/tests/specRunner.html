@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+	<title>Jasmine</title>
+
+	<!-- Include the Jasmine assets for running in an HTML page. -->
+	<link rel="stylesheet" type="text/css" href="../js/lib/jasmine-1.2.0/jasmine.css"></link>
+	<script type="text/javascript" src="../js/lib/jasmine-1.2.0/jasmine.js"></script>
+	<script type="text/javascript" src="../js/lib/jasmine-1.2.0/jasmine-html.js"></script>
+
+	<!--
+		Since we are in the "test" directory, not in the standard
+		"js" directory, we need to define the path prefix' for the
+		RequireJS modules so that the modules can be found from the
+		tests running in the Spec directory.
+	-->
+	<script type="text/javascript">
+
+		var require = {
+			paths: {
+				"domReady": "../js/lib/require/domReady",
+				"model": "../js/model"
+			}
+		};
+
+	</script>
+	<script type="text/javascript" src="../js/lib/require/require.js"></script>
+
+	<!--
+		Use RequireJS to load and execute the actual Jasmine test
+		specifications (ie. specs).
+
+		NOTE: We have to use the domReady! plugin since the Jasmine
+		reporter needs to have access to the BODY tag of the document
+		when outputting the results of the test.
+	-->
+	<script type="text/javascript">
+
+		require(
+			[
+				"domReady!",
+				"spec/romanNumeralEncoder"
+			],
+			function( document ){
+
+				// Set up the HTML reporter - this is reponsible for
+				// aggregating the results reported by Jasmine as the
+				// tests and suites are executed.
+				jasmine.getEnv().addReporter(
+					new jasmine.HtmlReporter()
+				);
+
+				// Run all the loaded test specs.
+				jasmine.getEnv().execute();
+
+			}
+		);
+
+	</script>
+
+</head>
+<body>
+	<!-- Left intentionally blank. -->
+</body>
+</html>
