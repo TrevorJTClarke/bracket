@@ -2,7 +2,8 @@ var gulp        = require('gulp');
 var uglify      = require('gulp-uglifyjs');
 var concat      = require('gulp-concat');
 var template    = require('gulp-template-compile');
-var jasmine     = require('gulp-jasmine');
+// var jasmine     = require('gulp-jasmine');
+var jasmine     = require('gulp-jasmine-phantom');
 var sass        = require('gulp-sass');
 var browserSync = require('browser-sync');
 var reload      = browserSync.reload;
@@ -55,14 +56,24 @@ gulp.task('sass:watch', function () {
 
 // // run tests
 gulp.task('test', function () {
-    return gulp.src([
-        './dist/libs/backbone.js',
-        './dist/libs/backbone.localStorage.js',
-        './dist/libs/underscore.js',
-        './public/js/**/*.js',
-        './spec/**/*.js'
-    ])
-    .pipe(jasmine());
+    return gulp.src('spec/models/*.js')
+      .pipe(jasmine({
+          integration: true,
+          vendor: './js/libs/*.js',
+          keepRunner: './',
+          specHtml: 'specRunner.html'
+      }))
+    // return gulp.src([
+    //     './js/libs/jquery.js',
+    //     './js/libs/underscore.js',
+    //     './js/libs/require.min.js',
+    //     './js/libs/backbone.js',
+    //     './js/libs/text.js',
+    //     './js/libs/backbone.localStorage.js',
+    //     './public/js/app/models/*.js',
+    //     './spec/models/*.js'
+    // ])
+    // .pipe(jasmine());
 });
 
 /**
