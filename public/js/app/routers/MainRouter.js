@@ -1,8 +1,8 @@
 // MainRouter.js
 // ----------------
-define(["jquery", "backbone", "models/Model", "views/View", "collections/Collection"],
+define(["jquery", "backbone", "models/HeaderModel", "views/HeaderView", "views/SetupCompetitionView"],
 
-    function($, Backbone, Model, View, Collection) {
+    function($, Backbone, HeaderModel, HeaderView, SetupCompetitionView) {
 
         var MainRouter = Backbone.Router.extend({
 
@@ -24,7 +24,8 @@ define(["jquery", "backbone", "models/Model", "views/View", "collections/Collect
             index: function() {
 
                 // Instantiates a new view which will render the header text to the page
-                new View();
+                new HeaderView();
+                new SetupCompetitionView();
 
             }
 

@@ -1,12 +1,12 @@
 /**
  * Bracket Styling
  */
-@import "modules/_colors";
-@import "modules/_type";
-@import "modules/_grid";
+@import "config/_colors";
+@import "config/_type";
+@import "config/_grid";
 
-@import "modules/_base";
-@import "modules/_nav";
-@import "modules/_bracket";
+@import "pages/_base";
+@import "elements/_nav";
+@import "elements/_bracket";
 
-@import "modules/_responsive";
+@import "pages/_responsive";
