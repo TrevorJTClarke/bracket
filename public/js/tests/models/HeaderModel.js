@@ -1,18 +1,18 @@
 // HeaderModel Testing
-describe("HeaderModel", function() {
-    var HM;
-    beforeEach(function (done) {
-        require(["models/HeaderModel"], function(HeaderModel){
-            HM = new HeaderModel();
-            done();
+define(['models/HeaderModel', 'jquery', 'underscore'], function(HeaderModel, $, _) {
+    describe("HeaderModel", function() {
+        var HM = new HeaderModel();
+
+        it("should be defined", function() {
+            expect(HM).toBeDefined();
         });
-    });
 
-    it("should be defined", function() {
-        expect(HM).toBeDefined();
-    });
+        it("should have default attrs", function() {
+            expect(HM.get("something")).toBeDefined();
+        });
 
-    it("should have default attrs", function() {
-        expect(HM.get("something")).toBeDefined();
+        it("should have equal values", function() {
+            expect(HM.get("something")).toEqual("hi");
+        });
     });
 });
