@@ -140,14 +140,12 @@ header {
   margin: 40px 0;
   padding-right: 10px;
   padding-left: 10px; }
-
-.menu li a {
-  display: block;
-  padding: 15px 0;
-  font-size: 18px;
-  line-height: 21px;
-  text-align: center;
-  text-transform: uppercase; }
+  header .navbar {
+    background: #F5C531; }
+    header .navbar .logo {
+      display: block;
+      width: 100px;
+      margin: 0 auto; }
 
 /* bracket */
 section {
