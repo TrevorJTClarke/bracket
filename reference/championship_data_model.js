@@ -6,31 +6,24 @@
 {
     id: "jfkdlsajf-789dfs-fd9s-f89sd09",
     title: "Championship 2",
-    users: ["jfkdlsajf-789dfs-fd9s-f89sd09", "jfkdlsajf-789dfs-fd9s-f89sd09", "jfkdlsajf-789dfs-fd9s-f89sd09"],
+    users: {
+        "jfkdlsajf-789dfs-fd9s-f89sd09": {
+            firstName: "trevor",
+            lastName: "clarke"
+        },
+        "jfkdlsajf-789dfs-fd9s-f89sd09"
+            firstName: "michael",
+            lastName: "deol"
+        }
+    },
     bracket: {
         tiers: 4,
         tier_001: [{
-            users: [{
-                id: "jfkdlsajf-789dfs-fd9s-f89sd09"
-                firstName: "trevor",
-                lastName: "clarke"
-            },{
-                id: "jfkdlsajf-789dfs-fd9s-f89sd09"
-                firstName: "michael",
-                lastName: "deol"
-            }],
+            users: ["jfkdlsajf-789dfs-fd9s-f89sd09", "jfkdlsajf-789dfs-fd9s-f89sd09"],
             winner: "jfkdlsajf-789dfs-fd9s-f89sd09",
             status: "finished"
         },{
-            users: [{
-                id: "jfkdlsajf-789dfs-fd9s-f89sd09"
-                firstName: "trevor",
-                lastName: "clarke"
-            },{
-                id: "jfkdlsajf-789dfs-fd9s-f89sd09"
-                firstName: "michael",
-                lastName: "deol"
-            }],
+            users: ["jfkdlsajf-789dfs-fd9s-f89sd09", "jfkdlsajf-789dfs-fd9s-f89sd09"],
             winner: null,
             status: "pending"
         }]
