@@ -10,5 +10,9 @@ define(['models/HeaderModel', 'jquery', 'underscore'], function(HeaderModel, $, 
         it("should have default attrs", function() {
             expect(HM.get("something")).toBeDefined();
         });
+
+        it("should have equal values", function() {
+            expect(HM.get("something")).toEqual("hi");
+        });
     });
 });
