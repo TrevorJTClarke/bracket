@@ -3,7 +3,7 @@
 
 module.exports = function(config) {
   config.set({
-    basePath: '',
+    basePath: 'public/js',
     frameworks: ['jasmine', 'requirejs'],
     files: [
         {pattern: 'libs/**/*.js', included: false},
