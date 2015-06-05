@@ -93,7 +93,7 @@ gulp.task('test', function () {
                 './public/js/libs/backbone.localStorage.js',
                 './public/js/libs/text.js',
             ],
-            keepRunner: './'
+            keepRunner: './fdsa'
         }));
 });
 
