@@ -1,6 +1,6 @@
 // View.js
 // -------
-define(["jquery", "backbone", "models/HeaderModel", "text!templates/header.html"],
+define(["jquery", "backbone", "models/HeaderModel"], //, "text!templates/header.html"
 
     function($, Backbone, Model, template){
 
@@ -13,7 +13,7 @@ define(["jquery", "backbone", "models/HeaderModel", "text!templates/header.html"
             initialize: function() {
 
                 // Calls the view's render method
-                this.render();
+                // this.render();
 
             },
 

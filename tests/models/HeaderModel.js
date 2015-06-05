@@ -1,5 +1,5 @@
 // HeaderModel Testing
-// define(['models/HeaderModel'],function(HeaderModel) {
+define(['models/HeaderModel'],function(HeaderModel) {
     describe("HeaderModel", function() {
         var HM = new HeaderModel();
         // beforeEach(function (done) {
@@ -19,4 +19,4 @@
             expect(true).toBe(true);
         });
     });
-// });
+});

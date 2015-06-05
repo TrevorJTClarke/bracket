@@ -7,7 +7,7 @@ define(["jquery", "backbone"], function($, Backbone) {
 
         // Model Constructor
         initialize: function() {
-
+            return this;
         },
 
         // Default values for all of the Model attributes

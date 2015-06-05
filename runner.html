@@ -2,23 +2,25 @@
 <html>
 <head>
 <title>Jasmine fdsa</title>
-<link rel="stylesheet" type="text/css" href="./jasmine/jasmine.css"></link>
-<script type="text/javascript" src="./jasmine/jasmine.js"></script>
-<script type="text/javascript" src="./jasmine/jasmine-html.js"></script>
-<script type="text/javascript" meta="hey">
+<link rel="stylesheet" type="text/css" href="./node_modules/gulp-jasmine-phantom/vendor/jasmine-2.0/jasmine.css" />
+<script type="text/javascript" src="./node_modules/gulp-jasmine-phantom/vendor/jasmine-2.0/jasmine.js"></script>
+<script type="text/javascript" src="./node_modules/gulp-jasmine-phantom/vendor/jasmine-2.0/jasmine-html.js"></script>
+<script type="text/javascript" src="./node_modules/gulp-jasmine-phantom/vendor/jasmine-2.0/console.js"></script>
+<script type="text/javascript" src="./node_modules/gulp-jasmine-phantom/vendor/jasmine-2.0/boot.js"></script>
+<script type="text/javascript">
 	var require = {
 		baseUrl: "./public/js",
 		paths: {
-			"jquery": "./libs/jquery",
-			"underscore": "./libs/underscore",
-			"backbone": "./libs/backbone",
-			"backbone.localStorage": "./libs/backbone.localStorage",
-			"text": "./libs/text",
-			"models": "./app/models",
-			"routers": "./app/routers",
-			"views": "./app/views",
-			"templates": "./app/templates",
-			"init": "./app/init"
+			"jquery": "libs/jquery",
+			"underscore": "libs/underscore",
+			"backbone": "libs/backbone",
+			"backbone.localStorage": "libs/backbone.localStorage",
+			"text": "libs/text",
+			"models": "app/models",
+			"routers": "app/routers",
+			"views": "app/views",
+			"templates": "app/templates",
+			"init": "app/init"
 		},
 		shim: {
 			"backbone.localStorage": ["backbone"]
@@ -27,6 +29,7 @@
 
 </script>
 <script type="text/javascript" src="./public/js/libs/require.min.js"></script>
+<script type="text/javascript" src="./public/js/tests/models/HeaderModel.js"></script>
 <script type="text/javascript">
 	require(["init/MainInit"], function(){
 		jasmine.getEnv().addReporter( new jasmine.HtmlReporter() );
@@ -34,6 +37,7 @@
 	});
 </script>
 
+<script type"text/javascript" src="/Users/trevorclarke/github/bracket/node_modules/gulp-jasmine-phantom/lib/specRunner.js"></script>
 </head>
 <body>
 	<!-- Left intentionally blank. -->
