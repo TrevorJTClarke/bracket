@@ -2,7 +2,6 @@ var gulp        = require('gulp');
 var uglify      = require('gulp-uglifyjs');
 var concat      = require('gulp-concat');
 var template    = require('gulp-template-compile');
-// var jasmine     = require('gulp-jasmine');
 var jasmine     = require('gulp-jasmine-phantom');
 var sass        = require('gulp-sass');
 var rjs         = require('gulp-requirejs');
@@ -54,48 +53,47 @@ gulp.task('sass:watch', function () {
     gulp.watch('./sass/**/*.scss', ['sass']);
 });
 
-gulp.task('rjs', function() {
-    rjs({
-        baseUrl: './public/js/app/models',
-        out: 'bracket.rjs.js',
-        paths: {
-            "jquery": "../../libs/jquery",
-            "underscore": "../../libs/underscore",
-            "backbone": "../../libs/backbone",
-            "backbone.localStorage": "../../libs/backbone.localStorage",
-            "text": "../../libs/text"
-        },
-        shim: {
-            "backbone.localStorage": ["backbone"]
-        },
-        name: "HeaderModel"
-    })
-    .pipe(gulp.dest('./public/js/tests/')); // pipe it to the output DIR
-});
-
 
 // // run tests
-gulp.task('test', function () {
-    return gulp.src([
-            // './public/js/app/models/HeaderModel.js',
-            './public/js/tests/models/HeaderModel.js'
-        ])
-        .pipe(jasmine({
-            includeStackTrace: true,
-            integration: true,
-            vendor: [
-                // './public/js/tests/bracket.rjs.js',
-                // './public/js/tests/config.js',
-                './public/js/libs/underscore.js',
-                './public/js/libs/jquery.js',
-                './public/js/libs/require.min.js',
-                './public/js/libs/backbone.js',
-                './public/js/libs/backbone.localStorage.js',
-                './public/js/libs/text.js',
-            ],
-            keepRunner: './fdsa'
-        }));
-});
+// gulp.task('rjs', function() {
+//     rjs({
+//         baseUrl: './public/js/app/models',
+//         out: 'bracket.rjs.js',
+//         paths: {
+//             "jquery": "../../libs/jquery",
+//             "underscore": "../../libs/underscore",
+//             "backbone": "../../libs/backbone",
+//             "backbone.localStorage": "../../libs/backbone.localStorage",
+//             "text": "../../libs/text"
+//         },
+//         shim: {
+//             "backbone.localStorage": ["backbone"]
+//         },
+//         name: "HeaderModel"
+//     })
+//     .pipe(gulp.dest('./public/js/tests/')); // pipe it to the output DIR
+// });
+// gulp.task('test', function () {
+//     return gulp.src([
+//             // './public/js/app/models/HeaderModel.js',
+//             './public/js/tests/models/HeaderModel.js'
+//         ])
+//         .pipe(jasmine({
+//             includeStackTrace: true,
+//             integration: true,
+//             vendor: [
+//                 // './public/js/tests/bracket.rjs.js',
+//                 // './public/js/tests/config.js',
+//                 './public/js/libs/underscore.js',
+//                 './public/js/libs/jquery.js',
+//                 './public/js/libs/require.min.js',
+//                 './public/js/libs/backbone.js',
+//                 './public/js/libs/backbone.localStorage.js',
+//                 './public/js/libs/text.js',
+//             ],
+//             keepRunner: './'
+//         }));
+// });
 
 /**
  * watchers
