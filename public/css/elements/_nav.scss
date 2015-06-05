@@ -6,11 +6,15 @@ header {
     padding-left: 10px;
 
     .navbar {
-        background: $yellow;
+        background: $darkmain;
+        color: $white;
+
         .logo {
             display: block;
-            width: 100px;
-            margin: 0 auto;
+            width: 130px;
+            margin: 7px auto 0;
+            font-size: 26px;
+            font-weight: 100;
         }
     }
 }

@@ -2,6 +2,7 @@
  * Bracket Styling
  */
 /* Colors */
+/* Theme */
 /* Type */
 /* grid */
 .g1 {
@@ -112,7 +113,7 @@
 html,
 body {
   background: #FFFFFF;
-  color: #010101;
+  color: #333333;
   padding: 0;
   margin: 0;
   font-family: "Helvatica Neue", Helvetica, Arial, sans-serif;
@@ -123,7 +124,7 @@ body {
   box-sizing: border-box; }
 
 a {
-  color: #FBC82F;
+  color: #2ffbf5;
   text-decoration: none; }
 
 ul {
@@ -141,11 +142,14 @@ header {
   padding-right: 10px;
   padding-left: 10px; }
   header .navbar {
-    background: #F5C531; }
+    background: #28d0cb;
+    color: #FFFFFF; }
     header .navbar .logo {
       display: block;
-      width: 100px;
-      margin: 0 auto; }
+      width: 130px;
+      margin: 7px auto 0;
+      font-size: 26px;
+      font-weight: 100; }
 
 /* bracket */
 section {
@@ -164,39 +168,45 @@ section {
 .bracket-col4 ul li {
   margin: 250px 0; }
 
+/*
 .bracket-item {
-  background: #624F14;
-  border-radius: 5px;
-  color: rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  margin: 0 15px 10px;
-  position: relative; }
-  .bracket-item .number {
-    color: rgba(0, 0, 0, 0.3);
-    font: normal 700 30px/34px "Helvatica Neue", Helvetica, Arial, sans-serif;
-    position: absolute;
-    left: 5px;
-    top: 6px;
-    width: 20px;
-    text-align: center; }
-  .bracket-item .title {
-    margin: 0;
-    padding: 10px 10px 10px 20px;
-    text-align: right; }
-  .bracket-item.default {
-    min-height: 48px; }
+    background: $darkyellow;
+    border-radius: 5px;
+    color: rgba(0,0,0,0.3);
+    cursor: pointer;
+    margin: 0 15px 10px;
+    position: relative;
 
+    .number {
+        color: rgba(0,0,0,0.3);
+        font: normal 700 30px/34px $sans-serif;
+        position: absolute;
+        left: 5px;
+        top: 6px;
+        width: 20px;
+        text-align: center;
+    }
+    .title {
+        margin:0;
+        padding: 10px 10px 10px 20px;
+        text-align: right;
+    }
+
+    &.default {
+        min-height: 48px;
+    }
+}
 li:hover .bracket-item,
 li.active .bracket-item {
-  background: #F5C531;
-  color: #010101; }
-
+    background: $yellow;
+    color: $black;
+}
 li:hover .bracket-item.default,
 li.active .bracket-item.default {
-  background: #624F14;
-  color: rgba(0, 0, 0, 0.3);
-  cursor: default; }
-
+    background: $darkyellow;
+    color: rgba(0,0,0,0.3);
+    cursor: default;
+} */
 /* responsive */
 /* Mobile */
 @media (max-width: 768px) {
