@@ -15,9 +15,9 @@
             expect(HM).toBeDefined();
         });
 
-        // it("should be defined", function() {
-        //
-        //     expect(HM.prototype.defaults).toBeDefined();
-        // });
+        it("should have default attrs", function() {
+            console.log(HM.get("something"));
+            expect(HM.get("something")).toBeDefined();
+        });
     });
 // });
