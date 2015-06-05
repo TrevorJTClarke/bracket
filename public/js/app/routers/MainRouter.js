@@ -1,7 +1,7 @@
 // MainRouter.js
 // ----------------
-define(["jquery", "backbone", "models/HeaderModel", "views/HeaderView", "views/SetupCompetitionView"],
-function($, Backbone, HeaderModel, HeaderView, SetupCompetitionView) {
+define(["jquery", "backbone", "models/HeaderModel", "views/HeaderView", "views/SetupIntroView"],
+function($, Backbone, HeaderModel, HeaderView, SetupIntroView) {
 
     var MainRouter = Backbone.Router.extend({
 
@@ -11,23 +11,16 @@ function($, Backbone, HeaderModel, HeaderView, SetupCompetitionView) {
             Backbone.history.start();
         },
         routes: {
-
             // When there is no hash on the url, the home method is called
             "": "index"
-
         },
 
         index: function() {
-
             // Instantiates a new view which will render the header text to the page
             new HeaderView();
-            // new SetupCompetitionView();
-
+            new SetupIntroView();
         }
-
     });
 
-    // Returns the DesktopRouter class
     return MainRouter;
-
 });
