@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<title>Jasmine fdsa</title>
+<link rel="stylesheet" type="text/css" href="../jasmine/jasmine.css"></link>
+<script type="text/javascript" src="../jasmine/jasmine.js"></script>
+<script type="text/javascript" src="../jasmine/jasmine-html.js"></script>
+<script type="text/javascript" meta="hey">
+	var require = {
+		baseUrl: "./public/js",
+		paths: {
+			"jquery": "./libs/jquery",
+			"underscore": "./libs/underscore",
+			"backbone": "./libs/backbone",
+			"backbone.localStorage": "./libs/backbone.localStorage",
+			"text": "./libs/text",
+			"models": "./app/models",
+			"init": "./app/init"
+		},
+		shim: {
+			"backbone.localStorage": ["backbone"]
+		}
+	};
+
+</script>
+<script type="text/javascript" src="./public/js/libs/require.min.js"></script>
+<script type="text/javascript">
+	require(["init/MainInit"], function(){
+		console.log("header",HeaderModel);
+		jasmine.getEnv().addReporter( new jasmine.HtmlReporter() );
+		jasmine.getEnv().execute();
+	});
+</script>
+
+</head>
+<body>
+	<!-- Left intentionally blank. -->
+</body>
+</html>

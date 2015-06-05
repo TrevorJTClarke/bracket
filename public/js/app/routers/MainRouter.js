@@ -25,7 +25,7 @@ define(["jquery", "backbone", "models/HeaderModel", "views/HeaderView", "views/S
 
                 // Instantiates a new view which will render the header text to the page
                 new HeaderView();
-                new SetupCompetitionView();
+                // new SetupCompetitionView();
 
             }
 
