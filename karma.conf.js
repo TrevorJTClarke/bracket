@@ -7,11 +7,16 @@ module.exports = function(config) {
     frameworks: ['jasmine', 'requirejs'],
     files: [
         {pattern: 'libs/**/*.js', included: false},
+        {pattern: 'app/collections/*.js', included: false},
         {pattern: 'app/models/*.js', included: false},
+        {pattern: 'app/views/*.js', included: false},
+        {pattern: 'app/templates/*.html', included: false},
+        {pattern: 'app/routers/*.js', included: false},
         {pattern: 'tests/**/*.js', included: false},
         'test-main.js'
     ],
     exclude: [
+        // 'app/templates/*.html'
     ],
     preprocessors: {
     },
