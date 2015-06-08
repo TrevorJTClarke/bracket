@@ -12,7 +12,7 @@
         championships: 8,
         win: 2,
         lose: 5,
-        fin: 1
+        bye: 1
     },
     preferences: {
         push: true
