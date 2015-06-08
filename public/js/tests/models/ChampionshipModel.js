@@ -53,30 +53,44 @@ define(['models/ChampionshipModel', 'jquery', 'underscore'], function(Championsh
 
             it("correctly sets the data", function() {
                 var data = CM.get("users");
-                var firstUserName = data[0].firstName;
+                var firstUserName = data["5u43io-543fdos-fjdksl-riew98787"].firstName;
                 expect(firstUserName).toEqual("Test");
             });
+        });
+
+        describe(".getUserById()", function() {
+
+            it("should have method", function() {
+                expect(CM.getUserById).toBeDefined();
+            });
+
+            it("get by Tier Key", function() {
+                spyOn(CM, 'getUserById').and.callThrough();
+                var tierData = CM.getUserById("tier_1");
+
+                expect(CM.getUserById).toHaveBeenCalled();
+                // expect(tempTiers).toEqual(1);
+            });
+
         });
 
         describe(".addTier()", function() {
             var bracketData = CM.get("bracket");
             var previousTiers = (bracketData && bracketData.tiers)? bracketData.tiers : 0;
 
-            beforeEach(function() {
-                spyOn(CM, 'addTier').and.callThrough();
-
-                CM.addTier();
-            });
-
             it("should have method", function() {
                 expect(CM.addTier).toBeDefined();
-                expect(CM.addTier).toHaveBeenCalled();
             });
 
             it("can set the tier data", function() {
+                spyOn(CM, 'addTier').and.callThrough();
+                CM.addTier();
+
                 var tempData = CM.get("bracket");
                 var tempTiers = (tempData && tempData.tiers)? tempData.tiers : 0;
-                expect(tempTiers).toEqual(2); // since we called it twice
+
+                expect(CM.addTier).toHaveBeenCalled();
+                expect(tempTiers).toEqual(1); // since we called it twice
             });
 
             it("created new Tier Key", function() {
@@ -84,6 +98,63 @@ define(['models/ChampionshipModel', 'jquery', 'underscore'], function(Championsh
                 var newTierData = tempData["tier_1"];
                 expect(newTierData).toBeDefined();
             });
+        });
+
+        describe(".getTierById()", function() {
+
+            it("should have method", function() {
+                expect(CM.getTierById).toBeDefined();
+            });
+
+            it("get by Tier Key", function() {
+                spyOn(CM, 'getTierById').and.callThrough();
+                var tierData = CM.getTierById("tier_1");
+
+                expect(CM.getTierById).toHaveBeenCalled();
+                // expect(tempTiers).toEqual(1);
+            });
+
+        });
+
+        describe(".addUserToTier()", function() {
+            var testData = {
+                tiers: 1,
+                tier_1: [{
+                    users: ["5u43io-543fdos-fjdksl-riew98787"],
+                    winner: null,
+                    status: 'new'
+                }]
+            };
+
+            it("should have method", function() {
+                expect(CM.addUserToTier).toBeDefined();
+            });
+
+            it("validates needed data", function() {
+                var failedMethod1 = CM.addUserToTier();
+                var failedMethod2 = CM.addUserToTier("tier1");
+
+                expect(failedMethod1).toBeFalsy();
+                expect(failedMethod2).toBeFalsy();
+            });
+
+            it("adds user to correct postion", function() {
+                spyOn(CM, 'addUserToTier').and.callThrough();
+                CM.addUserToTier("tier_1", "5u43io-543fdos-fjdksl-riew98787");
+                var tierData = CM.get("bracket");
+
+                expect(CM.addUserToTier).toHaveBeenCalled();
+                expect(tierData["tier_1"][0].users[0]).toEqual(testData["tier_1"][0].users[0]);
+            });
+
+            it("tier data is correct", function() {
+                spyOn(CM, 'addUserToTier').and.callThrough();
+                CM.addUserToTier("tier_1", "5u43io-543fdos-fjdksl-riew98787");
+                var tierData = CM.get("bracket");
+
+                expect(tierData).toEqual(testData);
+            });
+
         });
     });
 });

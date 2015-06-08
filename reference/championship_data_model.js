@@ -11,14 +11,14 @@
             firstName: "trevor",
             lastName: "clarke"
         },
-        "jfkdlsajf-789dfs-fd9s-f89sd09"
+        "jfkdlsajf-789dfs-fd9s-f89sd09": {
             firstName: "michael",
             lastName: "deol"
         }
     },
     bracket: {
-        tiers: 4,
-        tier_001: [{
+        tiers: 1,
+        tier_1: [{
             users: ["jfkdlsajf-789dfs-fd9s-f89sd09", "jfkdlsajf-789dfs-fd9s-f89sd09"],
             winner: "jfkdlsajf-789dfs-fd9s-f89sd09",
             status: "finished"
