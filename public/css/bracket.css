@@ -179,7 +179,8 @@ input {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  outline: 0; }
+  outline: 0;
+  position: relative; }
   .btn:active,
   .btn:focus {
     outline: 0; }
@@ -187,7 +188,8 @@ input {
     position: fixed;
     bottom: 0;
     margin: 0 0 0 -10px;
-    border-radius: 0; }
+    border-radius: 0;
+    z-index: 99999; }
   .btn:hover {
     color: #f9f9f9;
     background-color: #1D677E;
@@ -222,10 +224,14 @@ header {
       font-weight: 100; }
 
 /* small padding underneath header*/
-.header-pad {
+.header-pad,
+.footer-pad {
   width: 100%;
   padding: 0;
   height: 50px; }
+
+.footer-pad {
+  height: 75px; }
 
 /**
  * Setup Intro Styling
@@ -258,7 +264,8 @@ header {
       height: 100%;
       z-index: -1; }
   .player .player-meta {
-    flex: 5; }
+    flex: 5;
+    position: relative; }
     .player .player-meta .player-name,
     .player .player-meta .player-email {
       width: auto;
@@ -268,6 +275,12 @@ header {
     .player .player-meta .player-name {
       font-size: 18px;
       padding-top: 7px; }
+    .player .player-meta .player-action {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 20px 10px 23px;
+      opacity: 0.6; }
   .player:nth-child(odd) {
     background: #f9f9f9; }
 
@@ -282,6 +295,9 @@ header {
     margin: 0 0 25px; }
   .setup-intro .setup-players {
     margin-top: 20px; }
+  .setup-intro .setup-title {
+    font-size: 18px;
+    padding: 12px; }
 
 /* Modules */
 /* Pages */

@@ -23,8 +23,12 @@ header {
 
 
 /* small padding underneath header*/
-.header-pad {
+.header-pad,
+.footer-pad {
     width: 100%;
     padding: 0;
     height: 50px;
+}
+.footer-pad {
+  height: 75px;
 }

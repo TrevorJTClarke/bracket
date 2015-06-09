@@ -35,6 +35,7 @@
 
     .player-meta {
       flex:5;
+      position: relative;
 
       .player-name,
       .player-email {
@@ -47,6 +48,14 @@
       .player-name {
         font-size: 18px;
         padding-top: 7px;
+      }
+
+      .player-action {
+        position: absolute;
+        right:0;
+        top:0;
+        margin: 20px 10px 23px;
+        opacity: 0.6;
       }
     }
 
