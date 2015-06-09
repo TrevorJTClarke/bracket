@@ -8,6 +8,7 @@
     firstName: "trevor",
     lastName: "clarke",
     email: "tclarke@billabong.com",
+    color: "155062",
     stats: {
         championships: 8,
         win: 2,

@@ -14,6 +14,7 @@ define(["jquery", "backbone"], function($, Backbone) {
             "firstName": "first",
             "lastName": "last",
             "email": "your@email.com",
+            "color": "155062",
             "stats": {
                 "championships": 0,
                 "win": 0,

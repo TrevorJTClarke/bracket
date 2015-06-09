@@ -1,0 +1,57 @@
+/**
+ * Setup Intro Styling
+ */
+.player {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+
+    .player-avatar {
+      color:$white;
+      text-align: center;
+      font-size: 26px;
+      font-weight: 100;
+      padding:10px 0 0;
+      width: 55px;
+      height: 55px;
+      flex:1;
+      position: relative;
+      z-index: 1;
+
+      &:before {
+        background: $darksecond; // NOTE: will be changed dynamically
+        border-radius: 50%;
+        content: "";
+        position: absolute;
+        left:0;
+        top:0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+    }
+
+    .player-meta {
+      flex:5;
+
+      .player-name,
+      .player-email {
+        width: auto;
+        display: block;
+        margin: 0;
+        padding: 3px 0 0 20px;
+      }
+
+      .player-name {
+        font-size: 18px;
+        padding-top: 7px;
+      }
+    }
+
+
+    &:nth-child(odd){
+      background: $grey01;
+    }
+}
