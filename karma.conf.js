@@ -15,11 +15,8 @@ module.exports = function(config) {
         {pattern: 'tests/**/*.js', included: false},
         'test-main.js'
     ],
-    exclude: [
-        // 'app/templates/*.html'
-    ],
-    preprocessors: {
-    },
+    exclude: [],
+    preprocessors: {},
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
