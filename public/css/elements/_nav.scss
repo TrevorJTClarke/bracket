@@ -1,9 +1,11 @@
 /* navigation */
 header {
+    position: fixed;
     width: 100%;
     margin: 40px 0;
     padding-right: 10px;
     padding-left: 10px;
+    z-index: 9999;
 
     .navbar {
         background: $darkmain;
@@ -11,10 +13,18 @@ header {
 
         .logo {
             display: block;
-            width: 130px;
+            width: 30px;
             margin: 7px auto 0;
             font-size: 26px;
             font-weight: 100;
         }
     }
+}
+
+
+/* small padding underneath header*/
+.header-pad {
+    width: 100%;
+    padding: 0;
+    height: 50px;
 }

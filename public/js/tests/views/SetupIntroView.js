@@ -1,7 +1,6 @@
 // HeaderModel Testing
-define(['views/SetupIntroView', 'jasminequery', 'underscore', "text!templates/setup_intro.html"], function(SetupIntroView, $, _, tmpl) {
+define(['views/SetupIntroView', 'jquery', 'underscore', "text!templates/setup_intro.html"], function(SetupIntroView, $, _, tmpl) {
     describe("SetupIntroView", function() {
-        // var SV = new SetupIntroView();
 
         beforeEach(function() {
             this.view = new SetupIntroView();
@@ -11,18 +10,24 @@ define(['views/SetupIntroView', 'jasminequery', 'underscore', "text!templates/se
             expect(this.view).toBeDefined();
         });
 
-        // TEST TODO:
-        // render
-        // all functions
-        // events
-        //
-
         it("should have render element", function() {
             expect(this.view.$el).toBeDefined();
         });
 
-        it("should have equal values", function() {
+        it("should have testform method", function() {
             expect(this.view.testform).toBeDefined();
+        });
+
+        it("testform should return false", function() {
+            expect(this.view.testform()).toBeFalsy();
+        });
+
+        it("should have working events", function() {
+            var events = this.view.events;
+            var eventLngth = Object.keys(events).length;
+
+            expect(events).toBeDefined();
+            expect(eventLngth).toBeGreaterThan(0);
         });
     });
 });
