@@ -125,7 +125,7 @@ body {
   box-sizing: border-box; }
 
 a {
-  color: #2ffbf5;
+  color: #1D677E;
   text-decoration: none; }
 
 ul {
@@ -142,9 +142,9 @@ ul {
 input {
   display: block;
   width: 100%;
-  padding: 15px 18px;
-  font-size: 14px;
-  line-height: 1.428571429;
+  padding: 15px 12px;
+  font-size: 21px;
+  line-height: 23px;
   color: #1e2222;
   vertical-align: middle;
   background-color: #ffffff;
@@ -185,41 +185,52 @@ input {
     outline: 0; }
   .btn:hover {
     color: #f9f9f9;
-    background-color: #2ffbf5;
-    border-color: #28d0cb; }
+    background-color: #1D677E;
+    border-color: #155062; }
   .btn.btn-default {
     color: #f9f9f9;
-    background-color: #28d0cb;
-    border-color: #28d0cb; }
+    background-color: #155062;
+    border-color: #155062; }
     .btn.btn-default:hover {
       outline: 0;
       color: #f9f9f9;
-      background-color: #24bbb6;
-      border-color: #20a5a1; }
+      background-color: #103f4d;
+      border-color: #0c2e38; }
 
 /* Elements */
 /* navigation */
 header {
+  position: fixed;
   width: 100%;
   margin: 40px 0;
   padding-right: 10px;
-  padding-left: 10px; }
+  padding-left: 10px;
+  z-index: 9999; }
   header .navbar {
-    background: #28d0cb;
+    background: #155062;
     color: #FFFFFF; }
     header .navbar .logo {
       display: block;
-      width: 130px;
+      width: 30px;
       margin: 7px auto 0;
       font-size: 26px;
       font-weight: 100; }
+
+/* small padding underneath header*/
+.header-pad {
+  width: 100%;
+  padding: 0;
+  height: 50px; }
 
 /**
  * Setup Intro Styling
  */
 .setup-intro {
   width: 100%;
-  margin: 0 auto; }
+  margin: 40px auto 0; }
+  .setup-intro h3 {
+    text-align: center;
+    margin: 0 0 25px; }
 
 /* Modules */
 /* Pages */

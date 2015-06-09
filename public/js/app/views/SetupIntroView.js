@@ -11,6 +11,7 @@ define(["jquery", "backbone", "models/ChampionshipModel", "text!templates/setup_
 
             // View constructor
             initialize: function() {
+                // this.listenTo(this.model, "change", this.render);
 
                 // Calls the view's render method
                 this.render();
@@ -37,8 +38,9 @@ define(["jquery", "backbone", "models/ChampionshipModel", "text!templates/setup_
             },
 
             testform: function (e) {
-                e.preventDefault();
-                console.log("Hello");
+                if(e){ e.preventDefault(); }
+
+                return false;
             }
 
         });

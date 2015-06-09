@@ -14,7 +14,8 @@ require.config({
       'jquery': '../libs/jquery',
       'underscore': '../libs/underscore',
       'backbone': '../libs/backbone',
-      'text': '../libs/text'
+      'text': '../libs/text',
+      'templates': '../app/templates'
   },
   shim: {
     'underscore': {
