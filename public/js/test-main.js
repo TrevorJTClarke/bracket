@@ -10,9 +10,11 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 require.config({
   baseUrl: '/base/app',
   paths: {
-    'jquery': '../libs/jquery',
-    'underscore': '../libs/underscore',
-    'backbone': '../libs/backbone'
+      'jasminequery': '../libs/jasmine-jquery',
+      'jquery': '../libs/jquery',
+      'underscore': '../libs/underscore',
+      'backbone': '../libs/backbone',
+      'text': '../libs/text'
   },
   shim: {
     'underscore': {

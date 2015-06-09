@@ -4,25 +4,17 @@ header {
     margin: 40px 0;
     padding-right: 10px;
     padding-left: 10px;
-}
 
-.menu {
+    .navbar {
+        background: $darkmain;
+        color: $white;
 
-    li {
-
-        a {
+        .logo {
             display: block;
-            padding: 15px 0;
-            font-size: 18px;
-            line-height: 21px;
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        &:hover,
-        &.active {
-
-            a {}
+            width: 130px;
+            margin: 7px auto 0;
+            font-size: 26px;
+            font-weight: 100;
         }
     }
 }

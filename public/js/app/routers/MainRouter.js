@@ -1,39 +1,26 @@
 // MainRouter.js
 // ----------------
-define(["jquery", "backbone", "models/HeaderModel", "views/HeaderView", "views/SetupCompetitionView"],
+define(["jquery", "backbone", "models/HeaderModel", "views/HeaderView", "views/SetupIntroView"],
+function($, Backbone, HeaderModel, HeaderView, SetupIntroView) {
 
-    function($, Backbone, HeaderModel, HeaderView, SetupCompetitionView) {
+    var MainRouter = Backbone.Router.extend({
 
-        var MainRouter = Backbone.Router.extend({
+        initialize: function() {
 
-            initialize: function() {
+            // Tells Backbone to start watching for hashchange events
+            Backbone.history.start();
+        },
+        routes: {
+            // When there is no hash on the url, the home method is called
+            "": "index"
+        },
 
-                // Tells Backbone to start watching for hashchange events
-                Backbone.history.start();
+        index: function() {
+            // Instantiates a new view which will render the header text to the page
+            new HeaderView();
+            new SetupIntroView();
+        }
+    });
 
-            },
-
-            // All of your Backbone Routes (add more)
-            routes: {
-
-                // When there is no hash on the url, the home method is called
-                "": "index"
-
-            },
-
-            index: function() {
-
-                // Instantiates a new view which will render the header text to the page
-                new HeaderView();
-                // new SetupCompetitionView();
-
-            }
-
-        });
-
-        // Returns the DesktopRouter class
-        return MainRouter;
-
-    }
-
-);
+    return MainRouter;
+});

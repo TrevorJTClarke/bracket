@@ -5,8 +5,17 @@
 @import "config/_type";
 @import "config/_grid";
 
+/* REsets from bootstrap */
 @import "pages/_base";
+@import "elements/_inputs";
+@import "elements/_buttons";
+/* Elements */
 @import "elements/_nav";
-@import "elements/_bracket";
+@import "elements/_setup_intro";
 
+/* Modules */
+
+/* Pages */
+
+/* Responsive */
 @import "pages/_responsive";
