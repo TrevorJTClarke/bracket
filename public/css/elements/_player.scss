@@ -22,6 +22,7 @@
 
       &:before {
         background: $darksecond; // NOTE: will be changed dynamically
+        background: yellow; // NOTE: will be changed dynamically
         border-radius: 50%;
         content: "";
         position: absolute;
