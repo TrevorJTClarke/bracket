@@ -161,10 +161,10 @@ input {
  */
 .btn {
   display: block;
-  padding: 15px 18px;
+  padding: 15px 12px;
   margin-bottom: 0;
   width: 100%;
-  font-size: 18px;
+  font-size: 21px;
   font-weight: normal;
   line-height: 1.428571429;
   text-align: center;
@@ -179,10 +179,17 @@ input {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  outline: 0; }
+  outline: 0;
+  position: relative; }
   .btn:active,
   .btn:focus {
     outline: 0; }
+  .btn.btn-fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    margin: 0 0 0 -10px;
+    border-radius: 0;
+    z-index: 99999; }
   .btn:hover {
     color: #f9f9f9;
     background-color: #1D677E;
@@ -217,10 +224,66 @@ header {
       font-weight: 100; }
 
 /* small padding underneath header*/
-.header-pad {
+.header-pad,
+.footer-pad {
   width: 100%;
   padding: 0;
   height: 50px; }
+
+.footer-pad {
+  height: 75px; }
+
+/**
+ * Setup Intro Styling
+ */
+.player {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px; }
+  .player .player-avatar {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 100;
+    padding: 10px 0 0;
+    width: 55px;
+    height: 55px;
+    flex: 1;
+    position: relative;
+    z-index: 1; }
+    .player .player-avatar:before {
+      background: #1472ad;
+      background: yellow;
+      border-radius: 50%;
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; }
+  .player .player-meta {
+    flex: 5;
+    position: relative; }
+    .player .player-meta .player-name,
+    .player .player-meta .player-email {
+      width: auto;
+      display: block;
+      margin: 0;
+      padding: 3px 0 0 20px; }
+    .player .player-meta .player-name {
+      font-size: 18px;
+      padding-top: 7px; }
+    .player .player-meta .player-action {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 20px 10px 23px;
+      opacity: 0.6; }
+  .player:nth-child(odd) {
+    background: #f9f9f9; }
 
 /**
  * Setup Intro Styling
@@ -231,6 +294,13 @@ header {
   .setup-intro h3 {
     text-align: center;
     margin: 0 0 25px; }
+  .setup-intro .setup-players {
+    margin-top: 20px; }
+  .setup-intro .setup-title {
+    font-size: 18px;
+    padding: 12px;
+    width: 100%;
+    display: block; }
 
 /* Modules */
 /* Pages */

@@ -3,7 +3,10 @@
   "description": "A quick setup of bracket championships.",
   "version": "0.0.1",
   "author": "Trevor Clarke",
+  "repository": "",
+  "license": "",
   "devDependencies": {
+    "backstopjs": "garris/backstopjs#master",
     "browser-sync": "^2.7.6",
     "gulp-concat": "^2.5.2",
     "gulp-jasmine": "^2.0.1",

@@ -1,0 +1,26 @@
+{
+  "viewports": [
+    {
+      "name": "phone",
+      "width": 320,
+      "height": 480
+    }
+  ],
+  "scenarios": [
+    {
+      "label": "http://localhost:3000",
+      "url": "http://localhost:3000",
+      "hideSelectors": [],
+      "removeSelectors": [
+      ],
+      "selectors": [
+        "body .header",
+        "body .setup-intro",
+        "body"
+      ],
+      "readyEvent": null,
+      "delay": 1500,
+      "misMatchThreshold" : 0.2
+    }
+  ]
+}
