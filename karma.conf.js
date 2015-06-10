@@ -3,19 +3,15 @@
 
 module.exports = function(config) {
   config.set({
-    basePath: 'public/js',
+    basePath: '',
     frameworks: ['jasmine', 'requirejs'],
     files: [
-        {pattern: 'libs/**/*.js', included: false},
-        {pattern: 'app/collections/*.js', included: false},
-        {pattern: 'app/models/*.js', included: false},
-        {pattern: 'app/views/*.js', included: false},
-        {pattern: 'app/templates/*.html', included: false},
-        {pattern: 'app/routers/*.js', included: false},
-        {pattern: 'tests/**/*.js', included: false},
-        'test-main.js'
+      { pattern: 'source/javascripts/**/*.js', included: false },
+      { pattern: 'source/javascripts/templates/*.html', included: false },
+      { pattern: 'spec/**/*_spec.js', included: false },
+      'spec-main.js'
     ],
-    exclude: [],
+    exclude: ['source/javascripts/main.js'],
     preprocessors: {},
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -25,7 +21,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     singleRun: false
   });
 };
