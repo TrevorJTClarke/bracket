@@ -1,8 +1,8 @@
 // View.js
 // -------
-define(["jquery", "backbone", "models/ChampionshipModel", "text!templates/setup_intro.html"],
+define(["jquery", "backbone", "models/ChampionshipModel", "collections/UsersCollection", "text!templates/setup_intro.html"],
 
-    function($, Backbone, ChampionshipModel, template){
+    function($, Backbone, ChampionshipModel, UsersCollection, template){
 
         var SetupView = Backbone.View.extend({
 
@@ -11,6 +11,9 @@ define(["jquery", "backbone", "models/ChampionshipModel", "text!templates/setup_
 
             // View constructor
             initialize: function() {
+
+                this.model = new ChampionshipModel();
+                this.model.set("users", UsersCollection);
                 // this.listenTo(this.model, "change", this.render);
 
                 // Calls the view's render method
