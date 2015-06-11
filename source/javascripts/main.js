@@ -16,6 +16,7 @@ require.config({
     // -------
     "backbone.localStorage": "javascripts/lib/backbone.localStorage",
     "text": "javascripts/lib/text",
+    "hbs": "lib/require-handlebars-plugin/hbs",
 
     // Base Files
     // ----------
@@ -30,17 +31,21 @@ require.config({
   shim: {
     // Backbone.validateAll plugin that depends on Backbone
     "backbone.localStorage": ["backbone"]
+  },
+
+  "hbs": { // optional
+    "helpers": true,
+    "i18n": false,
+    "templateExtension": 'hbs',
+    "partialsUrl": ''
   }
 
 });
 
 require(['jquery', 'backbone', 'routers/mainRouter'],
-
-  function($, Backbone, MainRouter) {
+function($, Backbone, MainRouter) {
 
     // Instantiates a new Desktop Router instance
     new MainRouter();
 
-  }
-
-);
+});
