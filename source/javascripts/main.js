@@ -1,21 +1,29 @@
 require.config({
 
   // Sets the js folder as the base directory for all future relative paths
-  baseUrl: "source/javascripts",
+  baseUrl: "/",
 
   // 3rd party script alias names (Easier to type "jquery" than "libs/jquery, etc")
   // probably a good idea to keep version numbers in the file names for updates checking
   paths: {
     // Core Libraries
     // --------------
-    "jquery": "lib/jquery",
-    "underscore": "lib/underscore",
-    "backbone": "lib/backbone",
+    "jquery": "javascripts/lib/jquery",
+    "underscore": "javascripts/lib/underscore",
+    "backbone": "javascripts/lib/backbone",
 
     // Plugins
     // -------
-    "backbone.localStorage": "lib/backbone.localStorage",
-    "text": "lib/text"
+    "backbone.localStorage": "javascripts/lib/backbone.localStorage",
+    "text": "javascripts/lib/text",
+
+    // Base Files
+    // ----------
+    "views": "javascripts/views",
+    "models": "javascripts/models",
+    "routers": "javascripts/routers",
+    "templates": "javascripts/templates",
+    "collections": "javascripts/collections"
   },
 
   // Sets the configuration for your third party scripts that are not AMD compatible
@@ -26,7 +34,7 @@ require.config({
 
 });
 
-require(['jquery', 'backbone', 'routers/MainRouter'],
+require(['jquery', 'backbone', 'routers/main_router'],
 
   function($, Backbone, MainRouter) {
 

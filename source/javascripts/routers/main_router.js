@@ -1,6 +1,6 @@
 // MainRouter.js
 // ----------------
-define(["jquery", "backbone", "models/HeaderModel", "views/HeaderView", "views/SetupIntroView"],
+define(["jquery", "backbone", "models/header", "views/header", "views/setup_intro"],
 function($, Backbone, HeaderModel, HeaderView, SetupIntroView) {
 
     var MainRouter = Backbone.Router.extend({
