@@ -1,4 +1,4 @@
-define(['views/setup_intro_view'], function(SetupIntroView) {
+define(['views/setupIntro'], function(SetupIntroView) {
   describe("SetupIntroView", function() {
     beforeEach(function() {
       this.view = new SetupIntroView();

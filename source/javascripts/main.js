@@ -34,7 +34,7 @@ require.config({
 
 });
 
-require(['jquery', 'backbone', 'routers/main_router'],
+require(['jquery', 'backbone', 'routers/mainRouter'],
 
   function($, Backbone, MainRouter) {
 

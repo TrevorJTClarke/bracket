@@ -8,7 +8,7 @@ module.exports = function(config) {
     files: [
       { pattern: 'source/javascripts/**/*.js', included: false },
       { pattern: 'source/javascripts/templates/*.html', included: false },
-      { pattern: 'spec/**/*_spec.js', included: false },
+      { pattern: 'spec/**/*Spec.js', included: false },
       'spec-main.js'
     ],
     exclude: ['source/javascripts/main.js'],
