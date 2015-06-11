@@ -8,45 +8,45 @@ var rjs         = require('gulp-requirejs');
 var browserSync = require('browser-sync');
 var reload      = browserSync.reload;
 
-// concat the JS files
-gulp.task('smash', function() {
-    return gulp.src([
-        './public/js/config/start.js',
-        './public/js/models/**.js',
-        './public/js/collections/**.js',
-        './public/js/views/**.js',
-        './public/js/app/**.js',
-        './public/js/config/end.js'
-    ])
-    .pipe(concat('bracket.js'))
-    .pipe(gulp.dest('./dist/'));
-});
-// compress the js into mangled goodness
-gulp.task('compress', function() {
-    return gulp.src('./dist/bracket.js')
-        .pipe(uglify('bracket.min.js', {
-            mangle: true
-        }))
-        .pipe(gulp.dest('dist'));
-});
+// // concat the JS files
+// gulp.task('smash', function() {
+//     return gulp.src([
+//         './source/javascripts/config/start.js',
+//         './source/javascripts/models/**.js',
+//         './source/javascripts/collections/**.js',
+//         './source/javascripts/views/**.js',
+//         './source/javascripts/app/**.js',
+//         './source/javascripts/config/end.js'
+//     ])
+//     .pipe(concat('bracket.js'))
+//     .pipe(gulp.dest('./dist/'));
+// });
+// // compress the js into mangled goodness
+// gulp.task('compress', function() {
+//     return gulp.src('./dist/bracket.js')
+//         .pipe(uglify('bracket.min.js', {
+//             mangle: true
+//         }))
+//         .pipe(gulp.dest('dist'));
+// });
 // compile all the templates into something worth using
 gulp.task('templatify', function () {
-    gulp.src('./public/templates/*.html')
+    gulp.src('./source/javascripts/templates/*.html')
         .pipe(template())
         .pipe(concat('templates.js'))
         .pipe(gulp.dest('dist'));
 });
 // copy index over to dist
 gulp.task('copy', function(){
-    gulp.src('./public/index.html')
+    gulp.src('./source/index.html')
         .pipe(gulp.dest('dist'));
 });
 
 
 gulp.task('sass', function () {
-    gulp.src('./public/css/**/*.scss')
+    gulp.src('./source/stylesheets/**/*.scss')
         .pipe(sass('bracket.css').on('error', sass.logError))
-        .pipe(gulp.dest('./public/css'));
+        .pipe(gulp.dest('./source/stylesheets'));
 });
 
 gulp.task('sass:watch', function () {
@@ -98,22 +98,22 @@ gulp.task('sass:watch', function () {
 /**
  * watchers
  */
-var watcherJs = gulp.watch('js/**/*.js', [
+var watcherJs = gulp.watch('./source/javascripts/**/*.js', [
     'smash',
     'compress',
     'templatify',
     'copy'
-], { cwd: 'public' }, reload);
-var watcherSass = gulp.watch('./public/css/**/*.scss', [
+], { cwd: 'source' }, reload);
+var watcherSass = gulp.watch('./source/stylesheets/**/*.scss', [
     'sass',
     'sass:watch'
-], { cwd: 'public' }, reload);
+], { cwd: 'source' }, reload);
 
 // watch files for changes and reload
 gulp.task('serve', function() {
     browserSync({
         server: {
-            baseDir: 'public'
+            baseDir: 'source'
         }
     });
     // watcherJs.on('change', function(event) {
@@ -122,7 +122,7 @@ gulp.task('serve', function() {
     watcherSass.on('change', function(event) {
         console.log('Sass File was ' + event.type + ', running tasks...');
     });
-    gulp.watch('./public/**/**').on('change', reload);
+    gulp.watch('./source/**/**/**').on('change', reload);
 });
 
 
