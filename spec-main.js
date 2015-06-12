@@ -14,12 +14,21 @@ require.config({
     'jquery': 'lib/jquery',
     'underscore': 'lib/underscore',
     'backbone': 'lib/backbone',
-    'text': 'lib/text'
+    'text': 'lib/text',
+    'Handlebars': 'lib/handlebars',
+    'hbars': 'lib/hbars',
   },
   shim: {
     'underscore': {
       exports: '_'
+    },
+    'Handlebars': {
+      'exports': 'Handlebars'
     }
+  },
+  hbars: {
+    extension: '.tpl',
+    compileOptions: {}
   },
   deps: allTestFiles,
   callback: window.__karma__.start

@@ -67,7 +67,6 @@ define(['models/championship'], function(Championship) {
         var tierData = championship.getUserById('tier_1');
 
         expect(championship.getUserById).toHaveBeenCalled();
-        // expect(tempTiers).toEqual(1);
       });
     });
 
@@ -108,7 +107,6 @@ define(['models/championship'], function(Championship) {
             var tierData = championship.getTierById('tier_1');
 
             expect(championship.getTierById).toHaveBeenCalled();
-            // expect(tempTiers).toEqual(1);
         });
 
     });

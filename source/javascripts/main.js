@@ -32,8 +32,8 @@ require.config({
   shim: {
     // Backbone.validateAll plugin that depends on Backbone
     "backbone.localStorage": ["backbone"],
-    "Handlebars": {
-      "exports": 'Handlebars'
+    'Handlebars': {
+      'exports': 'Handlebars'
     }
   },
 

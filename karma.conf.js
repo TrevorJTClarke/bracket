@@ -7,7 +7,7 @@ module.exports = function(config) {
     frameworks: ['jasmine', 'requirejs'],
     files: [
       { pattern: 'source/javascripts/**/*.js', included: false },
-      { pattern: 'source/javascripts/templates/*.html', included: false },
+      { pattern: 'source/javascripts/templates/*.tpl', included: false },
       { pattern: 'spec/**/*Spec.js', included: false },
       'spec-main.js'
     ],

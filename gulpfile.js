@@ -31,7 +31,7 @@ var reload      = browserSync.reload;
 // });
 // compile all the templates into something worth using
 gulp.task('templatify', function () {
-    gulp.src('./source/javascripts/templates/*.html')
+    gulp.src('./source/javascripts/templates/*.tpl')
         .pipe(template())
         .pipe(concat('templates.js'))
         .pipe(gulp.dest('dist'));
