@@ -1,15 +1,15 @@
-<!-- <div class="row">
+<div id="sectionFirst" class="row">
   <div class="col-md-6 col-md-offset-3">
     <form>
       <h3>New Championship</h3>
       <div class="form-group">
         <input type="text" id="chTitle" placeholder="Title">
       </div>
-      <button type="submit" class="btn btn-default btn-fixed-bottom">Next</button>
+      <button id="newChampionship" type="submit" class="btn btn-default btn-fixed-bottom">Next</button>
     </form>
   </div>
-</div> -->
-<div class="row">
+</div>
+<div id="sectionSecond" class="row">
   <div class="col-md-6 col-md-offset-3">
     <form>
       <h3>Add Players</h3>
@@ -19,11 +19,11 @@
       <button type="submit" class="btn btn-default btn-fixed-bottom">Next</button>
     </form>
   </div>
-</div>
-<div class="row setup-players">
-  <div class="setup-title">Current Players</div>
-  <div class="col-md-6 col-md-offset-3">
-    {{{ playerListTpl }}}
+  <div class="col-md-6 col-md-offset-3 setup-players">
+    <div class="setup-title">Current Players</div>
+    <div class="col-md-6 col-md-offset-3">
+      {{{ playerListTpl }}}
+    </div>
   </div>
 </div>
 

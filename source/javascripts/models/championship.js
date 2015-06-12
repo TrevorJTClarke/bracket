@@ -1,23 +1,15 @@
 define([
   'jquery',
-  'backbone',
-  'models/system',
-  'firebase',
-	'backbonefire'
+  'backbone'
 ],
 function(
   $,
-  Backbone,
-  System
-) {
-  // SETUP
-  var sys = new System();
-  var FB = sys.get("Firebase");
+  Backbone
+){
 
   // Creates a new Backbone Model class object
   return Backbone.Model.extend({
     tierNamespace: 'tier_',
-    urlRoot: FB.ROOT + FB.championships,
 
     // TODO: setup to tie to a DB
     initialize: function() {

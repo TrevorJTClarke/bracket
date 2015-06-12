@@ -2,14 +2,19 @@ define([
   'jquery',
   'backbone',
   'collections/users',
-  'hbars!templates/new_user'
+  'hbars!templates/new_user',
+  'models/system'
 ],
 function(
   $,
   Backbone,
   Users,
-  userTpl
+  userTpl,
+  System
 ){
+
+  // SETUP
+  var sys = new System();
 
   return Backbone.View.extend({
 
@@ -29,7 +34,6 @@ function(
       this.userLastName = this.$("#userLastName");
       this.userEmail = this.$("#userEmail");
       this.userColor = this.$("#userColor");
-      console.log("collection",this.collection);
     },
 
     render: function() {
@@ -55,6 +59,10 @@ function(
       console.log("newUserData",newUserData);
 
       this.collection.create(newUserData);
+      
+      // update the total count of new users
+      sys.setStatsTotal("users");
+
       // this.input.val('');
     }
 

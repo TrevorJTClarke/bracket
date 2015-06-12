@@ -284,6 +284,8 @@ header {
 .setup-intro {
   width: 100%;
   margin: 40px auto 0; }
+  .setup-intro .row {
+    display: none; }
   .setup-intro h3 {
     text-align: center;
     margin: 0 0 25px; }
@@ -293,6 +295,8 @@ header {
     font-size: 18px;
     padding: 12px;
     width: 100%;
+    display: block; }
+  .setup-intro .show {
     display: block; }
 
 /* Modules */

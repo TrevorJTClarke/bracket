@@ -1,19 +1,25 @@
 define([
   'jquery',
   'backbone',
-  'models/championship',
+  'collections/championships',
   'collections/users',
+  'models/championship',
   'hbars!templates/setup_intro',
-  'hbars!templates/player_listing_item'
+  'hbars!templates/player_listing_item',
+  'models/system'
 ],
 function(
   $,
   Backbone,
-  ChampionshipModel,
-  UsersCollection,
+  Championships,
+  Users,
+  Championship,
   setupTpl,
-  playerListTpl
+  playerListTpl,
+  System
 ){
+  // SETUP
+  var sys = new System();
 
   // TEST:
   //
@@ -38,22 +44,27 @@ function(
     email: "yyak@billabong.com",
     color: "092323"
   }];
+  players = [];
 
   return Backbone.View.extend({
 
     el: '.setup-intro',
 
-    initialize: function() {
-      // this.model = new ChampionshipModel();
-      // this.model.set('users', UsersCollection);
-      // this.listenTo(this.model, "change", this.render);
+    collection: new Championships,
 
-      this.render();
+    events: {
+      'click button': 'startChampionship'
     },
 
-    // Event Handlers
-    events: {
-      'click button': 'testform'
+    initialize: function() {
+      this.currentStep = "sectionFirst";
+      this.render();
+
+      this.championshipTitle = this.$("#chTitle");
+
+      // this.model = new Championship();
+      // this.model.set('users', UsersCollection);
+      // this.listenTo(this.model, "change", this.render);
     },
 
     // Renders the view's template to the UI
@@ -68,16 +79,41 @@ function(
       // Dynamically updates the UI with the view's template
       this.$el.html(this.template);
 
+      this.toggleSections();
+
       // Maintains chainability
       return this;
     },
 
-    testform: function (e) {
+    toggleSections: function () {
+      // resets
+      this.$("#sectionFirst").removeClass("show");
+      this.$("#sectionSecond").removeClass("show");
+
+      if(this.currentStep){
+        this.$("#" + this.currentStep).toggleClass("show");
+      }
+    },
+
+    startChampionship: function (e) {
       if(e) {
         e.preventDefault();
       }
+      if (!this.championshipTitle.val()){ return; }
 
-      return false;
+      var champData = {
+        title: this.championshipTitle.val()
+      };
+
+      // create new championship reference, then store new data
+      this.createdChampionship = this.collection.create( champData );
+
+      // show the next view
+      this.currentStep = "sectionSecond";
+      this.toggleSections();
+
+      // update the total count of new users
+      sys.setStatsTotal("championships");
     }
 
   });
