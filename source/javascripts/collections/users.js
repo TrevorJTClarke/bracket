@@ -1,9 +1,23 @@
-define(['models/user'], function(User) {
+define([
+  'models/user',
+  'models/system',
+  'firebase',
+	'backbonefire'
+], function(
+  User,
+  System
+) {
 
-  // Creates a new Backbone Collection class object
-  return Backbone.Collection.extend({
-    // Tells the Backbone Collection that all of it's models will be of type Model (listed up top as a dependency)
-    model: User
+  // SETUP
+  var sys = new System();
+  var FB = sys.get("Firebase");
+
+  return Backbone.Firebase.Collection.extend({
+
+    model: User,
+
+    url: FB.ROOT + FB.users
+
   });
 
 });

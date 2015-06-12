@@ -114,7 +114,8 @@ gulp.task('serve', function() {
     browserSync({
         server: {
             baseDir: 'source'
-        }
+        },
+        notify: false
     });
     // watcherJs.on('change', function(event) {
     //     console.log('JS File was ' + event.type + ', running tasks...'); // ' + event.path + '

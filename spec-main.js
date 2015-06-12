@@ -14,6 +14,8 @@ require.config({
     'jquery': 'lib/jquery',
     'underscore': 'lib/underscore',
     'backbone': 'lib/backbone',
+    'Firebase': 'lib/firebase',
+    'backbonefire': 'lib/backbonefire',
     'text': 'lib/text',
     'Handlebars': 'lib/handlebars',
     'hbars': 'lib/hbars',
