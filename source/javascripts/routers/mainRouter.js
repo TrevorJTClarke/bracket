@@ -1,7 +1,19 @@
 // MainRouter.js
 // ----------------
-define(["jquery", "backbone", "models/header", "views/header", "views/setupIntro"],
-function($, Backbone, HeaderModel, HeaderView, SetupIntro) {
+define([
+  "jquery",
+  "backbone",
+  "views/header",
+  "views/setupIntro",
+  "views/newUser"
+],
+function(
+  $,
+  Backbone,
+  HeaderView,
+  SetupIntro,
+  NewUserView
+) {
 
   return Backbone.Router.extend({
 
@@ -17,7 +29,8 @@ function($, Backbone, HeaderModel, HeaderView, SetupIntro) {
     index: function() {
       // Instantiates a new view which will render the header text to the page
       new HeaderView();
-      new SetupIntro();
+      // new SetupIntro();
+      new NewUserView();
     }
   });
 });

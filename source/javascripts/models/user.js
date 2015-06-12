@@ -1,8 +1,12 @@
-define(['backbone'], function(Backbone) {
+define([
+  'backbone'
+],
+function(
+  Backbone
+) {
 
   return Backbone.Model.extend({
 
-    // TODO: setup to tie to a DB
     initialize: function() {
       return this;
     },
@@ -23,7 +27,9 @@ define(['backbone'], function(Backbone) {
       }
     },
 
-    validate: function(attrs) {}
+    validate: function(attrs) {
+      console.log("validate",attrs);
+    }
 
   });
 
