@@ -29,8 +29,8 @@ function(
     index: function() {
       // Instantiates a new view which will render the header text to the page
       new HeaderView();
-      // new SetupIntro();
-      new NewUserView();
+      new SetupIntro();
+      // new NewUserView();
     }
   });
 });

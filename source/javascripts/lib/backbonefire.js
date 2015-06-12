@@ -10,7 +10,7 @@
 
 (function(_, Backbone) {
   'use strict';
-
+  
   Backbone.Firebase = {};
 
   /**
@@ -348,7 +348,7 @@
       }
 
     },
-    
+
     sync: function(method, model, options) {
       Backbone.Firebase.sync(method, model, options);
     },

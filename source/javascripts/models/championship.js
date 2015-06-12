@@ -1,8 +1,23 @@
-define(['jquery', 'backbone'], function($, Backbone) {
+define([
+  'jquery',
+  'backbone',
+  'models/system',
+  'firebase',
+	'backbonefire'
+],
+function(
+  $,
+  Backbone,
+  System
+) {
+  // SETUP
+  var sys = new System();
+  var FB = sys.get("Firebase");
 
   // Creates a new Backbone Model class object
   return Backbone.Model.extend({
     tierNamespace: 'tier_',
+    urlRoot: FB.ROOT + FB.championships,
 
     // TODO: setup to tie to a DB
     initialize: function() {
@@ -45,7 +60,7 @@ define(['jquery', 'backbone'], function($, Backbone) {
       */
     addUser: function(data) {
       var users = this.get('users');
-      
+
       users[data.id] = data;
       this.set('users', users);
     },

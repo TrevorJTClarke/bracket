@@ -10,7 +10,7 @@ define(['backbone'], function(Backbone) {
       "Firebase": {
         "ROOT": "https://flickering-heat-8044.firebaseio.com",
         "users": "/users",
-        "champsionships": "/champsionships",
+        "championships": "/championships",
         "stats": "/stats"
       }
     }
