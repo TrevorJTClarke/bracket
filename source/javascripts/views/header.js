@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'models/header', 'text!templates/header.html'],
+define(['jquery', 'backbone', 'models/header', 'hbars!templates/header'],
   function($, Backbone, Model, template) {
 
     return Backbone.View.extend({
@@ -19,7 +19,7 @@ define(['jquery', 'backbone', 'models/header', 'text!templates/header.html'],
       render: function() {
 
         // Setting the view's template property using the Underscore template method
-        this.template = _.template(template, {});
+        this.template = _.template(template({}));
 
         // Dynamically updates the UI with the view's template
         this.$el.html(this.template);

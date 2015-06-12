@@ -16,7 +16,8 @@ require.config({
     // -------
     "backbone.localStorage": "javascripts/lib/backbone.localStorage",
     "text": "javascripts/lib/text",
-    "hbs": "lib/require-handlebars-plugin/hbs",
+    "Handlebars": "javascripts/lib/handlebars",
+    "hbars": "javascripts/lib/hbars",
 
     // Base Files
     // ----------
@@ -30,14 +31,15 @@ require.config({
   // Sets the configuration for your third party scripts that are not AMD compatible
   shim: {
     // Backbone.validateAll plugin that depends on Backbone
-    "backbone.localStorage": ["backbone"]
+    "backbone.localStorage": ["backbone"],
+    "Handlebars": {
+      "exports": 'Handlebars'
+    }
   },
 
-  "hbs": { // optional
-    "helpers": true,
-    "i18n": false,
-    "templateExtension": 'hbs',
-    "partialsUrl": ''
+  hbars: {
+    extension: '.tpl', // default = '.html'
+    compileOptions: {}  // options object which is passed to Handlebars compiler
   }
 
 });

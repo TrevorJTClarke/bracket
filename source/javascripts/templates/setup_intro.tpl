@@ -23,14 +23,7 @@
 <div class="row setup-players">
   <div class="setup-title">Current Players</div>
   <div class="col-md-6 col-md-offset-3">
-    <div class="player">
-      <div class="player-avatar">TC</div>
-      <div class="player-meta">
-        <h5 class="player-name">Trevor Clarke</h5>
-        <span class="player-email">tclarke@billabong.com</span>
-        <i class="player-action glyphicon glyphicon-remove"></i>
-      </div>
-    </div>
+    {{{ playerListTpl }}}
   </div>
 </div>
 

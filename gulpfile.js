@@ -98,12 +98,12 @@ gulp.task('sass:watch', function () {
 /**
  * watchers
  */
-var watcherJs = gulp.watch('./source/javascripts/**/*.js', [
-    'smash',
-    'compress',
-    'templatify',
-    'copy'
-], { cwd: 'source' }, reload);
+// var watcherJs = gulp.watch('./source/javascripts/**/*.js', [
+//     'smash',
+//     'compress',
+//     'templatify',
+//     'copy'
+// ], { cwd: 'source' }, reload);
 var watcherSass = gulp.watch('./source/stylesheets/**/*.scss', [
     'sass',
     'sass:watch'

@@ -243,27 +243,20 @@ header {
   flex-wrap: wrap;
   padding: 5px; }
   .player .player-avatar {
+    background: #1472ad;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
     color: #FFFFFF;
     text-align: center;
     font-size: 26px;
     font-weight: 100;
     padding: 10px 0 0;
     width: 55px;
-    height: 55px;
+    height: 56px;
     flex: 1;
     position: relative;
-    z-index: 1; }
-    .player .player-avatar:before {
-      background: #1472ad;
-      background: yellow;
-      border-radius: 50%;
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; }
+    z-index: 1;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1); }
   .player .player-meta {
     flex: 5;
     position: relative; }
