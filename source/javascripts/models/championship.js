@@ -1,24 +1,29 @@
 define([
   'jquery',
-  'backbone'
+  'backbone',
+  'collections/players',
+  'models/player'
 ],
 function(
   $,
-  Backbone
+  Backbone,
+  Players,
+  Player
 ){
 
   // Creates a new Backbone Model class object
   return Backbone.Model.extend({
     tierNamespace: 'tier_',
 
-    // TODO: setup to tie to a DB
     initialize: function() {
+      this.set("players", new Players() );
+
       return this;
     },
 
     defaults: {
       'title': 'Championship 1',
-      'users': {},
+      'players': [],
       'bracket': {
         'tiers': 0
       }
@@ -36,7 +41,12 @@ function(
       */
     createNew: function(data) {
       var _self = this;
-      _self.attributes = $.extend(true, _self.attributes, data);
+
+      // TODO:
+      // - set the title
+      // - create DB ref
+
+      return this;
     },
 
     /**
@@ -50,11 +60,11 @@ function(
       * 		lastName: "Last"
       * }
       */
-    addUser: function(data) {
-      var users = this.get('users');
+    addPlayer: function(data) {
+      var users = this.get('players');
 
       users[data.id] = data;
-      this.set('users', users);
+      this.set('players', users);
     },
 
     /**
@@ -62,10 +72,10 @@ function(
       * @param  {String} userId is the unique ID of the user, based off their hash
       * @return {Object}        user data object, see above example
       */
-    getUserById: function(userId) {
-      var usersData = this.get('users');
-
-      return usersData[userId];
+    getPlayerById: function(userId) {
+      // var usersData = this.get('users');
+      //
+      // return usersData[userId];
     },
 
     /**

@@ -21,6 +21,7 @@ require.config({
     'hbars': 'lib/hbars',
   },
   shim: {
+    'backbonefire': ['backbone'],
     'underscore': {
       exports: '_'
     },
