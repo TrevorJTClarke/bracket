@@ -1,32 +1,24 @@
 define([
-  'backbone'
+  'backbone',
+  'models/System'
 ],
 function(
-  Backbone
-) {
+  Backbone,
+  System
+){
 
-  return Parse.User;
-  //
-  // return Parse.Object.extend({
-  //   className: "User",
-  //
-  //   initialize: function() {
-  //     return this;
-  //   },
-  //
-  //   defaults: {
-  //     "firstName": "first",
-  //     "lastName": "last",
-  //     "email": "your@email.com",
-  //     "color": "155062"
-  //   },
-  //
-  //   validate: function(attrs) {
-  //     console.log("validate",attrs);
-  //   }
-  //
-  //   // TODO: get stats, get Preferences
-  //
-  // });
+  // SETUP
+  var SYS = new System();
+  var PS = SYS.get("Parse");
+
+  return Backbone.Model.extend({
+
+    urlRoot: PS.ROOT + PS.USER,
+
+    defaults: {
+      //
+    }
+
+  });
 
 });

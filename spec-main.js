@@ -14,24 +14,24 @@ require.config({
     'jquery': 'lib/jquery',
     'underscore': 'lib/underscore',
     'backbone': 'lib/backbone',
-    'firebase': 'lib/firebase',
-    'backbonefire': 'lib/backbonefire',
+    'Parse': 'lib/parse-1.4.2.min.js',
     'text': 'lib/text',
     'Handlebars': 'lib/handlebars',
     'hbars': 'lib/hbars',
   },
   shim: {
-    'backbonefire': ['backbone'],
     'underscore': {
       exports: '_'
     },
     'Handlebars': {
       'exports': 'Handlebars'
+    },
+    'Parse': {
+      'exports': 'Parse'
     }
   },
   hbars: {
-    extension: '.tpl',
-    compileOptions: {}
+    extension: '.tpl'
   },
   deps: allTestFiles,
   callback: window.__karma__.start

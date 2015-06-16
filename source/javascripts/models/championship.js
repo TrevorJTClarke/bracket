@@ -1,12 +1,14 @@
 define([
   'jquery',
   'backbone',
+  'Parse',
   'collections/players',
   'models/player'
 ],
 function(
   $,
   Backbone,
+  Parse,
   Players,
   Player
 ){

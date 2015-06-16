@@ -24,30 +24,6 @@ function(
   var sys = new System();
   var players = [];
 
-  // TEST:
-  //
-  // var players = [{
-  //   initials: "TC",
-  //   name: "Trevor Clarke",
-  //   email: "tclarke@billabong.com",
-  //   color: "2FAB70"
-  // },{
-  //   initials: "MD",
-  //   name: "Michael Deol",
-  //   email: "mdeol@billabong.com",
-  //   color: "333333"
-  // },{
-  //   initials: "SP",
-  //   name: "Super Person",
-  //   email: "sperson@billabong.com",
-  //   color: "483989"
-  // },{
-  //   initials: "YK",
-  //   name: "Yik Yak",
-  //   email: "yyak@billabong.com",
-  //   color: "092323"
-  // }];
-
   return Backbone.View.extend({
 
     el: '.setup-intro',
@@ -137,7 +113,7 @@ function(
       query.limit(10)
           .find()
           .then(function (res) {
-            console.log("res",res);
+            // console.log("res",res);
             var Players = Parse.Object.extend("ChampionshipPlayers");
             var plrs = new Players();
 
@@ -154,7 +130,7 @@ function(
             _self.render();
             plrs.save()
                 .then(function(res) {
-                  console.log("plrs res",res,plrs);
+                  console.log("plrs res",res);
 
                   _self.model.set({ "players_ref": res.id }).save();
                 }, function (err) {

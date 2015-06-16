@@ -12,6 +12,7 @@ require.config({
     // -------
     'text': 'javascripts/lib/text',
     'Handlebars': 'javascripts/lib/handlebars',
+    'Parse': 'javascripts/lib/parse-1.4.2.min',
     'hbars': 'javascripts/lib/hbars',
 
     // Base Files
@@ -27,6 +28,9 @@ require.config({
   'shim': {
     'Handlebars': {
       'exports': 'Handlebars'
+    },
+    'Parse': {
+      'exports': 'Parse'
     }
   },
 
@@ -36,18 +40,12 @@ require.config({
 
 });
 require([
-  'jquery',
-  'backbone',
   'routers/mainRouter',
-  'models/system'
+  'models/Session'
 ],
-function($, Backbone, MainRouter, System) {
-    var sys = new System();
-    var sysParse = sys.get("Parse");
-
-    // start up the parse system
-    Parse.initialize( sysParse.API_KEY, sysParse.JS_KEY );
-
-    // watch the initial route
-    new MainRouter();
+function(MainRouter, Session) {
+  // initialize sessions
+  new Session();
+  // watch the initial route
+  new MainRouter();
 });

@@ -5,21 +5,28 @@ define([
   "backbone",
   "views/header",
   "views/setupIntro",
-  "views/newUser"
+  "views/newUser",
+  'models/Session'
 ],
 function(
   $,
   Backbone,
   HeaderView,
   SetupIntro,
-  NewUserView
+  NewUserView,
+  Session
 ) {
 
   return Backbone.Router.extend({
 
     initialize: function() {
       // Tells Backbone to start watching for hashchange events
-      Backbone.history.start();
+      // Session.getAuth(function () {
+        Backbone.history.start();
+      // });
+
+      // TESTING:
+      // Backbone.sync = "";
     },
     routes: {
       // When there is no hash on the url, the home method is called
@@ -43,23 +50,22 @@ function(
       //     console.log("err",err);
       //   });
 
-
-      // TESTING:
+      //
+      // // TESTING:
       // var FullChamps = Parse.Object.extend("Championship");
       // var FullPlayers = Parse.Object.extend("ChampionshipPlayers");
       // var qUsers = new Parse.Query(Parse.User);
       // var query = new Parse.Query(FullChamps);
       // var squery = new Parse.Query(FullPlayers);
-      // query.get("186nivvPe3")
+      // query.get("qQvbHGgI61")
       //   .then(function(item) {
-      //     console.log("champs res",item);
+      //     // console.log("champs res",item);
       //
       //     var fqu = item.get("players_ref");
-      //     console.log("fquf",fqu);
       //
       //     squery.get(fqu)
       //       .then(function(res) {
-      //         console.log("players res",res);
+      //         // console.log("players res",res);
       //
       //         qUsers.include(res.attributes.players)
       //           .select("color","initials","firstName","lastName","username")
@@ -87,12 +93,14 @@ function(
       //   });
 
 
-      var currentUser = Parse.User.current();
-      if (currentUser) {
-        new SetupIntro();
-      } else {
-        new NewUserView();
-      }
+      // var currentUser = Parse.User.current();
+      // if (currentUser) {
+      //   new SetupIntro();
+      // } else {
+      //   new NewUserView();
+      // }
+
+      new NewUserView();
     },
 
     setupIntro: function () {

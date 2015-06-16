@@ -72,17 +72,14 @@ function(
       };
 
       // create new championship reference, then store new data
-      _self.model.set( newUserData );
-      _self.model.signUp()
-                .then(function(res) {
-                  console.log("res",res.attributes);
-                }, function (err) {
-                  console.log("err",err);
-                });
+      _self.model.set( newUserData )
+        .save()
+        .then(function(res) {
+          console.log("res",res.attributes);
+        }, function (err) {
+          console.log("err",err);
+        });
 
-
-      // update the total count of new users
-      // sys.setStatsTotal("users");
 
       // this.input.val('');
     }
