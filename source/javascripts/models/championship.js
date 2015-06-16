@@ -61,6 +61,7 @@ function(
       * }
       */
     addPlayer: function(data) {
+      // TODO:
       var users = this.get('players');
 
       users[data.id] = data;
@@ -73,6 +74,7 @@ function(
       * @return {Object}        user data object, see above example
       */
     getPlayerById: function(userId) {
+      // TODO:
       // var usersData = this.get('users');
       //
       // return usersData[userId];
@@ -92,7 +94,7 @@ function(
 
         // setup the baseline data for the tiers
         bracket[newTierName] = [{
-            users: [],
+            players: [],
             winner: null,
             status: 'new'
         }];
@@ -126,7 +128,7 @@ function(
       * @param  {number} tierPosition (Optional) - sets the user at a specific tier position
       * @param  {number} gamePosition (Optional) - sets the user at a specific game position
       */
-    addUserToTier: function(tierId, userId, tierPosition, gamePosition) {
+    addPlayerToTier: function(tierId, userId, tierPosition, gamePosition) {
       if(!tierId || !userId) {
         return;
       }

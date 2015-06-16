@@ -8,7 +8,6 @@ define(['backbone'], function(Backbone) {
 
     defaults: {
       "name": "First Last",
-      "email": "your@email.com",
       "color": "1D677E"
     }
 

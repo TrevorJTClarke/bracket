@@ -15,16 +15,7 @@ function(
       "firstName": "first",
       "lastName": "last",
       "email": "your@email.com",
-      "color": "155062",
-      "stats": {
-        "championships": 0,
-        "win": 0,
-        "lose": 0,
-        "bye": 0
-      },
-      "preferences": {
-        "push": true
-      }
+      "color": "155062"
     },
 
     validate: function(attrs) {
