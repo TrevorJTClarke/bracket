@@ -1,22 +1,12 @@
 define([
-  'models/championship',
-  'models/system',
-  'firebase',
-	'backbonefire'
+  'models/championship'
 ], function(
-  Championship,
-  System
+  Championship
 ) {
 
-  // SETUP
-  var sys = new System();
-  var FB = sys.get("Firebase");
+  return Backbone.Collection.extend({
 
-  return Backbone.Firebase.Collection.extend({
-
-    model: Championship,
-
-    url: FB.ROOT + FB.championships
+    model: Championship
 
   });
 

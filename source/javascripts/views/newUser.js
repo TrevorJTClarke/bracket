@@ -1,14 +1,14 @@
 define([
   'jquery',
   'backbone',
-  'collections/users',
+  'models/user',
   'hbars!templates/new_user',
   'models/system'
 ],
 function(
   $,
   Backbone,
-  Users,
+  User,
   userTpl,
   System
 ){
@@ -20,7 +20,7 @@ function(
 
     el: '.new-user',
 
-    collection: new Users,
+    model: new User,
 
     events: {
       'click button': 'createNewUser'
@@ -33,6 +33,7 @@ function(
       this.userFirstName = this.$("#userFirstName");
       this.userLastName = this.$("#userLastName");
       this.userEmail = this.$("#userEmail");
+      this.userPassword = this.$("#userPassword");
       this.userColor = this.$("#userColor");
     },
 
@@ -49,19 +50,31 @@ function(
       }
 
       if (!this.userFirstName.val()){ return; }
-
+      var _self = this;
+      // var user = new Parse.User();
       var newUserData = {
         firstName: this.userFirstName.val(),
         lastName: this.userLastName.val(),
         email: this.userEmail.val(),
-        color: this.userColor.val()
+        color: this.userColor.val(),
+        username: this.userEmail.val(),
+        password: this.userPassword.val()
       };
-      console.log("newUserData",newUserData);
 
-      this.collection.create(newUserData);
-      
+      // create new championship reference, then store new data
+      _self.model.set( newUserData );
+      _self.model.signUp()
+      // _self.model.save()
+                .then(function(res) {
+                  console.log("res",res.attributes);
+                }, function (err) {
+                  console.log("err",err);
+                });
+
+      // this.collection.create(newUserData);
+
       // update the total count of new users
-      sys.setStatsTotal("users");
+      // sys.setStatsTotal("users");
 
       // this.input.val('');
     }

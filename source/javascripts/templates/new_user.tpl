@@ -12,6 +12,9 @@
         <input type="email" id="userEmail" placeholder="Enter An Email" required>
       </div>
       <div class="form-group">
+        <input type="password" id="userPassword" placeholder="Password" required>
+      </div>
+      <div class="form-group">
         <input type="text" id="userColor" placeholder="Enter A #Color" required>
       </div>
       <button type="submit" id="userCreate" class="btn btn-default btn-fixed-bottom">Create</button>

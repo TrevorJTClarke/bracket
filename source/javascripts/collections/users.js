@@ -1,22 +1,12 @@
 define([
-  'models/user',
-  'models/system',
-  'firebase',
-	'backbonefire'
+  'models/user'
 ], function(
-  User,
-  System
+  User
 ) {
 
-  // SETUP
-  var sys = new System();
-  var FB = sys.get("Firebase");
+  return Backbone.Collection.extend({
 
-  return Backbone.Firebase.Collection.extend({
-
-    model: User,
-
-    url: FB.ROOT + FB.users
+    model: User
 
   });
 

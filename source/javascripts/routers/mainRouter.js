@@ -29,8 +29,20 @@ function(
     index: function() {
       // Instantiates a new view which will render the header text to the page
       new HeaderView();
-      new SetupIntro();
+      // new SetupIntro();
       // new NewUserView();
+      var roleACL = new Parse.ACL();
+      roleACL.setPublicReadAccess(false);
+      roleACL.setWriteAccess(false);
+      var role = new Parse.Role("Administrator", roleACL);
+      role.save();
+
+      var currentUser = Parse.User.current();
+      if (currentUser) {
+        new SetupIntro();
+      } else {
+        new NewUserView();
+      }
     }
   });
 });

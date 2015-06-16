@@ -6,6 +6,7 @@ define([
   'models/championship',
   'hbars!templates/setup_intro',
   'hbars!templates/player_listing_item',
+  'models/stats',
   'models/system'
 ],
 function(
@@ -16,6 +17,7 @@ function(
   Championship,
   setupTpl,
   playerListTpl,
+  Stats,
   System
 ){
   // SETUP
@@ -50,7 +52,7 @@ function(
 
     el: '.setup-intro',
 
-    collection: new Championships,
+    model: new Championship,
 
     events: {
       'click button': 'startChampionship'
@@ -100,20 +102,30 @@ function(
         e.preventDefault();
       }
       if (!this.championshipTitle.val()){ return; }
-
+      var _self = this;
       var champData = {
-        title: this.championshipTitle.val()
+        title: _self.championshipTitle.val()
       };
 
       // create new championship reference, then store new data
-      this.createdChampionship = this.collection.create( champData );
+      _self.model.set( champData )
+                .save()
+                .then(function(res) {
+                  console.log("res",res.attributes);
+                }, function (err) {
+                  console.log("err",err);
+                });
+
 
       // show the next view
       this.currentStep = "sectionSecond";
       this.toggleSections();
 
       // update the total count of new users
-      sys.setStatsTotal("championships");
+      // Stats().getMain().increment("championships");
+
+
+      return this;
     }
 
   });

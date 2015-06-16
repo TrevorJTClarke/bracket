@@ -7,12 +7,9 @@ require.config({
     'jquery': 'javascripts/lib/jquery',
     'underscore': 'javascripts/lib/underscore',
     'backbone': 'javascripts/lib/backbone',
-    'firebase': 'javascripts/lib/firebase',
-    'backbonefire': 'javascripts/lib/backbonefire',
 
     // Plugins
     // -------
-    'backbone.localStorage': 'javascripts/lib/backbone.localStorage',
     'text': 'javascripts/lib/text',
     'Handlebars': 'javascripts/lib/handlebars',
     'hbars': 'javascripts/lib/hbars',
@@ -28,24 +25,29 @@ require.config({
 
   // Sets the configuration for your third party scripts that are not AMD compatible
   'shim': {
-    // Backbone.validateAll plugin that depends on Backbone
-    'backbone.localStorage': ['backbone'],
     'Handlebars': {
       'exports': 'Handlebars'
     }
   },
 
   'hbars': {
-    'extension': '.tpl', // default = '.html'
-    'compileOptions': {}  // options object which is passed to Handlebars compiler
+    'extension': '.tpl'
   }
 
 });
 require([
   'jquery',
   'backbone',
-  'routers/mainRouter'
+  'routers/mainRouter',
+  'models/system'
 ],
-function($, Backbone, MainRouter) {
+function($, Backbone, MainRouter, System) {
+    var sys = new System();
+    var sysParse = sys.get("Parse");
+
+    // start up the parse system
+    Parse.initialize( sysParse.API_KEY, sysParse.JS_KEY );
+
+    // watch the initial route
     new MainRouter();
 });

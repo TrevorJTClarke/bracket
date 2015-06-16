@@ -12,18 +12,19 @@ function(
 ){
 
   // Creates a new Backbone Model class object
-  return Backbone.Model.extend({
+  return Parse.Object.extend({
+    className: "Championship",
     tierNamespace: 'tier_',
 
     initialize: function() {
-      this.set("players", new Players() );
+      // this.set("players", new Players() );
 
       return this;
     },
 
     defaults: {
       'title': 'Championship 1',
-      'players': [],
+      'players_ref': null,
       'bracket': {
         'tiers': 0
       }
@@ -31,23 +32,6 @@ function(
 
     //
     validate: function(attrs) {},
-
-    /**
-      * set anything new, then store into DB
-      * @param  {Object} data model of the entire Championship data, setting anything here will modify defaults, and add new attributes
-      * @return {null}
-      *
-      * TODO: finish this method
-      */
-    createNew: function(data) {
-      var _self = this;
-
-      // TODO:
-      // - set the title
-      // - create DB ref
-
-      return this;
-    },
 
     /**
       * adds user into the Championship.users data

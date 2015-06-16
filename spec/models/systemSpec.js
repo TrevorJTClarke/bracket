@@ -7,12 +7,12 @@ define(['models/system'], function(System) {
     });
 
     it('should have default attrs', function() {
-      expect(sys.get('Firebase')).toBeDefined();
+      expect(sys.get('Parse')).toBeDefined();
     });
 
-    it('Firebase urls are set properly', function() {
-      var FB = sys.get('Firebase');
-      expect(FB.ROOT).toEqual("https://flickering-heat-8044.firebaseio.com");
+    it('Parse urls are set properly', function() {
+      var PS = sys.get('Parse');
+      expect(PS.API_KEY).toEqual("pPeLQpgxgY9GcPuihyQ1boIH51vod9yK4nMZ1ibA");
     });
 
   });
