@@ -25,9 +25,7 @@ function(
     defaults: {
       'title': 'Championship 1',
       'players_ref': null,
-      'bracket': {
-        'tiers': 0
-      }
+      'tiers': 0
     },
 
     //

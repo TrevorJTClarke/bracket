@@ -111,7 +111,7 @@ function(
       _self.model.set( champData )
                 .save()
                 .then(function(res) {
-                  console.log("res",res.attributes);
+                  // console.log("res",res.attributes);
                 }, function (err) {
                   console.log("err",err);
                 });
@@ -138,15 +138,29 @@ function(
           .find()
           .then(function (res) {
             console.log("res",res);
+            var Players = Parse.Object.extend("ChampionshipPlayers");
+            var plrs = new Players();
 
             res.forEach(function (obj,idx) {
               var tempUser = obj.attributes;
                   tempUser.id = obj.id;
 
               players.push(tempUser);
+
+              plrs.addUnique("players", obj.id);
+
             })
 
             _self.render();
+            plrs.save()
+                .then(function(res) {
+                  console.log("plrs res",res,plrs);
+
+                  _self.model.set({ "players_ref": res.id }).save();
+                }, function (err) {
+                  console.log("err",err);
+                });
+
           });
     }
 

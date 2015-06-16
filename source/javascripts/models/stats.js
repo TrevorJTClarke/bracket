@@ -1,13 +1,19 @@
-define([],
-function(){
+define([
+  'jquery',
+  'backbone'
+],
+function($, Backbone){
 
   // Creates a new Backbone Model class object
-  return Parse.Object.extend({
-    className: "Statistics",
+  return Backbone.Model.extend({
+    url: Parse.sync,
 
     initialize: function() {
-
-      return this;
+      // totally bind Parse and this model
+      var _self = this;
+      $.extend(true, _self, Parse.Object.extend({
+        className: "Statistics"
+      }) );
     },
 
     defaults: {
@@ -15,10 +21,6 @@ function(){
         'championships': 0,
         'users': 0
       }
-    },
-
-    getMain: function () {
-      return this();
     }
 
   });
