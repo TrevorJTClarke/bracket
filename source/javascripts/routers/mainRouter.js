@@ -31,11 +31,11 @@ function(
       new HeaderView();
       // new SetupIntro();
       // new NewUserView();
-      var roleACL = new Parse.ACL();
-      roleACL.setPublicReadAccess(false);
-      roleACL.setWriteAccess(false);
-      var role = new Parse.Role("Administrator", roleACL);
-      role.save();
+      // var roleACL = new Parse.ACL();
+      // roleACL.setPublicReadAccess(false);
+      // roleACL.setWriteAccess(false);
+      // var role = new Parse.Role("Administrator", roleACL);
+      // role.save();
 
       var currentUser = Parse.User.current();
       if (currentUser) {

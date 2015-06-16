@@ -16,6 +16,16 @@ function(
   // SETUP
   var sys = new System();
 
+  // PRIVATE METHODS
+
+  function createInitials( str, str2 ) {
+    return (str.charAt(0) + str2.charAt(0)).toUpperCase();
+  }
+
+  function createUsername( str ) {
+    return str.split("@")[0];
+  }
+
   return Backbone.View.extend({
 
     el: '.new-user',
@@ -51,27 +61,25 @@ function(
 
       if (!this.userFirstName.val()){ return; }
       var _self = this;
-      // var user = new Parse.User();
       var newUserData = {
         firstName: this.userFirstName.val(),
         lastName: this.userLastName.val(),
         email: this.userEmail.val(),
         color: this.userColor.val(),
-        username: this.userEmail.val(),
+        username: createUsername( this.userEmail.val() ),
+        initials: createInitials( this.userFirstName.val(), this.userLastName.val() ),
         password: this.userPassword.val()
       };
 
       // create new championship reference, then store new data
       _self.model.set( newUserData );
       _self.model.signUp()
-      // _self.model.save()
                 .then(function(res) {
                   console.log("res",res.attributes);
                 }, function (err) {
                   console.log("err",err);
                 });
 
-      // this.collection.create(newUserData);
 
       // update the total count of new users
       // sys.setStatsTotal("users");

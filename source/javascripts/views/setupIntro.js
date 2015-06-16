@@ -22,31 +22,31 @@ function(
 ){
   // SETUP
   var sys = new System();
+  var players = [];
 
   // TEST:
   //
-  var players = [{
-    initials: "TC",
-    name: "Trevor Clarke",
-    email: "tclarke@billabong.com",
-    color: "2FAB70"
-  },{
-    initials: "MD",
-    name: "Michael Deol",
-    email: "mdeol@billabong.com",
-    color: "333333"
-  },{
-    initials: "SP",
-    name: "Super Person",
-    email: "sperson@billabong.com",
-    color: "483989"
-  },{
-    initials: "YK",
-    name: "Yik Yak",
-    email: "yyak@billabong.com",
-    color: "092323"
-  }];
-  players = [];
+  // var players = [{
+  //   initials: "TC",
+  //   name: "Trevor Clarke",
+  //   email: "tclarke@billabong.com",
+  //   color: "2FAB70"
+  // },{
+  //   initials: "MD",
+  //   name: "Michael Deol",
+  //   email: "mdeol@billabong.com",
+  //   color: "333333"
+  // },{
+  //   initials: "SP",
+  //   name: "Super Person",
+  //   email: "sperson@billabong.com",
+  //   color: "483989"
+  // },{
+  //   initials: "YK",
+  //   name: "Yik Yak",
+  //   email: "yyak@billabong.com",
+  //   color: "092323"
+  // }];
 
   return Backbone.View.extend({
 
@@ -55,7 +55,7 @@ function(
     model: new Championship,
 
     events: {
-      'click button': 'startChampionship'
+      'click #newChampionship': 'startChampionship'
     },
 
     initialize: function() {
@@ -124,8 +124,30 @@ function(
       // update the total count of new users
       // Stats().getMain().increment("championships");
 
+      // start the next view
+      this.addPlayers();
 
       return this;
+    },
+
+    addPlayers: function () {
+      var _self = this;
+      var userData = Parse.Object.extend("User");
+      var query = new Parse.Query(userData);
+      query.limit(10)
+          .find()
+          .then(function (res) {
+            console.log("res",res);
+
+            res.forEach(function (obj,idx) {
+              var tempUser = obj.attributes;
+                  tempUser.id = obj.id;
+
+              players.push(tempUser);
+            })
+
+            _self.render();
+          });
     }
 
   });
