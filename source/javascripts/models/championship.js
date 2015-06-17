@@ -1,20 +1,18 @@
 define([
   'jquery',
   'backbone',
-  'Parse',
   'collections/players',
   'models/player'
 ],
 function(
   $,
   Backbone,
-  Parse,
   Players,
   Player
 ){
 
   // Creates a new Backbone Model class object
-  return Parse.Object.extend({
+  return Backbone.Model.extend({
     className: "Championship",
     tierNamespace: 'tier_',
 

@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'models/System'
+  'models/system'
 ],
 function(
   Backbone,
@@ -16,7 +16,9 @@ function(
     urlRoot: PS.ROOT + PS.USER,
 
     defaults: {
-      //
+      "firstName": "Billa",
+      "lastName": "Bong",
+      "email": "bb@billabong.com"
     }
 
   });

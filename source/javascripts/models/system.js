@@ -7,6 +7,10 @@ function(
 
   return Backbone.Model.extend({
 
+    initialize: function () {
+      return this;
+    },
+
     defaults: {
       "Parse": {
         "ROOT": "https://api.parse.com/1",

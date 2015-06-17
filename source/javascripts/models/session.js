@@ -14,18 +14,11 @@ define([
 
     initialize: function () {
       var _self = this;
-      // Hook into jquery
-      // Use withCredentials to send the server cookies
-      // The server must allow this through response headers
+
+      // Set the headers to talk to Parse
       $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
-        // options.xhrFields = {
-        //   withCredentials: true
-        // };
-        // If we have a csrf token send it through with the next request
-        // if(typeof _self.get('X-Parse-Application-Id') !== 'undefined') {
-          jqXHR.setRequestHeader('X-Parse-Application-Id', PS.API_KEY);
-          jqXHR.setRequestHeader('X-Parse-REST-API-Key', PS.REST_KEY);
-        // }
+        jqXHR.setRequestHeader('X-Parse-Application-Id', PS.API_KEY);
+        jqXHR.setRequestHeader('X-Parse-REST-API-Key', PS.REST_KEY);
       });
     },
     login: function(creds) {

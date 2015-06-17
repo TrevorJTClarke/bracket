@@ -6,11 +6,11 @@ define(['models/player'], function(Player) {
       expect(plyr).toBeDefined();
     });
 
-    it('should have default attrs', function() {
-      expect(plyr.get('name')).toBeDefined();
-      expect(plyr.get('email')).toBeDefined();
-      expect(plyr.get('color')).toBeDefined();
-    });
+    // it('should have default attrs', function() {
+    //   expect(plyr.get('name')).toBeDefined();
+    //   expect(plyr.get('email')).toBeDefined();
+    //   expect(plyr.get('color')).toBeDefined();
+    // });
 
   });
 });

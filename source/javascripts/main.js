@@ -12,7 +12,6 @@ require.config({
     // -------
     'text': 'javascripts/lib/text',
     'Handlebars': 'javascripts/lib/handlebars',
-    'Parse': 'javascripts/lib/parse-1.4.2.min',
     'hbars': 'javascripts/lib/hbars',
 
     // Base Files
@@ -28,9 +27,6 @@ require.config({
   'shim': {
     'Handlebars': {
       'exports': 'Handlebars'
-    },
-    'Parse': {
-      'exports': 'Parse'
     }
   },
 

@@ -10,8 +10,6 @@ define(['models/user'], function(User) {
       expect(user.get('firstName')).toBeDefined();
       expect(user.get('lastName')).toBeDefined();
       expect(user.get('email')).toBeDefined();
-      expect(user.get('stats')).toBeDefined();
-      expect(user.get('preferences')).toBeDefined();
     });
 
   });

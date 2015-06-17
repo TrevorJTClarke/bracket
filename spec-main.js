@@ -14,7 +14,6 @@ require.config({
     'jquery': 'lib/jquery',
     'underscore': 'lib/underscore',
     'backbone': 'lib/backbone',
-    'Parse': 'lib/parse-1.4.2.min.js',
     'text': 'lib/text',
     'Handlebars': 'lib/handlebars',
     'hbars': 'lib/hbars',
@@ -25,9 +24,6 @@ require.config({
     },
     'Handlebars': {
       'exports': 'Handlebars'
-    },
-    'Parse': {
-      'exports': 'Parse'
     }
   },
   hbars: {
