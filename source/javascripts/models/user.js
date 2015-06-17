@@ -13,7 +13,7 @@ function(
 
   return Backbone.Model.extend({
 
-    urlRoot: PS.ROOT + PS.USER,
+    url: PS.USER,
 
     defaults: {
       "firstName": "Billa",

@@ -17,26 +17,45 @@ define([
 
   return Backbone.Model.extend({
 
-    urlRoot: '/sessions',
-
     initialize: function () {
       var _self = this;
 
       // Set the headers to talk to Parse
       $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
         // set the base route
-        options.url = PS.ROOT + options.url;
+        if(options.url.search(PS.ROOT) === -1){
+          options.url = PS.ROOT + options.url;
+        }
 
         // set base headers
         jqXHR.setRequestHeader('X-Parse-Application-Id', PS.API_KEY);
         jqXHR.setRequestHeader('X-Parse-REST-API-Key', PS.REST_KEY);
+
+        // TODO:
+        // get session token from cookie
         // jqXHR.setRequestHeader('X-Parse-Session-Token', PS.REST_KEY);
       });
     },
-    login: function(creds) {
-      // Do a POST to /session and send the serialized form creds
-      this.save(creds, {
-         success: function () {}
+    login: function( data, cb ) {
+      var credString = "?username=" + encodeURIComponent( data.email.split("@")[0] ) + "&password=" + encodeURIComponent( data.password );
+
+      // Do a GET to /login and send the serialized form creds
+      Backbone.sync("read", this, {
+        url: "/login" + credString,
+        success: function (res, data) {
+          // TODO:
+          // set session token in cookie store
+          console.log("ressssss",res, data);
+          if(cb){
+            cb(res);
+          }
+        },
+        error: function (err) {
+          console.log("r eerror",err);
+          if(cb){
+            cb(err);
+          }
+        }
       });
     },
     logout: function() {

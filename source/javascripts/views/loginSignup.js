@@ -17,6 +17,7 @@ function(
 
   // SETUP
   var sys = new System();
+  var Ses = new Session();
 
   // PRIVATE METHODS
 
@@ -75,15 +76,24 @@ function(
       }
       var user = {};
 
-      // grab all values and store into data object
+      // grab all form values and store into data object
       for (var i = 0; i < this.loginForm.length; i++) {
         if(this.loginForm[i] && this.loginForm[i].name){
           user[this.loginForm[i].name] = this.loginForm[i].value;
         }
       }
 
+      // validate
+      if(!user || !user.email || !user.password){
+        return;
+      }
 
-      console.log("Login form",user);
+      // start session
+      Ses.login( user, function (res) {
+        console.log("session login res",res);
+        // TODO: redirect to user profile
+        // Backbone.history.navigate('', { trigger: true });
+      });
     },
 
     signupUser: function (e) {
