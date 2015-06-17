@@ -8,18 +8,18 @@ define([
   'underscore',
   'backbone',
   'models/system',
-  'models/cookies'
+  'models/cookies',
+  'models/user'
 ], function(
   _,
   Backbone,
   System,
-  Cookies
+  Cookie,
+  User
 ) {
 
   // SETUP
-  var sys = new System();
-  var PS = sys.get("Parse");
-  var Cookie = new Cookies();
+  var PS = System.get("Parse");
 
   var SessionModel = Backbone.Model.extend({
 

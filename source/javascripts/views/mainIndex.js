@@ -19,13 +19,15 @@ function(
 
     initialize: function() {
       this.render();
+      this.listenTo(this.model, 'change', this.render);
     },
 
     events: {},
 
     render: function() {
+      console.log("User.get(res)",User.get("initials"));
 
-      this.template = _.template(template({}));
+      this.template = _.template(template({ user: this.model }));
       this.$el.html(this.template);
 
       return this;

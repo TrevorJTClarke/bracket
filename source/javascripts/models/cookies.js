@@ -11,7 +11,7 @@ function(
     Backbone
 ) {
 
-  return Backbone.Model.extend({
+  var CookieModel = Backbone.Model.extend({
 
     keys: [],
 
@@ -60,5 +60,7 @@ function(
     }
 
   });
+
+  return new CookieModel();
 
 });

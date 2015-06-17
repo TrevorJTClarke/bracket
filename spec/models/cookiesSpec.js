@@ -1,6 +1,6 @@
 define(['models/cookies'], function(Cookies) {
   describe('Cookies', function() {
-    var Cookie = new Cookies();
+    var Cookie = Cookies;
     var testToken = "fdsa543-fds54-234k-23476-fjdskSI";
 
     it('should be defined', function() {

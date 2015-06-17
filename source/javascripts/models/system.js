@@ -5,7 +5,7 @@ function(
     Backbone
 ) {
 
-  return Backbone.Model.extend({
+  var SystemModel = Backbone.Model.extend({
 
     initialize: function () {
       return this;
@@ -24,5 +24,7 @@ function(
     }
 
   });
+
+  return new SystemModel();
 
 });

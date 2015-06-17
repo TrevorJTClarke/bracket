@@ -8,8 +8,7 @@ function(
 ){
 
   // SETUP
-  var SYS = new System();
-  var PS = SYS.get("Parse");
+  var PS = System.get("Parse");
 
   var UserModel = Backbone.Model.extend({
 
@@ -18,7 +17,8 @@ function(
     defaults: {
       "firstName": "Billa",
       "lastName": "Bong",
-      "email": "bb@billabong.com"
+      "email": "bb@billabong.com",
+      "initials": "BB"
     }
 
   });

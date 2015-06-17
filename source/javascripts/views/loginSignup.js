@@ -15,9 +15,6 @@ function(
   Session
 ){
 
-  // SETUP
-  var sys = new System();
-
   // PRIVATE METHODS
 
   function createInitials( str, str2 ) {

@@ -7,7 +7,8 @@ define([
   "views/mainIndex",
   "views/setupIntro",
   "views/loginSignup",
-  'models/session'
+  'models/session',
+  'models/user'
 ],
 function(
   $,
@@ -16,7 +17,8 @@ function(
   MainIndexView,
   SetupIntroView,
   LoginSignupView,
-  Session
+  Session,
+  User
 ) {
 
   return Backbone.Router.extend({
@@ -35,6 +37,7 @@ function(
         .then(function (res) {
           // TODO: move to user profile or main screen
           Backbone.history.navigate("");
+          User.set(res);
         },function (err) {
           Backbone.history.navigate("login");
         });

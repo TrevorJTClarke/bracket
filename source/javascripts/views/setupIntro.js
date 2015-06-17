@@ -21,7 +21,6 @@ function(
   System
 ){
   // SETUP
-  var sys = new System();
   var players = [];
 
   return Backbone.View.extend({

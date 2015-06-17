@@ -1,6 +1,6 @@
 define(['models/system'], function(System) {
   describe('System', function() {
-    var sys = new System();
+    var sys = System;
 
     it('should be defined', function() {
       expect(sys).toBeDefined();
