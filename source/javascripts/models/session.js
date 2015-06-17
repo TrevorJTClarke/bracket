@@ -78,20 +78,24 @@ define([
       });
     },
 
+    /**
+     * TODO:
+     * @return {[type]} [description]
+     */
     logout: function() {
       // Do a DELETE to /session and clear the clientside data
-      var _self = this;
-      this.destroy({
-        success: function (model, resp) {
-          model.clear()
-          model.id = null;
-          // Set auth to false to trigger a change:auth event
-          // The server also returns a new csrf token so that
-          // the user can relogin without refreshing the page
-          _self.set({ auth: false });
-
-        }
-      });
+      // var _self = this;
+      // this.destroy({
+      //   success: function (model, resp) {
+      //     model.clear()
+      //     model.id = null;
+      //     // Set auth to false to trigger a change:auth event
+      //     // The server also returns a new csrf token so that
+      //     // the user can relogin without refreshing the page
+      //     _self.set({ auth: false });
+      //
+      //   }
+      // });
     },
 
     /**

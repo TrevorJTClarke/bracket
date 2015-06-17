@@ -32,10 +32,10 @@ function(
 
     initialize: function() {
       Backbone.history.start();
-      // Tells Backbone to start watching for hashchange events
+
+      // Check the session on start
       Session.getAuth()
         .then(function (res) {
-          // TODO: move to user profile or main screen
           Backbone.history.navigate("");
           User.set(res);
         },function (err) {

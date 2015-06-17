@@ -1,6 +1,6 @@
 define(['models/header'], function(Header) {
   describe('Header', function() {
-    var header = new Header();
+    var header = Header;
 
     it('should be defined', function() {
       expect(header).toBeDefined();
