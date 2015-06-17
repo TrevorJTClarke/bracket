@@ -115,9 +115,10 @@ define([
       return Backbone.sync("read", this, {
         url: "/users/me",
         success: function (res) {
-          console.log("temp res",res);
+          // proceed forth!
         },
         error: function (err) {
+          // TODO: clear localStorage
           Cookie.remove("token");
           _self.set({ auth: false, sessionToken: null });
         }

@@ -26,7 +26,7 @@ function(
 
   return Backbone.View.extend({
 
-    el: '.setup-intro',
+    el: '.main-container',
 
     model: new Championship,
 
@@ -37,7 +37,6 @@ function(
     initialize: function() {
       this.currentStep = "sectionFirst";
       this.render();
-
       this.championshipTitle = this.$("#chTitle");
 
       // this.model = new Championship();
@@ -67,9 +66,10 @@ function(
       // resets
       this.$("#sectionFirst").removeClass("show");
       this.$("#sectionSecond").removeClass("show");
+      console.log("this.$(this.currentStep)",this.$("#" + this.currentStep));
 
       if(this.currentStep){
-        this.$("#" + this.currentStep).toggleClass("show");
+        this.$("#" + this.currentStep).addClass("show");
       }
     },
 
@@ -85,12 +85,12 @@ function(
 
       // create new championship reference, then store new data
       _self.model.set( champData )
-                .save()
-                .then(function(res) {
-                  // console.log("res",res.attributes);
-                }, function (err) {
-                  console.log("err",err);
-                });
+        .save()
+        .then(function(res) {
+          // console.log("res",res.attributes);
+        }, function (err) {
+          console.log("err",err);
+        });
 
 
       // show the next view

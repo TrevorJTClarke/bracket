@@ -111,6 +111,7 @@ function(
     },
 
     setup: function () {
+      console.log("SetupIntro",SetupIntro);
       new SetupIntro();
     },
 
