@@ -5,7 +5,7 @@ define([
   "backbone",
   "views/header",
   "views/setupIntro",
-  "views/newUser",
+  "views/loginSignup",
   'models/Session'
 ],
 function(
@@ -13,7 +13,7 @@ function(
   Backbone,
   HeaderView,
   SetupIntro,
-  NewUserView,
+  LoginSignupView,
   Session
 ) {
 
@@ -100,7 +100,7 @@ function(
       //   new NewUserView();
       // }
 
-      new NewUserView();
+      new LoginSignupView();
     },
 
     setupIntro: function () {

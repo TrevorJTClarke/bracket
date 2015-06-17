@@ -1,7 +1,14 @@
+/**
+ * Sessions
+ *
+ * REF:
+ * https://www.parse.com/docs/rest/guide/#sessions-creating-sessions
+ */
+
 define([
   'underscore',
   'backbone',
-  'models/System'
+  'models/system'
 ], function(_, Backbone, System) {
 
   // SETUP
@@ -10,15 +17,20 @@ define([
 
   return Backbone.Model.extend({
 
-    urlRoot: PS.ROOT + '/sessions',
+    urlRoot: '/sessions',
 
     initialize: function () {
       var _self = this;
 
       // Set the headers to talk to Parse
       $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+        // set the base route
+        options.url = PS.ROOT + options.url;
+
+        // set base headers
         jqXHR.setRequestHeader('X-Parse-Application-Id', PS.API_KEY);
         jqXHR.setRequestHeader('X-Parse-REST-API-Key', PS.REST_KEY);
+        // jqXHR.setRequestHeader('X-Parse-Session-Token', PS.REST_KEY);
       });
     },
     login: function(creds) {

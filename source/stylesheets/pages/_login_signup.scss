@@ -1,0 +1,11 @@
+/* Login Sign Up */
+.ls-tabs {
+  margin: 10px 0;
+}
+.ls-section {
+  display: none;
+
+  &.ls-active {
+    display: block;
+  }
+}

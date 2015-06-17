@@ -1,19 +1,20 @@
-// define(['models/system'], function(System) {
-//   describe('System', function() {
-//     var sys = new System();
-//
-//     it('should be defined', function() {
-//       expect(sys).toBeDefined();
-//     });
-//
-//     it('should have default attrs', function() {
-//       expect(sys.get('Parse')).toBeDefined();
-//     });
-//
-//     it('Parse urls are set properly', function() {
-//       var PS = sys.get('Parse');
-//       expect(PS.API_KEY).toEqual("pPeLQpgxgY9GcPuihyQ1boIH51vod9yK4nMZ1ibA");
-//     });
-//
-//   });
-// });
+define(['models/system'], function(System) {
+  describe('System', function() {
+    var sys = new System();
+
+    it('should be defined', function() {
+      expect(sys).toBeDefined();
+    });
+
+    it('should have default attrs', function() {
+      expect(sys.get('Parse')).toBeDefined();
+    });
+
+    it('Parse urls are set properly', function() {
+      var PS = sys.get('Parse');
+      expect(PS.ROOT).toEqual("https://api.parse.com/1");
+      expect(PS.REST_KEY).toEqual("vRKLltmPuDjdfxFFNs6ZD7iHuG5su0J6nTh0VT36");
+    });
+
+  });
+});
