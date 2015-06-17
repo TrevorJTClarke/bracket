@@ -1,6 +1,6 @@
 define(['models/session'], function(Session) {
   describe('Session', function() {
-    var ses = new Session();
+    var ses = Session;
 
     it('should be defined', function() {
       expect(ses).toBeDefined();

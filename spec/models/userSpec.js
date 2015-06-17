@@ -1,6 +1,6 @@
 define(['models/user'], function(User) {
   describe('User', function() {
-    var user = new User();
+    var user = User;
 
     it('should be defined', function() {
       expect(user).toBeDefined();

@@ -1,19 +1,21 @@
 define([
   'jquery',
   'backbone',
-  'models/header',
-  'hbars!templates/header'
+  'hbars!templates/main_index',
+  'models/User'
 ],
 function(
   $,
   Backbone,
-  Model,
-  template
+  template,
+  User
 ) {
 
   return Backbone.View.extend({
 
-    el: '.header',
+    el: '.main-container',
+
+    model: User,
 
     initialize: function() {
       this.render();

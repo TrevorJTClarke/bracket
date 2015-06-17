@@ -4,6 +4,7 @@ define([
   "jquery",
   "backbone",
   "views/header",
+  "views/mainIndex",
   "views/setupIntro",
   "views/loginSignup",
   'models/session'
@@ -12,7 +13,8 @@ function(
   $,
   Backbone,
   HeaderView,
-  SetupIntro,
+  MainIndexView,
+  SetupIntroView,
   LoginSignupView,
   Session
 ) {
@@ -31,88 +33,21 @@ function(
       // Tells Backbone to start watching for hashchange events
       Session.getAuth()
         .then(function (res) {
-          console.log("Sessions res",res);
-          Backbone.history.navigate("setup", { trigger: true });
+          // TODO: move to user profile or main screen
+          Backbone.history.navigate("");
         },function (err) {
-          Backbone.history.navigate("login", { trigger: true });
+          Backbone.history.navigate("login");
         });
 
       new HeaderView();
     },
 
     index: function() {
-      // Instantiates a new view which will render the header text to the page
-      // new HeaderView();
-      console.log("hiiiiiiiiii index");
-
-      // TESTING:
-      // var Statistics = Parse.Object.extend("Statistics");
-      // var query = new Parse.Query(Statistics);
-      // query.get("Zr36O8V7lf")
-      //   .then(function(item) {
-      //     console.log("st res",item);
-      //     item.decrement("total_users");
-      //     item.save();
-      //   }, function (err) {
-      //     console.log("err",err);
-      //   });
-
-      //
-      // // TESTING:
-      // var FullChamps = Parse.Object.extend("Championship");
-      // var FullPlayers = Parse.Object.extend("ChampionshipPlayers");
-      // var qUsers = new Parse.Query(Parse.User);
-      // var query = new Parse.Query(FullChamps);
-      // var squery = new Parse.Query(FullPlayers);
-      // query.get("qQvbHGgI61")
-      //   .then(function(item) {
-      //     // console.log("champs res",item);
-      //
-      //     var fqu = item.get("players_ref");
-      //
-      //     squery.get(fqu)
-      //       .then(function(res) {
-      //         // console.log("players res",res);
-      //
-      //         qUsers.include(res.attributes.players)
-      //           .select("color","initials","firstName","lastName","username")
-      //           .find()
-      //           .then(function(res) {
-      //             console.log("users res",res);
-      //             //
-      //             // var fqu = item.get("players_ref");
-      //             // console.log("fquf",fqu);
-      //             // fqu.fetch().then(function (res) {
-      //             //   console.log("ressss",res);
-      //             // });
-      //           }, function (err) {
-      //             console.log("err",err);
-      //           });
-      //       }, function (err) {
-      //         console.log("err",err);
-      //       });
-      //
-      //     // fqu.fetch().then(function (res) {
-      //     //   console.log("ressss",res);
-      //     // });
-      //   }, function (err) {
-      //     console.log("err",err);
-      //   });
-
-
-      // var currentUser = Parse.User.current();
-      // if (currentUser) {
-        // new SetupIntro();
-      // } else {
-      //   new NewUserView();
-      // }
-
-      // new LoginSignupView();
+      new MainIndexView();
     },
 
     setup: function () {
-      console.log("SetupIntro",SetupIntro);
-      new SetupIntro();
+      new SetupIntroView();
     },
 
     login: function () {

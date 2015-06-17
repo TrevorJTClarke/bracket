@@ -30,7 +30,7 @@ function(
 
     el: '.new-user',
 
-    model: new User,
+    model: User,
 
     events: {
       'click button': 'createNewUser'

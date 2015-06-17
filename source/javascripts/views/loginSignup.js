@@ -32,7 +32,7 @@ function(
 
     el: '.main-container',
 
-    model: new User,
+    model: User,
 
     events: {
       'click #signupSubmit' : 'signupUser',

@@ -11,7 +11,7 @@ function(
   var SYS = new System();
   var PS = SYS.get("Parse");
 
-  return Backbone.Model.extend({
+  var UserModel = Backbone.Model.extend({
 
     url: PS.USER,
 
@@ -22,5 +22,7 @@ function(
     }
 
   });
+
+  return new UserModel();
 
 });

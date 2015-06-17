@@ -66,7 +66,6 @@ function(
       // resets
       this.$("#sectionFirst").removeClass("show");
       this.$("#sectionSecond").removeClass("show");
-      console.log("this.$(this.currentStep)",this.$("#" + this.currentStep));
 
       if(this.currentStep){
         this.$("#" + this.currentStep).addClass("show");

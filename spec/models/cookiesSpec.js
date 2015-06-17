@@ -85,9 +85,13 @@ define(['models/cookies'], function(Cookies) {
       });
 
       it('remove method can remove correctly', function() {
+        setTimeout(function () {
+
         var removedToken = Cookie.find("token");
 
         expect(removedToken).toEqual(null);
+
+        },10);
       });
 
     });
@@ -107,8 +111,11 @@ define(['models/cookies'], function(Cookies) {
 
         // then clear all the cookies
         Cookie.clearAll();
-        var finalCookies = Cookie.find("C");
-        expect(finalCookies).toEqual(null);
+
+        setTimeout(function () {
+          var finalCookies = Cookie.find("C");
+          expect(finalCookies).toEqual(null);
+        },10);
       });
 
     });
