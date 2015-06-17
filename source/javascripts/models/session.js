@@ -4,21 +4,28 @@
  * REF:
  * https://www.parse.com/docs/rest/guide/#sessions-creating-sessions
  */
-
 define([
   'underscore',
   'backbone',
-  'models/system'
-], function(_, Backbone, System) {
+  'models/system',
+  'models/cookies'
+], function(
+  _,
+  Backbone,
+  System,
+  Cookies
+) {
 
   // SETUP
   var sys = new System();
   var PS = sys.get("Parse");
+  var Cookie = new Cookies();
 
-  return Backbone.Model.extend({
+  var SessionModel = Backbone.Model.extend({
 
     initialize: function () {
-      var _self = this;
+      var _self = this,
+          token = _self.get("sessionToken");
 
       // Set the headers to talk to Parse
       $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
@@ -27,37 +34,50 @@ define([
           options.url = PS.ROOT + options.url;
         }
 
+        // get session token from local data, or cookie
+        if(!token){
+          token = Cookie.find("token");
+        }
+
         // set base headers
         jqXHR.setRequestHeader('X-Parse-Application-Id', PS.API_KEY);
         jqXHR.setRequestHeader('X-Parse-REST-API-Key', PS.REST_KEY);
-
-        // TODO:
-        // get session token from cookie
-        // jqXHR.setRequestHeader('X-Parse-Session-Token', PS.REST_KEY);
+        jqXHR.setRequestHeader('X-Parse-Session-Token', token);
       });
     },
-    login: function( data, cb ) {
-      var credString = "?username=" + encodeURIComponent( data.email.split("@")[0] ) + "&password=" + encodeURIComponent( data.password );
+
+    defaults: {
+      auth: false
+    },
+
+    /**
+     * login a user and store session token for duration of user
+     * @param  {Object} data an object of user credentials to pass on to Parse, see example below
+     * @return {Promise}      let the callee determine how to handle response data
+     *
+     * example:
+     * {
+     * 		email: "email@billabong.com",
+     * 		password: "testPass1"
+     * }
+     */
+    login: function( data ) {
+      var _self = this,
+          username = encodeURIComponent( data.email.split("@")[0] ),
+          password = encodeURIComponent( data.password ),
+          credString = "?username=" + username + "&password=" + password;
 
       // Do a GET to /login and send the serialized form creds
-      Backbone.sync("read", this, {
+      return Backbone.sync("read", this, {
         url: "/login" + credString,
-        success: function (res, data) {
-          // TODO:
-          // set session token in cookie store
-          console.log("ressssss",res, data);
-          if(cb){
-            cb(res);
-          }
-        },
-        error: function (err) {
-          console.log("r eerror",err);
-          if(cb){
-            cb(err);
-          }
+        success: function (res) {
+          // Set the token and trigger an auth change
+          Cookie.store("token", res.sessionToken);
+          _self.set({ auth: true, sessionToken: res.sessionToken });
         }
       });
     },
+
     logout: function() {
       // Do a DELETE to /session and clear the clientside data
       var _self = this;
@@ -73,13 +93,39 @@ define([
         }
       });
     },
-    getAuth: function(callback) {
-      // getAuth is wrapped around our router
-      // before we start any routers let us see if the user is valid
-      this.fetch({
-          success: callback
+
+    /**
+     * before we start any routers lets see if the user is valid
+     * @return {Promise} check if the user is valid, if so start history, if not, show login
+     *
+     * NOTE: getAuth is wrapped around the router history
+     */
+    getAuth: function() {
+      var _self = this;
+      var token = Cookie.find("token");
+
+      if(!token){
+        return {
+          then: function (res,err) {
+            err(true);
+          }
+        };
+      }
+
+      return Backbone.sync("read", this, {
+        url: "/users/me",
+        success: function (res) {
+          console.log("temp res",res);
+        },
+        error: function (err) {
+          Cookie.remove("token");
+          _self.set({ auth: false, sessionToken: null });
+        }
       });
     }
   });
+
+  // We need this to be a singleton
+  return new SessionModel();
 
 });

@@ -17,7 +17,6 @@ function(
 
   // SETUP
   var sys = new System();
-  var Ses = new Session();
 
   // PRIVATE METHODS
 
@@ -89,11 +88,14 @@ function(
       }
 
       // start session
-      Ses.login( user, function (res) {
-        console.log("session login res",res);
-        // TODO: redirect to user profile
-        // Backbone.history.navigate('', { trigger: true });
-      });
+      Session.login( user )
+        .then(function (res) {
+          console.log("session login res",res);
+          // TODO: redirect to user profile
+        },function (err) {
+          console.log("session login err",err);
+          // TODO: show error message
+        });
     },
 
     signupUser: function (e) {

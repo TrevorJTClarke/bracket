@@ -6,7 +6,7 @@ define([
   "views/header",
   "views/setupIntro",
   "views/loginSignup",
-  'models/Session'
+  'models/session'
 ],
 function(
   $,
@@ -19,24 +19,31 @@ function(
 
   return Backbone.Router.extend({
 
-    initialize: function() {
-      // Tells Backbone to start watching for hashchange events
-      // Session.getAuth(function () {
-        Backbone.history.start();
-      // });
-
-      // TESTING:
-      // Backbone.sync = "";
-    },
     routes: {
       // When there is no hash on the url, the home method is called
       "": "index",
-      "/setup": "setupIntro"
+      "login": "login",
+      "setup": "setup"
+    },
+
+    initialize: function() {
+      Backbone.history.start();
+      // Tells Backbone to start watching for hashchange events
+      Session.getAuth()
+        .then(function (res) {
+          console.log("Sessions res",res);
+          Backbone.history.navigate("setup", { trigger: true });
+        },function (err) {
+          Backbone.history.navigate("login", { trigger: true });
+        });
+
+      new HeaderView();
     },
 
     index: function() {
       // Instantiates a new view which will render the header text to the page
-      new HeaderView();
+      // new HeaderView();
+      console.log("hiiiiiiiiii index");
 
       // TESTING:
       // var Statistics = Parse.Object.extend("Statistics");
@@ -95,16 +102,20 @@ function(
 
       // var currentUser = Parse.User.current();
       // if (currentUser) {
-      //   new SetupIntro();
+        // new SetupIntro();
       // } else {
       //   new NewUserView();
       // }
 
-      new LoginSignupView();
+      // new LoginSignupView();
     },
 
-    setupIntro: function () {
+    setup: function () {
       new SetupIntro();
+    },
+
+    login: function () {
+      new LoginSignupView();
     }
   });
 });

@@ -36,12 +36,9 @@ require.config({
 
 });
 require([
-  'routers/mainRouter',
-  'models/Session'
+  'routers/mainRouter'
 ],
-function(MainRouter, Session) {
-  // initialize sessions
-  new Session();
+function(MainRouter) {
   // watch the initial route
   new MainRouter();
 });
