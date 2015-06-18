@@ -14,6 +14,10 @@ function(
 
     url: PS.USER,
 
+    initialize: function () {
+      return this;
+    },
+
     defaults: {
       "firstName": "Billa",
       "lastName": "Bong",
@@ -25,8 +29,14 @@ function(
       var _self = this;
       var cacheData = JSON.stringify(_self.attributes);
 
-      window.localStorage.setItem("br-user", cacheData);
+      localStorage.setItem("br-user", cacheData);
       return this;
+    },
+
+    remove: function () {
+      this.clear();
+      this.id = null;
+      localStorage.removeItem("br-user");
     }
 
   });
