@@ -80,14 +80,13 @@ define([
     },
 
     /**
-     * TODO:
-     * @return {[type]} [description]
+     * removes a user session
      */
     logout: function() {
       var _self = this;
       User.remove();
       Cookie.remove("token");
-      
+
       _self.url = "/logout";
       _self.destroy({
         success: function (model,err) {

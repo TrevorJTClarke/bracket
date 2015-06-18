@@ -3,6 +3,10 @@ define(['models/cookies'], function(Cookies) {
     var Cookie = Cookies;
     var testToken = "fdsa543-fds54-234k-23476-fjdskSI";
 
+    afterEach(function () {
+      Cookie.clearAll();
+    });
+
     it('should be defined', function() {
       expect(Cookie).toBeDefined();
     });

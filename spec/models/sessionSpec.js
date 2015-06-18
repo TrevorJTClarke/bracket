@@ -1,11 +1,11 @@
 define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], function(Session, $, Ajax, Cookie) {
   describe('Session', function() {
     var testCreds = {
-      email: "faker@fake.com",
-      password: "1234test"
+      "email": "tclarke@billabong.com",
+      "password": "testtest"
     };
     var baseUrl = "https://api.parse.com/1";
-    var mockedUrl = "https://api.parse.com/1/login?username=faker&password=1234test";
+    var mockedUrl = "https://api.parse.com/1/login?username=tclarke&password=testtest";
 
     beforeEach(function() {
       jasmine.Ajax.install();
@@ -80,59 +80,11 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
     describe('.login()', function() {
 
       beforeEach(function () {
-        Session.login(testCreds);
+        spyOn(Session, 'login').and.callThrough();
       });
-
 
       it('should be defined', function() {
         expect(Session.login).toBeDefined();
-      });
-
-      // TODO: setup with Ajax
-      it('should login a user', function() {
-        var doneFn = jasmine.createSpy("success");
-
-        jasmine.Ajax.stubRequest('/another/url').andReturn({
-          "responseText": 'immediate response'
-        });
-
-        expect(true).toEqual(true);
-
-        // var doneFn = jasmine.createSpy("success");
-        // var mockedUrl = "https://api.parse.com/1/login?username=faker&password=1234test";
-        //
-        // spyOn(Session, 'login');
-        //
-        // jasmine.Ajax.stubRequest(mockedUrl).andReturn({
-        //   "responseText": 'immediate response',
-        //   "requestHeaders": "{ 'super': 'duper' }"
-        // });
-        //
-        // Session.login( testCreds )
-        //   .then(function(args) {
-        //     console.log("argssss",args, this);
-        //     if (this.readyState == this.DONE) {
-        //       doneFn(args);
-        //     }
-        //   },function(args) {
-        //     console.log("argssss",args, this);
-        //     if (this.readyState == this.DONE) {
-        //       doneFn(args);
-        //     }
-        //   });
-        //
-        // // jasmine.Ajax.requests.mostRecent().setRequestHeader("super", "duper");
-        //
-        // // jasmine.Ajax.requests.mostRecent().respondWith({
-        // //   "status": 200,
-        // //   "contentType": 'text/plain',
-        // //   "responseText": 'awesome response',
-        // //   "requestHeaders": "{ 'super': 'duper' }"
-        // // });
-        //
-        // expect(jasmine.Ajax.requests.mostRecent().url).toBe( mockedUrl );
-        // expect(Session.login).toHaveBeenCalled();
-        // expect(doneFn).toHaveBeenCalledWith('awesome response');
       });
 
       it('should store token in cookie', function() {
@@ -141,52 +93,75 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
         expect(token).not.toBeUndefined();
       });
 
+      it('should login a user', function(done) {
+
+        Session.login( testCreds )
+          .then(function(res) {
+            done(res.responseText);
+          },function(err) {
+            done(err.responseText);
+          });
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+          "status": 200,
+          "contentType": 'text/plain',
+          "responseText": 'yep, nope'
+        });
+
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe( mockedUrl );
+        expect(Session.login).toHaveBeenCalled();
+        expect(Session.login).toHaveBeenCalledWith('yep, nope');
+      });
+
     });
 
-    // TODO:
     describe('.logout()', function() {
       var userData;
 
       beforeEach(function() {
         spyOn(Session, 'logout').and.callThrough();
-        Session.logout();
       });
 
       it('should be defined', function() {
         expect(Session.logout).toBeDefined();
       });
 
-      it('method can be called', function() {
+      it('should logout a user', function(done) {
+        Session.logout();
+        done();
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+          "status": 200,
+          "contentType": 'text/plain',
+          "responseText": 'yep, nope'
+        });
+
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe( baseUrl + "/logout" );
         expect(Session.logout).toHaveBeenCalled();
-      });
-
-      it('should remove token from cookies', function() {
-        var token = Cookie.find("token");
-
-        expect(token).toBeUndefined();
-      });
-
-      it('should logout a user', function() {
-        expect(false).toEqual(true);
+        expect(Session.logout).toHaveBeenCalledWith('yep, nope');
       });
 
     });
 
-    // describe('.getAuth()', function() {
-    //
-    //   it('should be defined', function() {
-    //     expect(Session.getAuth).toBeDefined();
-    //   });
-    //
-    //   it('should return a user session', function() {
-    //     expect(false).toEqual(true);
-    //   });
-    //
-    //   it('should return user data', function() {
-    //     expect(false).toEqual(true);
-    //   });
-    //
-    // });
+    describe('.getAuth()', function() {
+
+      beforeEach(function() {
+        spyOn(Session, 'logout').and.callThrough();
+      });
+
+      it('should be defined', function() {
+        expect(Session.getAuth).toBeDefined();
+      });
+
+      it('should return a user session', function() {
+        expect(false).toEqual(true);
+      });
+
+      it('should return user data', function() {
+        expect(false).toEqual(true);
+      });
+
+    });
 
   });
 });
