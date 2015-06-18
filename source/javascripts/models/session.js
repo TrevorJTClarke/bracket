@@ -73,6 +73,7 @@ define([
         success: function (res) {
           // Set the token and trigger an auth change
           Cookie.store("token", res.sessionToken);
+          User.cache();
           _self.set({ auth: true, sessionToken: res.sessionToken });
         }
       });
@@ -120,6 +121,7 @@ define([
         url: "/users/me",
         success: function (res) {
           // proceed forth!
+          User.cache();
         },
         error: function (err) {
           // TODO: clear localStorage

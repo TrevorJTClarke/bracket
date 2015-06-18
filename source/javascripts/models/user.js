@@ -19,6 +19,14 @@ function(
       "lastName": "Bong",
       "email": "bb@billabong.com",
       "initials": "BB"
+    },
+
+    cache: function () {
+      var _self = this;
+      var cacheData = JSON.stringify(_self.attributes);
+
+      window.localStorage.setItem("br-user", cacheData);
+      return this;
     }
 
   });

@@ -12,5 +12,28 @@ define(['models/user'], function(User) {
       expect(user.get('email')).toBeDefined();
     });
 
+    describe('.cache()', function() {
+      var userData;
+
+      beforeEach(function() {
+        spyOn(user, 'cache').and.callThrough();
+        user.cache();
+      });
+
+      it('should have method', function() {
+        expect(user.cache).toBeDefined();
+      });
+
+      it('should cache user data', function() {
+        expect(user.cache).toHaveBeenCalled();
+      });
+
+      it('verified user data in localStorage', function() {
+        userData = localStorage.getItem('br-user');
+        expect(userData).not.toBeUndefined();
+      });
+
+    });
+
   });
 });
