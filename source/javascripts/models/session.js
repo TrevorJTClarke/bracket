@@ -73,7 +73,7 @@ define([
         success: function (res) {
           // Set the token and trigger an auth change
           Cookie.store("token", res.sessionToken);
-          User.cache();
+          User.cache( res );
           _self.set({ auth: true, sessionToken: res.sessionToken });
         }
       });
@@ -117,7 +117,7 @@ define([
         url: "/users/me",
         success: function (res) {
           // proceed forth!
-          User.cache();
+          User.cache( res );
         },
         error: function (err) {
           User.remove();
@@ -125,7 +125,25 @@ define([
           _self.set({ auth: false, sessionToken: null });
         }
       });
+    },
+
+    /**
+     * stores the auth token locally for session repeated use
+     * @param {object} data from a request to the API, see example below
+     *
+     * example:
+     * {
+     * 		objectId: "C36uCWNESq",
+     * 		createdAt: "2015-06-19T15:08:54.750Z",
+     * 		sessionToken: "5afsHGliHVFhMGRlQ1odOYa1n"
+     * }
+     */
+    setAuth: function ( data ) {
+      if(!data || !data.sessionToken){ return; }
+      Cookie.store("token", data.sessionToken);
+      this.set({ auth: true, sessionToken: data.sessionToken });
     }
+
   });
 
   // We need this to be a singleton

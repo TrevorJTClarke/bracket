@@ -2,21 +2,41 @@
  * Input Reset Styling
  */
 input {
-    display: block;
-    width: 100%;
-    padding: 15px 12px;
-    font-size: 21px;
-    line-height: 23px;
-    color: $grey08;
-    vertical-align: middle;
-    background-color: #ffffff;
-    background-image: none;
-    border: 1px solid #cccccc;
-    border-radius: 2px;
-    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  display: block;
+  width: 100%;
+  padding: 15px 12px;
+  font-size: 21px;
+  line-height: 23px;
+  color: $grey08;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 
-    &:focus {
-        outline: 0;
+  &:focus {
+    outline: 0;
+  }
+
+  &[type=color] {
+    height: 60px;
+    border:0;
+    outline: 0;
+    padding: 0;
+    position: relative;
+
+    &:after {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -10px 0 0 -66px;
+      content: "Choose Color";
+      font-size: 16px;
+      color: #F9F9F9;
+      text-shadow: -1px -1px rgba(0,0,0,0.3);
+      text-transform: uppercase;
     }
+  }
 }

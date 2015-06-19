@@ -37,7 +37,6 @@ function(
       Session.getAuth()
         .then(function (res) {
           Backbone.history.navigate("");
-          User.set(res);
         },function (err) {
           Backbone.history.navigate("login");
         });

@@ -7,6 +7,18 @@ function(
   System
 ){
 
+  // Internal Helpers
+  function clearFluff ( data ) {
+    data.id = data.objectId;
+
+    delete data.objectId;
+    delete data.createdAt;
+    delete data.updatedAt;
+    delete data.sessionToken;
+
+    return data;
+  }
+
   // SETUP
   var PS = System.get("Parse");
 
@@ -15,6 +27,12 @@ function(
     url: PS.USER,
 
     initialize: function () {
+      // grab localvalues
+      var lclData = localStorage.getItem("br-user");
+          lclData = (lclData)? JSON.parse(lclData): lclData;
+
+      this.set(lclData);
+
       return this;
     },
 
@@ -25,9 +43,13 @@ function(
       "initials": "BB"
     },
 
-    cache: function () {
+    cache: function ( data ) {
       var _self = this;
-      var cacheData = JSON.stringify(_self.attributes);
+      var cleanData = (data)? clearFluff( data ) : null;
+      var attrs = (cleanData)? cleanData : _self.attributes;
+      var cacheData = JSON.stringify( attrs );
+
+      _self.set( attrs );
 
       localStorage.setItem("br-user", cacheData);
       return this;

@@ -16,6 +16,8 @@ function(
 ){
 
   // PRIVATE METHODS
+  var activeBtn = "btn-active";
+  var activeSection = "ls-active";
 
   function createInitials( str, str2 ) {
     return (str.charAt(0) + str2.charAt(0)).toUpperCase();
@@ -45,7 +47,9 @@ function(
       this.isLogin = true;
 
       // disable signup, just show login
-      $('#loginSection').addClass("ls-active");
+      // $('#loginSection').addClass("ls-active");
+      $('#signupSection').addClass("ls-active");
+      this.$("#tabSignup").toggleClass(activeBtn);
     },
 
     render: function() {
@@ -56,8 +60,6 @@ function(
     },
 
     toggleSections: function () {
-      var activeBtn = "btn-active";
-      var activeSection = "ls-active";
 
       this.isLogin = !this.isLogin;
       this.$("#loginSection").toggleClass(activeSection);
@@ -96,33 +98,44 @@ function(
     },
 
     signupUser: function (e) {
+      var _self = this;
+      var newUserData = {};
       if(e) {
         e.preventDefault();
       }
 
-      if (!this.userFirstName.val()){ return; }
-      var _self = this;
-      var newUserData = {
-        firstName: this.userFirstName.val(),
-        lastName: this.userLastName.val(),
-        email: this.userEmail.val(),
-        color: this.userColor.val(),
-        username: createUsername( this.userEmail.val() ),
-        initials: createInitials( this.userFirstName.val(), this.userLastName.val() ),
-        password: this.userPassword.val()
-      };
+      // grab all form values and store into data object
+      for (var i = 0; i < this.signupForm.length; i++) {
+        if(this.signupForm[i] && this.signupForm[i].name){
+          newUserData[this.signupForm[i].name] = this.signupForm[i].value;
+        }
+      }
 
-      // create new championship reference, then store new data
+      // Dirty Checks
+      if (!newUserData.firstName || !newUserData.lastName || !newUserData.email || !newUserData.password){
+        // TODO: SHow error message
+        return;
+      }
+
+      // add tiny changes
+      newUserData.username = createUsername( newUserData.email );
+      newUserData.initials = createInitials( newUserData.firstName, newUserData.lastName );
+      newUserData.color = newUserData.color.replace("#", "").toUpperCase();
+
+      console.log("newUserData",newUserData);
+
+      // create new user
       _self.model.set( newUserData )
         .save()
         .then(function(res) {
-          console.log("res",res.attributes);
+          console.log("res",res);
+          Session.setAuth( res );
+          User.cache( newUserData );
+          // go to main view
+          Backbone.history.navigate("");
         }, function (err) {
           console.log("err",err);
         });
-
-
-      // this.input.val('');
     }
 
   });

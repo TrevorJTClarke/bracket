@@ -155,6 +155,22 @@ input {
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
   input:focus {
     outline: 0; }
+  input[type=color] {
+    height: 60px;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    position: relative; }
+    input[type=color]:after {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -10px 0 0 -66px;
+      content: "Choose Color";
+      font-size: 16px;
+      color: #F9F9F9;
+      text-shadow: -1px -1px rgba(0, 0, 0, 0.3);
+      text-transform: uppercase; }
 
 /**
  * Button Styling

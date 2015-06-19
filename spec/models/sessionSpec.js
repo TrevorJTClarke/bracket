@@ -177,5 +177,34 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
 
     });
 
+    describe('.setAuth()', function() {
+      var testAuthData = {
+      		objectId: "C36uCWNESq",
+      		createdAt: "2015-06-19T15:08:54.750Z",
+      		sessionToken: "5afsHGliHVFhMGRlQ1odOYa1n"
+      };
+
+      beforeEach(function() {
+        spyOn(Session, 'setAuth').and.callThrough();
+      });
+
+      it('should be defined', function() {
+        expect(Session.setAuth).toBeDefined();
+      });
+
+      it('stores session correctly', function() {
+        var doneFn = jasmine.createSpy();
+        var foundSession;
+        Session.setAuth( testAuthData );
+
+        foundSession = Cookie.find("token");
+        doneFn( foundSession );
+
+        expect(Session.setAuth).toHaveBeenCalled();
+        expect( doneFn ).toHaveBeenCalledWith( testAuthData.sessionToken );
+      });
+
+    });
+
   });
 });

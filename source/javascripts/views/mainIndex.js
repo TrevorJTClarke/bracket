@@ -15,15 +15,16 @@ function(
 
     el: '.main-container',
 
+    model: User,
+
     events: {},
 
     initialize: function() {
       var _self = this;
-      _self.model = User;
 
       this.render();
       // TODO: change all this
-      // this.listenTo(_self.model, 'change', this.render);
+      this.listenTo(_self.model, 'change', this.render);
       this.model.on('change', this.render, this);
     },
 
