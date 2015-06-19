@@ -13,9 +13,13 @@ function(
   Session
 ) {
 
+  // PRIVATE METHODS
+  var _rootEl = $(".main-container");
+
   return Backbone.View.extend({
 
-    el: '.main-container',
+    tagName: 'div',
+    className: 'main-index',
 
     model: User,
 
@@ -35,16 +39,17 @@ function(
 
       _self.template = _.template(template( _self.model.attributes ));
       _self.$el.html(this.template);
+      _rootEl.html(_self.$el);
 
       return this;
     },
 
     close: function() {
-      console.log("this.remove",this.remove);
   		this.remove();
   	},
 
     logout: function () {
+      console.log("this.logout");
       Session.logout();
     }
 

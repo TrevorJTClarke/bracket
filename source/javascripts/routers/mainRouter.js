@@ -50,8 +50,8 @@ function(
         console.log("this.view",this.view);
         this.view.remove();
         this.view = view;
-        this.view.render();
-        this.view.initialize();
+        // this.view.render();
+        // this.view.initialize();
       }
     },
 

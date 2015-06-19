@@ -16,6 +16,7 @@ function(
 ){
 
   // PRIVATE METHODS
+  var _rootEl = $(".main-container");
   var activeBtn = "btn-active";
   var activeSection = "ls-active";
 
@@ -33,7 +34,8 @@ function(
 
   return Backbone.View.extend({
 
-    el: '.main-container',
+    tagName: 'div',
+    className: 'login-signup',
 
     model: User,
 
@@ -58,6 +60,7 @@ function(
     render: function() {
       this.template = _.template(userTpl({}));
       this.$el.html(this.template);
+      _rootEl.html(this.$el);
 
       return this;
     },
