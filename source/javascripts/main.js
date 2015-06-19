@@ -36,13 +36,19 @@ require.config({
 
 });
 require([
-  'routers/mainRouter'
+  'routers/mainRouter',
+  'routers/state'
 ],
-function(Router) {
+function(Router, State) {
   // watch the routes
   window.router = new Router();
   $(window).on("hashchange", router.hashChange);
   // window.router.on("route", function(route, params) {
   //   console.log("Different Page: " + route);
   // });
+
+  setTimeout(function(){
+    State.go();
+  },1000);
+
 });

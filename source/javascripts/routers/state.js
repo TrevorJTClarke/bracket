@@ -21,21 +21,37 @@ function(
    * 	5. Remove the overlay and update the history change
    */
 
+  //  PRIVATE
+  var mainEl = $(".main-container"),
+      hidden = "hidden";
+
   var stateManager = function () {
 
-    this.go = function ( view ) {
+    // defaults
+    this.prev = null;
+    this.next = null;
 
+    this.go = function ( view ) {
+      var _self = this;
+      _self.transitionIn();
+
+      setTimeout(function(){
+        _self.transitionOut();
+      },1000);
     };
 
     this.transitionIn = function ( view ) {
       // show overlay
       this.overlay.show();
+      setTimeout(function(){
+        mainEl.addClass( hidden );
+      },420);
     };
 
     this.transitionOut = function ( view ) {
       // remove overlay
       this.overlay.hide();
-
+      mainEl.removeClass( hidden );
     };
 
     /**

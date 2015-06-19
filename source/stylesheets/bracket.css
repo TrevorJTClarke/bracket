@@ -136,6 +136,13 @@ ul {
     margin: 0;
     padding: 0; }
 
+.main-container {
+  -webkit-transition: opacity 160ms ease-in-out;
+  transition: opacity 160ms ease-in-out;
+  opacity: 1; }
+  .main-container.hidden {
+    opacity: 0; }
+
 /**
  * Input Reset Styling
  */
@@ -268,16 +275,21 @@ header {
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 999999; }
+  z-index: 999999;
+  opacity: 0;
+  -webkit-transition: opacity 160ms ease-in-out;
+  transition: opacity 160ms ease-in-out; }
   .overlay.active {
     width: 100vw;
     height: 100vh; }
+  .overlay.visible {
+    opacity: 0.8; }
 
 .warp {
   height: 100vh;
   padding-top: 82px;
-  -webkit-transition: all 320ms ease-in-out;
-  transition: all 320ms ease-in-out;
+  -webkit-transition: all 280ms ease-in-out;
+  transition: all 280ms ease-in-out;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0); }
   .warp.active {

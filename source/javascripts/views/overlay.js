@@ -11,7 +11,9 @@ function(
 
   // PRIVATE METHODS
   var warp = $(".warp"),
-      warpActive = "active";
+      warpActive = "active",
+      elemActive = "active",
+      elemVisible = "visible";
 
   var Overlay = Backbone.View.extend({
 
@@ -26,33 +28,36 @@ function(
 
       this.template = _.template(template({}));
       this.$el.html(this.template);
-      this.$el.hide();
 
       return this;
     },
 
     show: function () {
+      var _self = this;
       warp.removeClass(warpActive);
+      _self.$el.addClass(elemActive);
 
       setTimeout(function(){
-        this.$el.show();
-      },160);
+        _self.$el.addClass(elemVisible);
+      },140);
 
       setTimeout(function(){
         warp.addClass(warpActive);
-      },340);
+      },220);
     },
 
     hide: function () {
+      var _self = this;
       warp.addClass(warpActive);
-
-      setTimeout(function(){
-        this.$el.hide();
-      },160);
+      _self.$el.removeClass(elemVisible);
 
       setTimeout(function(){
         warp.removeClass(warpActive);
-      },340);
+      },120);
+
+      setTimeout(function(){
+        _self.$el.removeClass(elemActive);
+      },180);
     }
 
   });
