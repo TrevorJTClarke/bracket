@@ -24,10 +24,9 @@ function(
   return Backbone.Router.extend({
 
     routes: {
-      // When there is no hash on the url, the home method is called
-      "": "index",
       "login": "login",
-      "setup": "setup"
+      "setup": "setup",
+      "": "index"
     },
 
     initialize: function() {
@@ -44,16 +43,44 @@ function(
       new HeaderView();
     },
 
-    index: function() {
-      new MainIndexView();
+    loadView: function ( view ) {
+      if(this.view === undefined){
+        this.view = view;
+      } else {
+        console.log("this.view",this.view);
+        this.view.remove();
+        this.view = view;
+        this.view.render();
+        this.view.initialize();
+      }
     },
 
-    setup: function () {
-      new SetupIntroView();
+    hashChange : function(e) {
+      console.log("hashChange",e);
+    },
+
+    beforeUnload : function(e) {
+      console.log("beforeUnload",e, this.view);
+    },
+
+
+    /**
+     * -----------------------------------------------------
+     * Route Handlers
+     * -----------------------------------------------------
+     */
+
+    index: function() {
+      this.loadView(new MainIndexView());
     },
 
     login: function () {
-      new LoginSignupView();
-    }
+      this.loadView(new LoginSignupView());
+    },
+
+    setup: function () {
+      this.loadView(new SetupIntroView());
+    },
+
   });
 });

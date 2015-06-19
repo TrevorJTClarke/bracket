@@ -13,7 +13,7 @@ function(
 
   var CookieModel = Backbone.Model.extend({
 
-    keys: [],
+    keys: ["token"],
 
     initialize: function () {
       return this;
@@ -45,15 +45,16 @@ function(
     },
 
     remove: function (key) {
-      this.set(key,"-",-1);
+      this.store(key,"-",-1);
     },
 
     clearAll: function () {
       var keyArray = this.keys,
           _self = this;
+        console.log("keyArray",keyArray);
       if(keyArray.length > 0){
         for (var i = 0; i < keyArray.length; i++) {
-          _self.set( keyArray[i],"-",-1 );
+          _self.store( keyArray[i],"-",-1 );
         }
         _self.keys = [];
       }

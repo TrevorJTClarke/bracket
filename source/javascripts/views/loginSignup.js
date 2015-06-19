@@ -19,6 +19,10 @@ function(
   var activeBtn = "btn-active";
   var activeSection = "ls-active";
 
+  function hasClass( el, style ) {
+    return el.classList.contains(style);
+  }
+
   function createInitials( str, str2 ) {
     return (str.charAt(0) + str2.charAt(0)).toUpperCase();
   }
@@ -47,9 +51,8 @@ function(
       this.isLogin = true;
 
       // disable signup, just show login
-      // $('#loginSection').addClass("ls-active");
-      $('#signupSection').addClass("ls-active");
-      this.$("#tabSignup").toggleClass(activeBtn);
+      $('#loginSection').addClass("ls-active");
+      this.$("#tabLogin").toggleClass(activeBtn);
     },
 
     render: function() {
@@ -59,7 +62,13 @@ function(
       return this;
     },
 
-    toggleSections: function () {
+    close: function() {
+      console.log("this.remove",this.remove);
+  		this.remove();
+  	},
+
+    toggleSections: function (e) {
+      if(hasClass(e.currentTarget, "btn-active")){ return; }
 
       this.isLogin = !this.isLogin;
       this.$("#loginSection").toggleClass(activeSection);
@@ -89,8 +98,8 @@ function(
       // start session
       Session.login( user )
         .then(function (res) {
-          console.log("session login res",res);
-          // TODO: redirect to user profile
+          console.log("window.router",router);
+          router.navigate("", true);
         },function (err) {
           console.log("session login err",err);
           // TODO: show error message
@@ -122,19 +131,17 @@ function(
       newUserData.initials = createInitials( newUserData.firstName, newUserData.lastName );
       newUserData.color = newUserData.color.replace("#", "").toUpperCase();
 
-      console.log("newUserData",newUserData);
-
       // create new user
       _self.model.set( newUserData )
         .save()
         .then(function(res) {
-          console.log("res",res);
           Session.setAuth( res );
           User.cache( newUserData );
           // go to main view
           Backbone.history.navigate("");
         }, function (err) {
           console.log("err",err);
+          // TODO: SHow error message
         });
     }
 

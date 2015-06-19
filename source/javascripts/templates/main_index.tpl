@@ -5,5 +5,6 @@
       <h3>{{firstName}} {{lastName}}</h3>
       <span>{{email}}</span>
     </div>
+    <button class="btn btn-default">Logout</button>
   </div>
 </div>

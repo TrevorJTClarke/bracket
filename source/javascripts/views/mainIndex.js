@@ -2,13 +2,15 @@ define([
   'jquery',
   'backbone',
   'hbars!templates/main_index',
-  'models/User'
+  'models/user',
+  'models/session'
 ],
 function(
   $,
   Backbone,
   template,
-  User
+  User,
+  Session
 ) {
 
   return Backbone.View.extend({
@@ -17,25 +19,33 @@ function(
 
     model: User,
 
-    events: {},
+    events: {
+      'click button': 'logout'
+    },
 
     initialize: function() {
       var _self = this;
 
-      this.render();
-      // TODO: change all this
-      this.listenTo(_self.model, 'change', this.render);
-      this.model.on('change', this.render, this);
+      _self.render();
+      _self.listenTo(_self.model, 'change', this.render);
     },
 
     render: function() {
       var _self = this;
-      // console.log("User.get(res)",_self.model.attributes);
 
-      this.template = _.template(template( _self.model.attributes ));
-      this.$el.html(this.template);
+      _self.template = _.template(template( _self.model.attributes ));
+      _self.$el.html(this.template);
 
       return this;
+    },
+
+    close: function() {
+      console.log("this.remove",this.remove);
+  		this.remove();
+  	},
+
+    logout: function () {
+      Session.logout();
     }
 
   });
