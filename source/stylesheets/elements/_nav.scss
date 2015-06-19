@@ -2,19 +2,23 @@
 header {
     position: fixed;
     width: 100%;
-    margin: 40px 0;
+    height: 82px;
+    margin: 0;
     padding-right: 10px;
     padding-left: 10px;
-    z-index: 9999;
+    overflow: hidden;
+    z-index: 9999999;
 
     .navbar {
         background: $darkmain;
         color: $white;
+        height: 84px;
+        margin:0;
 
         .logo {
             display: block;
             width: 30px;
-            margin: 7px auto 0;
+            margin: 20px auto 0;
             font-size: 26px;
             font-weight: 100;
         }

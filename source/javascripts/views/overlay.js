@@ -13,7 +13,7 @@ function(
   var warp = $(".warp"),
       warpActive = "active";
 
-  return Backbone.View.extend({
+  var Overlay = Backbone.View.extend({
 
     el: '.overlay',
 
@@ -37,7 +37,7 @@ function(
       setTimeout(function(){
         this.$el.show();
       },160);
-      
+
       setTimeout(function(){
         warp.addClass(warpActive);
       },340);
@@ -56,4 +56,6 @@ function(
     }
 
   });
+
+  return new Overlay();
 });

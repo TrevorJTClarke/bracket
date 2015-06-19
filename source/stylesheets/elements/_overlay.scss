@@ -1,5 +1,18 @@
 /* Overlay */
-.overlay {}
+.overlay {
+  background: $main;
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  left: 0;
+  top:0;
+  z-index: 999999;
+
+  &.active {
+    width: 100vw;
+    height: 100vh;
+  }
+}
 
 .overlay-cover {
 
@@ -8,7 +21,7 @@
 
 .warp {
   height: 100vh;
-  padding-top: 60px;
+  padding-top: 82px;
   -webkit-transition: all 320ms ease-in-out;
   transition: all 320ms ease-in-out;
   -webkit-transform: translate3d(0, 0, 0);

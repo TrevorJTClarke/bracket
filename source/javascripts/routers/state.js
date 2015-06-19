@@ -1,11 +1,25 @@
 define([
   'jquery',
-  'routers/mainRouter'
+  'routers/mainRouter',
+  'views/overlay'
 ],
 function(
   $,
-  Router
+  Router,
+  Overlay
 ) {
+
+  /**
+   * State Manager
+   * Control the flow between routes, and simplify transitions between views
+   *
+   * Workflow:
+   * 	1. Keep initial view and show the overlay
+   * 	2. Fade out the initial view
+   * 	3. Load next view
+   * 	4. Fade in next view
+   * 	5. Remove the overlay and update the history change
+   */
 
   var stateManager = function () {
 
@@ -14,27 +28,24 @@ function(
     };
 
     this.transitionIn = function ( view ) {
-
+      // show overlay
+      this.overlay.show();
     };
 
     this.transitionOut = function ( view ) {
+      // remove overlay
+      this.overlay.hide();
 
     };
 
-    this.overlay = function () {
-
-      return {
-
-        show: function () {
-
-        },
-
-        hide: function () {
-
-        }
-
-      };
-    };
+    /**
+     * Instanced Methods of Overlay Module
+     *
+     * USE:
+     * overlay.show()
+     * overlay.hide()
+     */
+    this.overlay = Overlay;
 
   };
 
