@@ -13,7 +13,7 @@ function(
 
   var CookieModel = Backbone.Model.extend({
 
-    keys: ["token"],
+    keys: [],
 
     initialize: function () {
       return this;
@@ -37,8 +37,7 @@ function(
     		var date = new Date();
     		date.setTime(date.getTime()+(time*24*60*60*1000));
     		var expires = "; expires="+date.toGMTString();
-    	}
-    	else var expires = "";
+    	} else { var expires = ""; }
     	// set the cookie
       document.cookie = key+"="+str+expires+"; path=/";
       this.keys.push(key);
@@ -51,12 +50,13 @@ function(
     clearAll: function () {
       var keyArray = this.keys,
           _self = this;
-        console.log("keyArray",keyArray);
       if(keyArray.length > 0){
-        for (var i = 0; i < keyArray.length; i++) {
+        for (var i = keyArray.length - 1; i >= 0; i--) {
           _self.store( keyArray[i],"-",-1 );
         }
         _self.keys = [];
+      } else {
+        _self.store("token","-",-1);
       }
     }
 

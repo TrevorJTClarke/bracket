@@ -91,7 +91,7 @@ define([
       _self.destroy({
         success: function (model,err) {
           _self.set({ auth: false, sessionToken: null });
-          router.navigate("login", true);
+          // router.navigate("login", true);
         }
       });
     },

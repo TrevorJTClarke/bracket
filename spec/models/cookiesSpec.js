@@ -3,12 +3,11 @@ define(['models/cookies'], function(Cookies) {
     var Cookie = Cookies;
     var testToken = "fdsa543-fds54-234k-23476-fjdskSI";
 
-    afterEach(function (done) {
-      Cookie.clearAll();
-      setTimeout(function(){
-        done();
-      },4);
-    });
+    function createFakeCookies() {
+      Cookie.store("A", "234ABC");
+      Cookie.store("B", "23sd4ABC");
+      Cookie.store("C", "234AfdsaBC");
+    }
 
     it('should be defined', function() {
       expect(Cookie).toBeDefined();
@@ -112,16 +111,8 @@ define(['models/cookies'], function(Cookies) {
     // All the clearAll Method tests
     describe('.clearAll()', function() {
 
-      beforeEach(function(done) {
+      beforeEach(function() {
         spyOn(Cookie, 'clearAll').and.callThrough();
-        // create some fake cookies
-        Cookie.store("A", "234ABC");
-        Cookie.store("B", "23sd4ABC");
-        Cookie.store("C", "234AfdsaBC");
-
-        setTimeout(function(){
-          done();
-        },4);
       });
 
       it('should have method', function() {
@@ -130,6 +121,8 @@ define(['models/cookies'], function(Cookies) {
 
       it('clearAll method can remove all cookies correctly', function(done) {
         var finalCookies;
+        // create some fake cookies
+        createFakeCookies();
 
         // then clear all the cookies
         Cookie.clearAll();
@@ -137,7 +130,7 @@ define(['models/cookies'], function(Cookies) {
         setTimeout(function () {
           finalCookies = Cookie.find("C");
           done();
-        },10);
+        },4);
         expect(finalCookies).toBeUndefined();
       });
 

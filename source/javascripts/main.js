@@ -42,8 +42,7 @@ function(Router) {
   // watch the routes
   window.router = new Router();
   $(window).on("hashchange", router.hashChange);
-  $(window).on("beforeunload", router.beforeUnload);
-  window.router.on("route", function(route, params) {
-    console.log("Different Page: " + route);
-  });
+  // window.router.on("route", function(route, params) {
+  //   console.log("Different Page: " + route);
+  // });
 });
