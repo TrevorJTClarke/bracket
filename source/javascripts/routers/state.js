@@ -23,7 +23,7 @@ function(
 
   //  PRIVATE
   var mainEl = $(".main-container"),
-      hidden = "hidden";
+      hidden = "invisible";
 
   var stateManager = function () {
 
@@ -33,25 +33,25 @@ function(
 
     this.go = function ( view ) {
       var _self = this;
-      _self.transitionIn();
+      _self.transitionOut();
 
       setTimeout(function(){
-        _self.transitionOut();
+        _self.transitionIn();
       },1000);
     };
 
     this.transitionIn = function ( view ) {
       // show overlay
-      this.overlay.show();
-      setTimeout(function(){
-        mainEl.addClass( hidden );
-      },420);
+      this.overlay.hide();
+      mainEl.removeClass( hidden );
     };
 
     this.transitionOut = function ( view ) {
       // remove overlay
-      this.overlay.hide();
-      mainEl.removeClass( hidden );
+      this.overlay.show();
+      setTimeout(function(){
+        mainEl.addClass( hidden );
+      },420);
     };
 
     /**

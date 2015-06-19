@@ -102,7 +102,10 @@ function(
       Session.login( user )
         .then(function (res) {
           console.log("window.router",router);
-          router.navigate("", true);
+          State.go();
+          setTimeout(function(){
+            router.navigate("", true);
+          },420);
         },function (err) {
           console.log("session login err",err);
           // TODO: show error message

@@ -36,7 +36,7 @@ ul {
   transition: opacity 160ms ease-in-out;
   opacity: 1;
 
-  &.hidden {
+  &.invisible {
     opacity: 0;
   }
 }

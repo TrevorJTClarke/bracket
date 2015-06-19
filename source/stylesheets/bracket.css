@@ -140,7 +140,7 @@ ul {
   -webkit-transition: opacity 160ms ease-in-out;
   transition: opacity 160ms ease-in-out;
   opacity: 1; }
-  .main-container.hidden {
+  .main-container.invisible {
     opacity: 0; }
 
 /**

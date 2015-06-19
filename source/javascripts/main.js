@@ -47,8 +47,11 @@ function(Router, State) {
   //   console.log("Different Page: " + route);
   // });
 
-  setTimeout(function(){
-    State.go();
-  },1000);
+  window.State = State;
+
+  // TEST:
+  // setTimeout(function(){
+  //   State.go();
+  // },1000);
 
 });
