@@ -1,0 +1,21 @@
+/* Overlay */
+.overlay {}
+
+.overlay-cover {
+
+  .overlay-icon {}
+}
+
+.warp {
+  height: 100vh;
+  padding-top: 60px;
+  -webkit-transition: all 320ms ease-in-out;
+  transition: all 320ms ease-in-out;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+  &.active {
+    -webkit-filter: blur(15px);
+    transform: translate3d(0, 0, 0);
+  }
+}

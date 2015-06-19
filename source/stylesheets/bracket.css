@@ -256,15 +256,17 @@ header {
       font-size: 26px;
       font-weight: 100; }
 
-/* small padding underneath header*/
-.header-pad,
-.footer-pad {
-  width: 100%;
-  padding: 0;
-  height: 50px; }
-
-.footer-pad {
-  height: 75px; }
+/* Overlay */
+.warp {
+  height: 100vh;
+  padding-top: 60px;
+  -webkit-transition: all 320ms ease-in-out;
+  transition: all 320ms ease-in-out;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+  .warp.active {
+    -webkit-filter: blur(15px);
+    transform: translate3d(0, 0, 0); }
 
 /**
  * Setup Intro Styling

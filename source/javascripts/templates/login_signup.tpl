@@ -42,5 +42,3 @@
     </form>
   </div>
 </div>
-
-<div class="footer-pad"></div>
