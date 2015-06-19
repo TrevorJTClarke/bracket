@@ -1,36 +1,35 @@
-define(['jquery', 'backbone'], function($, Backbone) {
+define([
+  'jquery',
+  'backbone',
+  'collections/players',
+  'models/player'
+],
+function(
+  $,
+  Backbone,
+  Players,
+  Player
+){
 
   // Creates a new Backbone Model class object
   return Backbone.Model.extend({
+    className: "Championship",
     tierNamespace: 'tier_',
 
-    // TODO: setup to tie to a DB
     initialize: function() {
+      // this.set("players", new Players() );
+
       return this;
     },
 
     defaults: {
       'title': 'Championship 1',
-      'users': {},
-      'bracket': {
-        'tiers': 0
-      }
+      'players_ref': null,
+      'tiers': 0
     },
 
     //
     validate: function(attrs) {},
-
-    /**
-      * set anything new, then store into DB
-      * @param  {Object} data model of the entire Championship data, setting anything here will modify defaults, and add new attributes
-      * @return {null}
-      *
-      * TODO: finish this method
-      */
-    createNew: function(data) {
-      var _self = this;
-      _self.attributes = $.extend(true, _self.attributes, data);
-    },
 
     /**
       * adds user into the Championship.users data
@@ -43,11 +42,12 @@ define(['jquery', 'backbone'], function($, Backbone) {
       * 		lastName: "Last"
       * }
       */
-    addUser: function(data) {
-      var users = this.get('users');
-      
+    addPlayer: function(data) {
+      // TODO:
+      var users = this.get('players');
+
       users[data.id] = data;
-      this.set('users', users);
+      this.set('players', users);
     },
 
     /**
@@ -55,10 +55,11 @@ define(['jquery', 'backbone'], function($, Backbone) {
       * @param  {String} userId is the unique ID of the user, based off their hash
       * @return {Object}        user data object, see above example
       */
-    getUserById: function(userId) {
-      var usersData = this.get('users');
-
-      return usersData[userId];
+    getPlayerById: function(userId) {
+      // TODO:
+      // var usersData = this.get('users');
+      //
+      // return usersData[userId];
     },
 
     /**
@@ -75,7 +76,7 @@ define(['jquery', 'backbone'], function($, Backbone) {
 
         // setup the baseline data for the tiers
         bracket[newTierName] = [{
-            users: [],
+            players: [],
             winner: null,
             status: 'new'
         }];
@@ -109,7 +110,7 @@ define(['jquery', 'backbone'], function($, Backbone) {
       * @param  {number} tierPosition (Optional) - sets the user at a specific tier position
       * @param  {number} gamePosition (Optional) - sets the user at a specific game position
       */
-    addUserToTier: function(tierId, userId, tierPosition, gamePosition) {
+    addPlayerToTier: function(tierId, userId, tierPosition, gamePosition) {
       if(!tierId || !userId) {
         return;
       }

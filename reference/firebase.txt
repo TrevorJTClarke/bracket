@@ -1,0 +1,14 @@
+FIREBASE
+
+BASE_URL:
+https://flickering-heat-8044.firebaseio.com/
+
+SCHEMA OVERVIEW:
+{
+  users: [],
+  championships: [],
+  stats: {
+
+  }
+
+}

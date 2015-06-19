@@ -1,59 +1,73 @@
 /**
- * Input Reset Styling
+ * Button Styling
  */
 .btn {
-    display: block;
-    padding: 15px 12px;
-    margin-bottom: 0;
-    width: 100%;
-    font-size: 21px;
-    font-weight: normal;
-    line-height: 1.428571429;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-    outline: 0;
-    position: relative;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  box-shadow: 0 0 0;
+  display: block;
+  padding: 15px 12px;
+  margin-bottom: 0;
+  width: 100%;
+  font-size: 21px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  outline: 0;
+  position: relative;
 
-    &:active,
-    &:focus {
-        outline: 0;
-    }
+  &:active,
+  &:focus {
+      outline: 0;
+      box-shadow: 0 0 0;
+  }
 
-    &.btn-fixed-bottom {
-      position: fixed;
-      bottom:0;
-      margin: 0 0 0 -10px;
-      border-radius: 0;
-      z-index: 99999;
-    }
+  &.btn-fixed-bottom {
+    position: fixed;
+    bottom:0;
+    margin: 0 0 0 -10px;
+    border-radius: 0;
+    z-index: 99999;
+  }
+
+  &:hover {
+/*     color: $grey01;
+background-color: $main;
+border-color: $darkmain; */
+  }
+
+  &.btn-default {
+    color: $grey01;
+    background-color: $darkmain;
+    border-color: $darkmain;
 
     &:hover {
-        color: $grey01;
-        background-color: $main;
-        border-color: $darkmain;
+      outline: 0;
+      color: $grey01;
+      background-color: darken($darkmain, 5%);
+      border-color: darken($darkmain, 10%);
     }
 
-    &.btn-default {
-        color: $grey01;
-        background-color: $darkmain;
-        border-color: $darkmain;
+  }
 
-        &:hover {
-            outline: 0;
-            color: $grey01;
-            background-color: darken($darkmain, 5%);
-            border-color: darken($darkmain, 10%);
-        }
+  &.btn-tabs {
+    color: $grey05;
+    border-bottom: 2px solid transparent;
 
+    &.btn-active {
+      border-bottom: 2px solid $main;
+      color: $main;
     }
+
+  }
 }

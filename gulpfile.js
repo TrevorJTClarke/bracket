@@ -31,7 +31,7 @@ var reload      = browserSync.reload;
 // });
 // compile all the templates into something worth using
 gulp.task('templatify', function () {
-    gulp.src('./source/javascripts/templates/*.html')
+    gulp.src('./source/javascripts/templates/*.tpl')
         .pipe(template())
         .pipe(concat('templates.js'))
         .pipe(gulp.dest('dist'));
@@ -98,12 +98,12 @@ gulp.task('sass:watch', function () {
 /**
  * watchers
  */
-var watcherJs = gulp.watch('./source/javascripts/**/*.js', [
-    'smash',
-    'compress',
-    'templatify',
-    'copy'
-], { cwd: 'source' }, reload);
+// var watcherJs = gulp.watch('./source/javascripts/**/*.js', [
+//     'smash',
+//     'compress',
+//     'templatify',
+//     'copy'
+// ], { cwd: 'source' }, reload);
 var watcherSass = gulp.watch('./source/stylesheets/**/*.scss', [
     'sass',
     'sass:watch'
@@ -114,7 +114,8 @@ gulp.task('serve', function() {
     browserSync({
         server: {
             baseDir: 'source'
-        }
+        },
+        notify: false
     });
     // watcherJs.on('change', function(event) {
     //     console.log('JS File was ' + event.type + ', running tasks...'); // ' + event.path + '

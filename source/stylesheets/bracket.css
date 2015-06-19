@@ -155,11 +155,32 @@ input {
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
   input:focus {
     outline: 0; }
+  input[type=color] {
+    height: 60px;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    position: relative; }
+    input[type=color]:after {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -10px 0 0 -66px;
+      content: "Choose Color";
+      font-size: 16px;
+      color: #F9F9F9;
+      text-shadow: -1px -1px rgba(0, 0, 0, 0.3);
+      text-transform: uppercase; }
 
 /**
- * Input Reset Styling
+ * Button Styling
  */
 .btn {
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  box-shadow: 0 0 0;
   display: block;
   padding: 15px 12px;
   margin-bottom: 0;
@@ -171,9 +192,6 @@ input {
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 2px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -183,7 +201,8 @@ input {
   position: relative; }
   .btn:active,
   .btn:focus {
-    outline: 0; }
+    outline: 0;
+    box-shadow: 0 0 0; }
   .btn.btn-fixed-bottom {
     position: fixed;
     bottom: 0;
@@ -191,9 +210,9 @@ input {
     border-radius: 0;
     z-index: 99999; }
   .btn:hover {
-    color: #f9f9f9;
-    background-color: #1D677E;
-    border-color: #155062; }
+    /*     color: $grey01;
+background-color: $main;
+border-color: $darkmain; */ }
   .btn.btn-default {
     color: #f9f9f9;
     background-color: #155062;
@@ -203,6 +222,20 @@ input {
       color: #f9f9f9;
       background-color: #103f4d;
       border-color: #0c2e38; }
+  .btn.btn-tabs {
+    color: #7f8687;
+    border-bottom: 2px solid transparent; }
+    .btn.btn-tabs.btn-active {
+      border-bottom: 2px solid #1D677E;
+      color: #1D677E; }
+
+/**
+ * btn-group Styling
+ */
+.btn-group {
+  display: flex; }
+  .btn-group .btn {
+    flex: 1; }
 
 /* Elements */
 /* navigation */
@@ -243,27 +276,20 @@ header {
   flex-wrap: wrap;
   padding: 5px; }
   .player .player-avatar {
+    background: #1472ad;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
     color: #FFFFFF;
     text-align: center;
     font-size: 26px;
     font-weight: 100;
     padding: 10px 0 0;
     width: 55px;
-    height: 55px;
+    height: 56px;
     flex: 1;
     position: relative;
-    z-index: 1; }
-    .player .player-avatar:before {
-      background: #1472ad;
-      background: yellow;
-      border-radius: 50%;
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; }
+    z-index: 1;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1); }
   .player .player-meta {
     flex: 5;
     position: relative; }
@@ -291,6 +317,8 @@ header {
 .setup-intro {
   width: 100%;
   margin: 40px auto 0; }
+  .setup-intro .row {
+    display: none; }
   .setup-intro h3 {
     text-align: center;
     margin: 0 0 25px; }
@@ -301,9 +329,20 @@ header {
     padding: 12px;
     width: 100%;
     display: block; }
+  .setup-intro .show {
+    display: block; }
 
 /* Modules */
 /* Pages */
+/* Login Sign Up */
+.ls-tabs {
+  margin: 10px 0; }
+
+.ls-section {
+  display: none; }
+  .ls-section.ls-active {
+    display: block; }
+
 /* Responsive */
 /* responsive */
 /* Mobile */

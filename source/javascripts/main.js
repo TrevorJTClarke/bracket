@@ -1,46 +1,48 @@
 require.config({
 
-  // Sets the js folder as the base directory for all future relative paths
-  baseUrl: "/",
-
-  // 3rd party script alias names (Easier to type "jquery" than "libs/jquery, etc")
-  // probably a good idea to keep version numbers in the file names for updates checking
-  paths: {
+  'baseUrl': '/',
+  'paths': {
     // Core Libraries
     // --------------
-    "jquery": "javascripts/lib/jquery",
-    "underscore": "javascripts/lib/underscore",
-    "backbone": "javascripts/lib/backbone",
+    'jquery': 'javascripts/lib/jquery',
+    'underscore': 'javascripts/lib/underscore',
+    'backbone': 'javascripts/lib/backbone',
 
     // Plugins
     // -------
-    "backbone.localStorage": "javascripts/lib/backbone.localStorage",
-    "text": "javascripts/lib/text",
+    'text': 'javascripts/lib/text',
+    'Handlebars': 'javascripts/lib/handlebars',
+    'hbars': 'javascripts/lib/hbars',
 
     // Base Files
     // ----------
-    "views": "javascripts/views",
-    "models": "javascripts/models",
-    "routers": "javascripts/routers",
-    "templates": "javascripts/templates",
-    "collections": "javascripts/collections"
+    'views': 'javascripts/views',
+    'models': 'javascripts/models',
+    'routers': 'javascripts/routers',
+    'templates': 'javascripts/templates',
+    'collections': 'javascripts/collections'
   },
 
   // Sets the configuration for your third party scripts that are not AMD compatible
-  shim: {
-    // Backbone.validateAll plugin that depends on Backbone
-    "backbone.localStorage": ["backbone"]
+  'shim': {
+    'Handlebars': {
+      'exports': 'Handlebars'
+    }
+  },
+
+  'hbars': {
+    'extension': '.tpl'
   }
 
 });
-
-require(['jquery', 'backbone', 'routers/mainRouter'],
-
-  function($, Backbone, MainRouter) {
-
-    // Instantiates a new Desktop Router instance
-    new MainRouter();
-
-  }
-
-);
+require([
+  'routers/mainRouter'
+],
+function(Router) {
+  // watch the routes
+  window.router = new Router();
+  $(window).on("hashchange", router.hashChange);
+  // window.router.on("route", function(route, params) {
+  //   console.log("Different Page: " + route);
+  // });
+});

@@ -1,6 +1,10 @@
-define(['backbone'], function(Backbone) {
+define([
+  'backbone'
+], function(
+  Backbone
+) {
 
-  return Backbone.Model.extend({
+  var HeaderModel = Backbone.Model.extend({
 
     initialize: function() {
       return this;
@@ -15,5 +19,7 @@ define(['backbone'], function(Backbone) {
     validate: function(attrs) {}
 
   });
+
+  return new HeaderModel();
 
 });
