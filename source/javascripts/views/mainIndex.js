@@ -49,7 +49,7 @@ function(
   	},
 
     logout: function () {
-      console.log("this.logout");
+      State.go("login");
       Session.logout();
     }
 

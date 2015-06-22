@@ -30,15 +30,15 @@ function(
     },
 
     initialize: function() {
-      Backbone.history.start();
-
-      // Check the session on start
-      Session.getAuth()
-        .then(function (res) {
-          Backbone.history.navigate("");
-        },function (err) {
-          Backbone.history.navigate("login");
-        });
+      // Backbone.history.start();
+      //
+      // // Check the session on start
+      // Session.getAuth()
+      //   .then(function (res) {
+      //     Backbone.history.navigate("", true);
+      //   },function (err) {
+      //     Backbone.history.navigate("login", true);
+      //   });
 
       new HeaderView();
     },
@@ -47,7 +47,7 @@ function(
       if(this.view === undefined){
         this.view = view;
       } else {
-        console.log("this.view",this.view);
+        // console.log("this.view",this.view);
         this.view.remove();
         this.view = view;
         // this.view.render();
@@ -55,12 +55,8 @@ function(
       }
     },
 
-    hashChange : function(e) {
+    hashChange: function(e) {
       console.log("hashChange",e);
-    },
-
-    beforeUnload : function(e) {
-      console.log("beforeUnload",e, this.view);
     },
 
 

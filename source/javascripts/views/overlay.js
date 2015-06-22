@@ -13,6 +13,7 @@ function(
 
   // PRIVATE METHODS
   var elemActive = "active",
+      elemVisible = "visible",
       offsetDefault = 520;
 
   var Overlay = Backbone.View.extend({
@@ -41,6 +42,7 @@ function(
       var dfd = Q.defer();
 
       offset = offset || offsetDefault;
+      this.$el.addClass(elemVisible);
       this.$el.addClass(elemActive);
 
       // use offset to all promise to return at given time offset
@@ -57,13 +59,15 @@ function(
      * @return {Promise}        Allows for other methods to wait rather than callbacks
      */
     hide: function ( offset ) {
-      var dfd = Q.defer();
+      var dfd = Q.defer(),
+          _self = this;
 
       offset = offset || offsetDefault;
       this.$el.removeClass(elemActive);
 
       // use offset to all promise to return at given time offset
       setTimeout(function(){
+        _self.$el.removeClass(elemVisible);
         dfd.resolve();
       }, offset);
 

@@ -11,6 +11,7 @@ define([
   'jquery',
   'Q',
   'backbone',
+  'models/session',
   'routers/mainRouter',
   'views/overlay'
 ],
@@ -18,6 +19,7 @@ function(
   $,
   Q,
   Backbone,
+  Session,
   Router,
   Overlay
 ) {
@@ -35,7 +37,8 @@ function(
 
   //  PRIVATE
   var mainEl = $(".main-container"),
-      hidden = "invisible";
+      hidden = "invisible",
+      offsetDefault = 500;
 
   var stateManager = function () {
 
@@ -47,14 +50,21 @@ function(
 
     this.initialize = function () {
       var _self = this;
-      $(window).on("hashchange", _self.router.hashChange);
+      // $(window).on("hashchange", _self.router.hashChange);
+
+      // TEST
+      Backbone.history.start();
+      _self.go("");
+
+
+
       // window.router.on("route", function(route, params) {
       //   console.log("Different Page: " + route);
       // });
 
     };
 
-    this.go = function ( url, params ) {
+    this.go = function ( url ) {
       if(this.isTransitioning === true){ return; }
       var _self = this;
 
@@ -63,23 +73,30 @@ function(
         .then(function () {
           // Wait to actually go until halfway through
           _self.router.navigate( url, true);
+        },function () {
+          Backbone.history.navigate("login", true);
         });
     };
 
     this.controlFlow = function () {
       var dfd = Q.defer(),
-          _self = this;
+          _self = this,
+          isValid = Session.checkAuth();
 
-      _self.transitionStart();
+      if(isValid === true){
+        _self.transitionStart();
 
-      setTimeout(function(){
-        _self.transitionEnd();
-      },500);
+        setTimeout(function(){
+          _self.transitionEnd();
+        }, offsetDefault);
 
-      // use offset to all promise to return at given time offset
-      setTimeout(function(){
-        dfd.resolve();
-      }, 250);
+        // use offset to all promise to return at given time offset
+        setTimeout(function(){
+          dfd.resolve();
+        }, offsetDefault / 2);
+      } else {
+        dfd.reject();
+      }
 
       return dfd.promise;
     },
@@ -96,8 +113,8 @@ function(
 
       // reset the views
       this.isTransitioning = false;
-      this.prev = this.next;
-      this.next = null;
+      // this.prev = this.next;
+      // this.next = null;
     };
 
     /**

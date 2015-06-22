@@ -279,13 +279,14 @@ header {
   left: 0;
   top: 0;
   z-index: 999999;
-  /* opacity: 0; */ }
-  .overlay.active {
-    /* opacity: 1; */ }
-    .overlay.active .overlay-bold {
-      -webkit-transform: translate3d(-550px, 0, 0) rotate(-65deg); }
-    .overlay.active .overlay-lite {
-      -webkit-transform: translate3d(-550px, 0, 0) rotate(-65deg); }
+  overflow: hidden; }
+  .overlay.visible {
+    width: 100vw;
+    height: 100vh; }
+  .overlay.active .overlay-bold {
+    -webkit-transform: translate3d(-550px, 0, 0) rotate(-65deg); }
+  .overlay.active .overlay-lite {
+    -webkit-transform: translate3d(-550px, 0, 0) rotate(-65deg); }
   .overlay .overlay-bold,
   .overlay .overlay-lite {
     width: 250vh;

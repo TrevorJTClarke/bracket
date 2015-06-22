@@ -91,7 +91,6 @@ define([
       _self.destroy({
         success: function (model,err) {
           _self.set({ auth: false, sessionToken: null });
-          // router.navigate("login", true);
         }
       });
     },
@@ -143,6 +142,15 @@ define([
       if(!data || !data.sessionToken){ return; }
       Cookie.store("token", data.sessionToken);
       this.set({ auth: true, sessionToken: data.sessionToken });
+    },
+
+    /**
+     * quick dirty check session token
+     * @return {Boolean}
+     */
+    checkAuth: function() {
+      var token = Cookie.find("token");
+      return (token && token.length > 10)? true : false;
     }
 
   });

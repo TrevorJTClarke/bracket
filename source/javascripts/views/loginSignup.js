@@ -101,8 +101,6 @@ function(
       // start session
       Session.login( user )
         .then(function (res) {
-          // console.log("window.router",router);
-          console.log("State", State);
           State.go("");
         },function (err) {
           console.log("session login err",err);
