@@ -41,23 +41,10 @@ require.config({
 });
 require([
   'routers/mainRouter',
-  'routers/state',
-  'Q'
+  'routers/state'
 ],
-function(Router, State, Q) {
-  console.log(Q.defer());
+function(Router, State) {
   // watch the routes
-  window.router = new Router();
-  $(window).on("hashchange", router.hashChange);
-  // window.router.on("route", function(route, params) {
-  //   console.log("Different Page: " + route);
-  // });
-
   window.State = State;
-
-  // TEST:
-  // setTimeout(function(){
-  //   State.go();
-  // },1000);
-
+  State.initialize();
 });

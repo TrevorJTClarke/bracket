@@ -12,7 +12,8 @@ function(
 ) {
 
   // PRIVATE METHODS
-  var elemActive = "active";
+  var elemActive = "active",
+      offsetDefault = 520;
 
   var Overlay = Backbone.View.extend({
 
@@ -20,22 +21,6 @@ function(
 
     initialize: function() {
       this.render();
-      var _self = this;
-
-      // TESTING:
-      setTimeout(function(){
-        _self.hide();
-      },2000);
-      setTimeout(function(){
-        _self.show();
-      },4000);
-      setTimeout(function(){
-        _self.hide();
-      },6000);
-      setTimeout(function(){
-        _self.show();
-      },8000);
-
       return this;
     },
 
@@ -55,7 +40,7 @@ function(
     show: function ( offset ) {
       var dfd = Q.defer();
 
-      offset = offset || 180;
+      offset = offset || offsetDefault;
       this.$el.addClass(elemActive);
 
       // use offset to all promise to return at given time offset
@@ -74,7 +59,7 @@ function(
     hide: function ( offset ) {
       var dfd = Q.defer();
 
-      offset = offset || 180;
+      offset = offset || offsetDefault;
       this.$el.removeClass(elemActive);
 
       // use offset to all promise to return at given time offset
