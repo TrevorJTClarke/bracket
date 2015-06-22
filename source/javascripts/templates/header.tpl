@@ -5,4 +5,3 @@
         </div>
     </nav>
 </header>
-<div class="header-pad"></div>

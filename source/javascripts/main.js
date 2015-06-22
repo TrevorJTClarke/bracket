@@ -4,6 +4,7 @@ require.config({
   'paths': {
     // Core Libraries
     // --------------
+    'Q': 'javascripts/lib/q.min',
     'jquery': 'javascripts/lib/jquery',
     'underscore': 'javascripts/lib/underscore',
     'backbone': 'javascripts/lib/backbone',
@@ -27,6 +28,9 @@ require.config({
   'shim': {
     'Handlebars': {
       'exports': 'Handlebars'
+    },
+    'Q': {
+      'exports': 'Q'
     }
   },
 
@@ -36,13 +40,11 @@ require.config({
 
 });
 require([
-  'routers/mainRouter'
+  'routers/mainRouter',
+  'routers/state'
 ],
-function(Router) {
+function(Router, State) {
   // watch the routes
-  window.router = new Router();
-  $(window).on("hashchange", router.hashChange);
-  // window.router.on("route", function(route, params) {
-  //   console.log("Different Page: " + route);
-  // });
+  window.State = State;
+  State.initialize();
 });

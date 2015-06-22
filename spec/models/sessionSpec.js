@@ -207,5 +207,28 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
 
     });
 
+    describe('.checkAuth()', function() {
+
+      beforeEach(function() {
+        spyOn(Session, 'checkAuth').and.callThrough();
+      });
+
+      it('should be defined', function() {
+        expect(Session.checkAuth).toBeDefined();
+      });
+
+      it('should return valid auth check', function() {
+        var isValid = Session.checkAuth();
+        expect(isValid).toBeTruthy();
+      });
+
+      it('should return invalid auth check', function() {
+        Session.logout();
+        var isInvalid = Session.checkAuth();
+        expect(isInvalid).toBeFalsy();
+      });
+
+    });
+
   });
 });

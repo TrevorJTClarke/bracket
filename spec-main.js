@@ -25,6 +25,7 @@ localStorage = new mock();
 require.config({
   baseUrl: '/base/source/javascripts',
   paths: {
+    'Q': 'lib/q.min',
     'jquery': 'lib/jquery',
     'jasminequery': 'lib/jasmine-jquery',
     'jasmineajax': 'lib/jasmine-ajax',
@@ -35,6 +36,9 @@ require.config({
     'hbars': 'lib/hbars',
   },
   shim: {
+    'Q': {
+      'exports': 'Q'
+    },
     'underscore': {
       exports: '_'
     },

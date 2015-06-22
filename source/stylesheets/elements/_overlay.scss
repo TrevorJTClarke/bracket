@@ -1,0 +1,60 @@
+/* Overlay */
+.overlay {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  left: 0;
+  top:0;
+  z-index: 999999;
+  overflow: hidden;
+
+  &.visible {
+      width: 100vw;
+      height: 100vh;
+  }
+
+  &.active {
+
+    .overlay-bold {
+      -webkit-transform: translate3d(-550px,0,0) rotate(-65deg);
+    }
+
+    .overlay-lite {
+      -webkit-transform: translate3d(-550px, 0,0) rotate(-65deg);
+    }
+  }
+
+  .overlay-bold,
+  .overlay-lite {
+    width: 250vh;
+    height: 300vw;
+    position: absolute;
+    left: 0;
+    top:0;
+    z-index: 999999;
+    -webkit-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+  }
+
+  .overlay-bold {
+    background-image:
+      repeating-linear-gradient(0deg,
+      lighten($darkmain, 4%),
+      lighten($darkmain, 4%) 72px,
+      transparent 72px,
+      transparent 140px);
+    -webkit-transform: translate3d(-970px, 900px,0) rotate(-65deg);
+    transform: translate3d(-970px, 900px,0) rotate(-65deg);
+  }
+
+  .overlay-lite {
+    background-image:
+      repeating-linear-gradient(0deg,
+      transparent,
+      transparent 68px,
+      $main 68px,
+      $main 140px);
+    -webkit-transform: translate3d(-14px, -1150px,0) rotate(-65deg);
+    transform: translate3d(-14px, -1150px,0) rotate(-65deg);
+  }
+}

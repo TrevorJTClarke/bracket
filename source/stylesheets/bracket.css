@@ -136,6 +136,17 @@ ul {
     margin: 0;
     padding: 0; }
 
+.main-container {
+  -webkit-transition: opacity 160ms ease-in-out;
+  transition: opacity 160ms ease-in-out;
+  opacity: 1; }
+  .main-container.invisible {
+    opacity: 0; }
+
+.warp {
+  height: 100vh;
+  padding-top: 82px; }
+
 /**
  * Input Reset Styling
  */
@@ -242,29 +253,58 @@ border-color: $darkmain; */ }
 header {
   position: fixed;
   width: 100%;
-  margin: 40px 0;
+  height: 82px;
+  margin: 0;
   padding-right: 10px;
   padding-left: 10px;
-  z-index: 9999; }
+  overflow: hidden;
+  z-index: 9999999; }
   header .navbar {
     background: #155062;
-    color: #FFFFFF; }
+    color: #FFFFFF;
+    height: 84px;
+    margin: 0; }
     header .navbar .logo {
       display: block;
       width: 30px;
-      margin: 7px auto 0;
+      margin: 20px auto 0;
       font-size: 26px;
       font-weight: 100; }
 
-/* small padding underneath header*/
-.header-pad,
-.footer-pad {
-  width: 100%;
-  padding: 0;
-  height: 50px; }
-
-.footer-pad {
-  height: 75px; }
+/* Overlay */
+.overlay {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 999999;
+  overflow: hidden; }
+  .overlay.visible {
+    width: 100vw;
+    height: 100vh; }
+  .overlay.active .overlay-bold {
+    -webkit-transform: translate3d(-550px, 0, 0) rotate(-65deg); }
+  .overlay.active .overlay-lite {
+    -webkit-transform: translate3d(-550px, 0, 0) rotate(-65deg); }
+  .overlay .overlay-bold,
+  .overlay .overlay-lite {
+    width: 250vh;
+    height: 300vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999999;
+    -webkit-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out; }
+  .overlay .overlay-bold {
+    background-image: repeating-linear-gradient(0deg, #195e73, #195e73 72px, transparent 72px, transparent 140px);
+    -webkit-transform: translate3d(-970px, 900px, 0) rotate(-65deg);
+    transform: translate3d(-970px, 900px, 0) rotate(-65deg); }
+  .overlay .overlay-lite {
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 68px, #1D677E 68px, #1D677E 140px);
+    -webkit-transform: translate3d(-14px, -1150px, 0) rotate(-65deg);
+    transform: translate3d(-14px, -1150px, 0) rotate(-65deg); }
 
 /**
  * Setup Intro Styling
@@ -348,7 +388,7 @@ header {
 /* Mobile */
 @media (max-width: 768px) {
   header {
-    margin: 10px 0; }
+    margin: 0; }
   .menu li {
     padding: 0 2px;
     box-sizing: border-box; }

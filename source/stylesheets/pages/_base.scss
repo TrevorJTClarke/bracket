@@ -29,3 +29,19 @@ ul {
         padding: 0;
     }
 }
+
+
+.main-container {
+  -webkit-transition: opacity 160ms ease-in-out;
+  transition: opacity 160ms ease-in-out;
+  opacity: 1;
+
+  &.invisible {
+    opacity: 0;
+  }
+}
+
+.warp {
+  height: 100vh;
+  padding-top: 82px;
+}

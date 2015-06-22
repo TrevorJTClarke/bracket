@@ -101,8 +101,7 @@ function(
       // start session
       Session.login( user )
         .then(function (res) {
-          console.log("window.router",router);
-          router.navigate("", true);
+          State.go("");
         },function (err) {
           console.log("session login err",err);
           // TODO: show error message
@@ -141,7 +140,7 @@ function(
           Session.setAuth( res );
           User.cache( newUserData );
           // go to main view
-          Backbone.history.navigate("");
+          State.go("");
         }, function (err) {
           console.log("err",err);
           // TODO: SHow error message
