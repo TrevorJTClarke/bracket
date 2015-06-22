@@ -24,17 +24,6 @@ function(
   Overlay
 ) {
 
-  // window.router = new Router();
-  // $(window).on("hashchange", router.hashChange);
-  // window.router.on("route", function(route, params) {
-  //   console.log("Different Page: " + route);
-  // });
-
-// Backbone.history.navigate("");
-// setTimeout(function(){
-//   router.navigate("", true);
-// },420);
-
   //  PRIVATE
   var mainEl = $(".main-container"),
       hidden = "invisible",
@@ -49,21 +38,14 @@ function(
     this.isTransitioning = false;
 
     this.initialize = function () {
-      var _self = this;
-      // $(window).on("hashchange", _self.router.hashChange);
-
-      // TEST
       Backbone.history.start();
-      _self.go("");
-
-
-
-      // window.router.on("route", function(route, params) {
-      //   console.log("Different Page: " + route);
-      // });
-
+      this.go("");
     };
 
+    /**
+     * navigates user to the specified view
+     * @param  {String} url - the route to navigate to, specified in the mainRouter.js
+     */
     this.go = function ( url ) {
       if(this.isTransitioning === true){ return; }
       var _self = this;
@@ -78,6 +60,10 @@ function(
         });
     };
 
+    /**
+     * handles the transition logic, see the Flow noted above
+     * @return {Promise} can execute next function after finished transition
+     */
     this.controlFlow = function () {
       var dfd = Q.defer(),
           _self = this,
@@ -101,20 +87,24 @@ function(
       return dfd.promise;
     },
 
+    /**
+     * starts the transition between current view and then next view
+     */
     this.transitionStart = function () {
       this.isTransitioning = true;
       // show overlay
       this.overlay.show();
     };
 
+    /**
+     * ends the transition between current view and then next view
+     */
     this.transitionEnd = function () {
       // remove overlay
       this.overlay.hide();
 
       // reset the views
       this.isTransitioning = false;
-      // this.prev = this.next;
-      // this.next = null;
     };
 
     /**
