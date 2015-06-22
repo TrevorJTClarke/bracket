@@ -143,6 +143,10 @@ ul {
   .main-container.invisible {
     opacity: 0; }
 
+.warp {
+  height: 100vh;
+  padding-top: 82px; }
+
 /**
  * Input Reset Styling
  */
@@ -269,32 +273,42 @@ header {
 
 /* Overlay */
 .overlay {
-  background: #1D677E;
   width: 0px;
   height: 0px;
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 999999;
-  opacity: 0;
-  -webkit-transition: opacity 160ms ease-in-out;
-  transition: opacity 160ms ease-in-out; }
-  .overlay.active {
+  z-index: 999999; }
+  .overlay.visible {
     width: 100vw;
     height: 100vh; }
-  .overlay.visible {
-    opacity: 0.8; }
-
-.warp {
-  height: 100vh;
-  padding-top: 82px;
-  -webkit-transition: all 280ms ease-in-out;
-  transition: all 280ms ease-in-out;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0); }
-  .warp.active {
-    -webkit-filter: blur(15px);
-    transform: translate3d(0, 0, 0); }
+  .overlay.active .overlay-bold {
+    -webkit-transform: translate3d(-550px, 0, 0) rotate(-65deg); }
+  .overlay.active .overlay-lite {
+    -webkit-transform: translate3d(-550px, 0, 0) rotate(-65deg); }
+  .overlay .overlay-bold {
+    background-image: repeating-linear-gradient(0deg, #195e73, #195e73 72px, transparent 72px, transparent 140px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 250vh;
+    height: 300vw;
+    opacity: 1;
+    z-index: 999999;
+    -webkit-transform: translate3d(-970px, 900px, 0) rotate(-65deg);
+    -webkit-transition: all 1600ms ease-in-out;
+    transition: all 1600ms ease-in-out; }
+  .overlay .overlay-lite {
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 68px, #1D677E 68px, #1D677E 140px);
+    -webkit-transform: translate3d(-14px, -1150px, 0) rotate(-65deg);
+    width: 250vh;
+    height: 300vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999999;
+    -webkit-transition: all 1600ms ease-in-out;
+    transition: all 1600ms ease-in-out; }
 
 /**
  * Setup Intro Styling

@@ -4,6 +4,7 @@ require.config({
   'paths': {
     // Core Libraries
     // --------------
+    'Q': 'javascripts/lib/q.min',
     'jquery': 'javascripts/lib/jquery',
     'underscore': 'javascripts/lib/underscore',
     'backbone': 'javascripts/lib/backbone',
@@ -27,6 +28,9 @@ require.config({
   'shim': {
     'Handlebars': {
       'exports': 'Handlebars'
+    },
+    'Q': {
+      'exports': 'Q'
     }
   },
 
@@ -37,9 +41,11 @@ require.config({
 });
 require([
   'routers/mainRouter',
-  'routers/state'
+  'routers/state',
+  'Q'
 ],
-function(Router, State) {
+function(Router, State, Q) {
+  console.log(Q.defer());
   // watch the routes
   window.router = new Router();
   $(window).on("hashchange", router.hashChange);

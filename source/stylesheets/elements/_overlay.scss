@@ -1,40 +1,62 @@
 /* Overlay */
 .overlay {
-  background: $main;
   width: 0px;
   height: 0px;
   position: absolute;
   left: 0;
   top:0;
   z-index: 999999;
-  opacity: 0;
-  -webkit-transition: opacity 160ms ease-in-out;
-  transition: opacity 160ms ease-in-out;
 
-  &.active {
-    width: 100vw;
-    height: 100vh;
-  }
   &.visible {
-    opacity: 0.8;
+      width: 100vw;
+      height: 100vh;
   }
-}
-
-.overlay-cover {
-
-  .overlay-icon {}
-}
-
-.warp {
-  height: 100vh;
-  padding-top: 82px;
-  -webkit-transition: all 280ms ease-in-out;
-  transition: all 280ms ease-in-out;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
 
   &.active {
-    -webkit-filter: blur(15px);
-    transform: translate3d(0, 0, 0);
+
+    .overlay-bold {
+      -webkit-transform: translate3d(-550px,0,0) rotate(-65deg);
+    }
+
+    .overlay-lite {
+      -webkit-transform: translate3d(-550px, 0,0) rotate(-65deg);
+    }
+  }
+
+  .overlay-bold {
+    background-image:
+      repeating-linear-gradient(0deg,
+      lighten($darkmain, 4%),
+      lighten($darkmain, 4%) 72px,
+      transparent 72px,
+      transparent 140px);
+    position: absolute;
+    left: 0;
+    top:0;
+    width: 250vh;
+    height: 300vw;
+    opacity: 1;
+    z-index: 999999;
+    -webkit-transform: translate3d(-970px, 900px,0) rotate(-65deg);
+    -webkit-transition: all 1600ms ease-in-out;
+    transition: all 1600ms ease-in-out;
+  }
+
+  .overlay-lite {
+    background-image:
+      repeating-linear-gradient(0deg,
+      transparent,
+      transparent 68px,
+      $main 68px,
+      $main 140px);
+    -webkit-transform: translate3d(-14px, -1150px,0) rotate(-65deg);
+    width: 250vh;
+    height: 300vw;
+    position: absolute;
+    left: 0;
+    top:0;
+    z-index: 999999;
+    -webkit-transition: all 1600ms ease-in-out;
+    transition: all 1600ms ease-in-out;
   }
 }

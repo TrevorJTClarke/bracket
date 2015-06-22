@@ -1,19 +1,18 @@
 define([
   'jquery',
   'backbone',
+  'Q',
   'hbars!templates/overlay'
 ],
 function(
   $,
   Backbone,
+  Q,
   template
 ) {
 
   // PRIVATE METHODS
-  var warp = $(".warp"),
-      warpActive = "active",
-      elemActive = "active",
-      elemVisible = "visible";
+  var elemActive = "active";
 
   var Overlay = Backbone.View.extend({
 
@@ -21,6 +20,22 @@ function(
 
     initialize: function() {
       this.render();
+      var _self = this;
+
+      // TESTING:
+      setTimeout(function(){
+        _self.hide();
+      },2000);
+      setTimeout(function(){
+        _self.show();
+      },4000);
+      setTimeout(function(){
+        _self.hide();
+      },6000);
+      setTimeout(function(){
+        _self.show();
+      },8000);
+
       return this;
     },
 
@@ -32,32 +47,42 @@ function(
       return this;
     },
 
-    show: function () {
-      var _self = this;
-      warp.removeClass(warpActive);
-      _self.$el.addClass(elemActive);
+    /**
+     * reveal the overlay in the UI, hides any gross page UI changes
+     * @param  {Number} offset a timeout for transition
+     * @return {Promise}        Allows for other methods to wait rather than callbacks
+     */
+    show: function ( offset ) {
+      var dfd = Q.defer();
 
-      setTimeout(function(){
-        _self.$el.addClass(elemVisible);
-      },140);
+      offset = offset || 180;
+      this.$el.addClass(elemActive);
 
+      // use offset to all promise to return at given time offset
       setTimeout(function(){
-        warp.addClass(warpActive);
-      },220);
+        dfd.resolve();
+      }, offset);
+
+      return dfd.promise;
     },
 
-    hide: function () {
-      var _self = this;
-      warp.addClass(warpActive);
-      _self.$el.removeClass(elemVisible);
+    /**
+     * remove the overlay in the UI
+     * @param  {Number} offset a timeout for transition
+     * @return {Promise}        Allows for other methods to wait rather than callbacks
+     */
+    hide: function ( offset ) {
+      var dfd = Q.defer();
 
-      setTimeout(function(){
-        warp.removeClass(warpActive);
-      },120);
+      offset = offset || 180;
+      this.$el.removeClass(elemActive);
 
+      // use offset to all promise to return at given time offset
       setTimeout(function(){
-        _self.$el.removeClass(elemActive);
-      },180);
+        dfd.resolve();
+      }, offset);
+
+      return dfd.promise;
     }
 
   });
