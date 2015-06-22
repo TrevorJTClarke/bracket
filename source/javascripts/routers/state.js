@@ -32,8 +32,6 @@ function(
   var stateManager = function () {
 
     // defaults
-    this.prev = null;
-    this.next = null;
     this.router = new Router();
     this.isTransitioning = false;
 
