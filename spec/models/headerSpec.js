@@ -1,5 +1,5 @@
 define(['models/header'], function(Header) {
-  describe('Header', function() {
+  describe('Header Model', function() {
     var header = Header;
 
     it('should be defined', function() {

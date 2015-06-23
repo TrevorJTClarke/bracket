@@ -1,5 +1,5 @@
 define(['models/user'], function(User) {
-  describe('User', function() {
+  describe('User Model', function() {
     var user = User;
 
     it('should be defined', function() {

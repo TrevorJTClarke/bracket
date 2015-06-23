@@ -1,5 +1,5 @@
 define(['models/system'], function(System) {
-  describe('System', function() {
+  describe('System Model', function() {
     var sys = System;
 
     it('should be defined', function() {

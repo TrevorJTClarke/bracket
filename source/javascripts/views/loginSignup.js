@@ -1,14 +1,17 @@
 define([
   'jquery',
   'backbone',
+  'models/authUser',
   'models/user',
   'hbars!templates/login_signup',
   'models/system',
-  'models/session'
+  'models/session',
+  'backbone.validation'
 ],
 function(
   $,
   Backbone,
+  authUser,
   User,
   userTpl,
   System,
@@ -37,7 +40,7 @@ function(
     tagName: 'div',
     className: 'login-signup',
 
-    model: User,
+    model: new authUser(),
 
     events: {
       'click #signupSubmit' : 'signupUser',
@@ -55,6 +58,11 @@ function(
       // disable signup, just show login
       $('#loginSection').addClass("ls-active");
       this.$("#tabLogin").toggleClass(activeBtn);
+
+      // allows binding form to validation from model
+      Backbone.Validation.bind(this);
+
+      return this;
     },
 
     render: function() {
@@ -64,11 +72,6 @@ function(
 
       return this;
     },
-
-    close: function() {
-      console.log("this.remove",this.remove);
-  		this.remove();
-  	},
 
     toggleSections: function (e) {
       if(hasClass(e.currentTarget, "btn-active")){ return; }
@@ -80,37 +83,44 @@ function(
       this.$("#tabSignup").toggleClass(activeBtn);
     },
 
+    remove: function() {
+      // Remove the validation binding
+      Backbone.Validation.unbind(this);
+      return Backbone.View.prototype.remove.apply(this, arguments);
+    },
+
     login: function (e) {
+      var _self = this;
       if(e) {
         e.preventDefault();
       }
-      var user = {};
 
       // grab all form values and store into data object
       for (var i = 0; i < this.loginForm.length; i++) {
         if(this.loginForm[i] && this.loginForm[i].name){
-          user[this.loginForm[i].name] = this.loginForm[i].value;
+          _self.model.set( this.loginForm[i].name, this.loginForm[i].value);
         }
       }
 
       // validate
-      if(!user || !user.email || !user.password){
+      var isValid = this.model.isValid(['email','password']);
+      if(!isValid){
         return;
       }
 
       // start session
-      Session.login( user )
+      Session.login( _self.model.attributes )
         .then(function (res) {
           State.go("");
         },function (err) {
-          console.log("session login err",err);
+          var resp = JSON.parse(err.responseText);
+          console.log("session login err",resp.error);
           // TODO: show error message
         });
     },
 
     signupUser: function (e) {
       var _self = this;
-      var newUserData = {};
       if(e) {
         e.preventDefault();
       }
@@ -118,27 +128,26 @@ function(
       // grab all form values and store into data object
       for (var i = 0; i < this.signupForm.length; i++) {
         if(this.signupForm[i] && this.signupForm[i].name){
-          newUserData[this.signupForm[i].name] = this.signupForm[i].value;
+          _self.model.set( this.signupForm[i].name, this.signupForm[i].value);
         }
       }
 
-      // Dirty Checks
-      if (!newUserData.firstName || !newUserData.lastName || !newUserData.email || !newUserData.password){
-        // TODO: SHow error message
+      // validate
+      var isValid = _self.model.isValid(['email','password','firstName','lastName']);
+      if(!isValid){
         return;
       }
 
       // add tiny changes
-      newUserData.username = createUsername( newUserData.email );
-      newUserData.initials = createInitials( newUserData.firstName, newUserData.lastName );
-      newUserData.color = newUserData.color.replace("#", "").toUpperCase();
+      _self.model.set("username", createUsername( _self.model.attributes.email ) );
+      _self.model.set("initials", createInitials( _self.model.attributes.firstName, _self.model.attributes.lastName ) );
+      _self.model.set("color", _self.model.attributes.color.replace("#", "").toUpperCase() );
 
       // create new user
-      _self.model.set( newUserData )
-        .save()
+      _self.model.save()
         .then(function(res) {
           Session.setAuth( res );
-          User.cache( newUserData );
+          User.cache( _self.model.attributes );
           // go to main view
           State.go("");
         }, function (err) {

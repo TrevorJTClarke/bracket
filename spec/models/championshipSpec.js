@@ -1,5 +1,5 @@
 define(['models/championship'], function(Championship) {
-  describe('Championship', function() {
+  describe('Championship Model', function() {
     var championship = new Championship();
 
     it('should be defined', function() {

@@ -22,6 +22,21 @@ function mock() {
 window.localStorage = new mock();
 localStorage = new mock();
 
+// Stub the baseline file
+(function () {
+  var tmpl = '<div class="header"></div>'+
+              '<div class="container warp">'+
+                '<div class="main-container"></div>'+
+              '</div>'+
+              '<div class="overlay"></div>'+
+              '<div class="notify"></div>';
+
+  var body = document.getElementsByTagName("body")[0];
+  var template = document.createElement("div");
+      template.innerHTML = tmpl;
+  body.appendChild(template);
+})();
+
 require.config({
   baseUrl: '/base/source/javascripts',
   paths: {
@@ -31,11 +46,13 @@ require.config({
     'jasmineajax': 'lib/jasmine-ajax',
     'underscore': 'lib/underscore',
     'backbone': 'lib/backbone',
+    'backbone.validation': 'lib/backbone.validation.min',
     'text': 'lib/text',
     'Handlebars': 'lib/handlebars',
     'hbars': 'lib/hbars',
   },
   shim: {
+    'backbone.validation': ['backbone'],
     'Q': {
       'exports': 'Q'
     },
@@ -47,6 +64,9 @@ require.config({
     },
     'jasmineajax': {
       'exports': 'MockAjax'
+    },
+    'jasminequery': {
+      'exports': 'jasminequery'
     }
   },
   hbars: {

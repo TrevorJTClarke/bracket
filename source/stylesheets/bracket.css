@@ -162,8 +162,8 @@ input {
   background-image: none;
   border: 1px solid #cccccc;
   border-radius: 2px;
-  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, border 160ms ease-in-out;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, border 160ms ease-in-out; }
   input:focus {
     outline: 0; }
   input[type=color] {
@@ -182,6 +182,9 @@ input {
       color: #F9F9F9;
       text-shadow: -1px -1px rgba(0, 0, 0, 0.3);
       text-transform: uppercase; }
+
+.error input {
+  border-color: red; }
 
 /**
  * Button Styling
