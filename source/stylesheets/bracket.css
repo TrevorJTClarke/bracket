@@ -3,6 +3,7 @@
  */
 /* Colors */
 /* Theme */
+/* Validation */
 /* Type */
 /* grid */
 .g1 {
@@ -186,6 +187,9 @@ input {
 .error input {
   border-color: red; }
 
+.valid input {
+  border-color: green; }
+
 /**
  * Button Styling
  */
@@ -273,6 +277,36 @@ header {
       margin: 20px auto 0;
       font-size: 26px;
       font-weight: 100; }
+
+/* notifier */
+.notify {
+  background: #28BB4B;
+  color: #FFFFFF;
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  top: -200px;
+  left: 0;
+  right: 0;
+  font: normal 21px/24px Helvetica, Arial, sans-serif;
+  z-index: 99999999;
+  -webkit-transition: top 240ms ease-in-out;
+  transition: top 240ms ease-in-out; }
+  .notify .notify-title {
+    margin: 0;
+    padding: 20px 10px;
+    text-align: center; }
+  .notify.active {
+    top: 0; }
+  .notify.info {
+    background: #008FD8; }
+  .notify.success {
+    background: #28BB4B; }
+  .notify.warning {
+    background: #D9AB29; }
+  .notify.error {
+    background: #B03330; }
 
 /* Overlay */
 .overlay {

@@ -7,6 +7,7 @@ function(
   _,
   Backbone
 ){
+
   _.extend(Backbone.Validation.callbacks, {
     valid: function (view, attr, selector) {
       var $el = view.$('[name=' + attr + ']'),
@@ -19,8 +20,9 @@ function(
           $group = $el.closest('.form-group');
 
       $group.addClass('error');
-      // TODO: send error to global error notifier
-      // console.log("error",error);
+
+      // send error to global error notifier
+      Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "error", title: error });
     }
   });
 });

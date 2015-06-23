@@ -114,8 +114,7 @@ function(
           State.go("");
         },function (err) {
           var resp = JSON.parse(err.responseText);
-          console.log("session login err",resp.error);
-          // TODO: show error message
+          Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "error", title: resp.error });
         });
     },
 
@@ -151,8 +150,7 @@ function(
           // go to main view
           State.go("");
         }, function (err) {
-          console.log("err",err);
-          // TODO: SHow error message
+          Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "error", title: err });
         });
     }
 

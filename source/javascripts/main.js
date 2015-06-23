@@ -45,7 +45,8 @@ require([
   'routers/mainRouter',
   'routers/state',
   'backbone.validation',
-  'models/validator'
+  'models/validator',
+  'models/notifier'
 ],
 function(Router, State) {
   // watch the routes
