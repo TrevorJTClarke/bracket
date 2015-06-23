@@ -1,15 +1,16 @@
 define([
   'jquery',
   'backbone',
-  'models/user',
+  'models/authUser',
   'hbars!templates/login_signup',
   'models/system',
-  'models/session'
+  'models/session',
+  'backbone.validation'
 ],
 function(
   $,
   Backbone,
-  User,
+  authUser,
   userTpl,
   System,
   Session
@@ -37,7 +38,7 @@ function(
     tagName: 'div',
     className: 'login-signup',
 
-    model: User,
+    model: new authUser(),
 
     events: {
       'click #signupSubmit' : 'signupUser',
@@ -58,13 +59,7 @@ function(
 
       // validation handling
       // this.model.on('error', this.renderErrors, this);
-      // this.model.on('change', this.updateFields, this);
-    },
-
-    render: function() {
-      this.template = _.template(userTpl({}));
-      this.$el.html(this.template);
-      _rootEl.html(this.$el);
+      this.model.on('change', this.updateFields, this);
 
       // allows binding form to validation from model
       Backbone.Validation.bind(this);
@@ -72,10 +67,17 @@ function(
       return this;
     },
 
-    close: function() {
-      console.log("this.remove",this.remove);
-  		this.remove();
-  	},
+    render: function() {
+      this.template = _.template(userTpl({}));
+      this.$el.html(this.template);
+      _rootEl.html(this.$el);
+
+      return this;
+    },
+
+    updateFields: function (e) {
+      console.log("updateFields",e);
+    },
 
     toggleSections: function (e) {
       if(hasClass(e.currentTarget, "btn-active")){ return; }
@@ -87,36 +89,47 @@ function(
       this.$("#tabSignup").toggleClass(activeBtn);
     },
 
+    remove: function() {
+      // Remove the validation binding
+      Backbone.Validation.unbind(this);
+      return Backbone.View.prototype.remove.apply(this, arguments);
+    },
+
     login: function (e) {
       if(e) {
         e.preventDefault();
       }
+
       var user = {},
           _self = this;
 
       // grab all form values and store into data object
       for (var i = 0; i < this.loginForm.length; i++) {
         if(this.loginForm[i] && this.loginForm[i].name){
-          user[this.loginForm[i].name] = this.loginForm[i].value;
+          _self.model.set( this.loginForm[i].name, this.loginForm[i].value);
         }
       }
 
+
+
+      var isValid = this.model.isValid(['email','password']);
+      console.log("isValid",isValid, this.model.attributes);
       // validate
-      if(!this.model.isValid()){
+      if(!isValid){
         console.log("validationError",_self.model.validationError);
         // TODO: show error message
         return;
       }
 
-      // start session
-      Session.login( user )
-        .then(function (res) {
-          State.go("");
-        },function (err) {
-          var resp = JSON.parse(err.responseText);
-          console.log("session login err",resp.error);
-          // TODO: show error message
-        });
+      // // start session
+      // Session.login( user )
+      //   .then(function (res) {
+      //     State.go("");
+      //   },function (err) {
+      //     var resp = JSON.parse(err.responseText);
+      //     console.log("session login err",resp.error);
+      //     // TODO: show error message
+      //   });
     },
 
     signupUser: function (e) {

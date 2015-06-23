@@ -44,10 +44,6 @@ function(
       return this;
     },
 
-    close: function() {
-  		this.remove();
-  	},
-
     logout: function () {
       State.go("login");
       Session.logout();

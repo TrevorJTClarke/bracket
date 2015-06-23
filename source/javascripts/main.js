@@ -44,7 +44,8 @@ require.config({
 require([
   'routers/mainRouter',
   'routers/state',
-  'backbone.validation'
+  'backbone.validation',
+  'models/validator'
 ],
 function(Router, State) {
   // watch the routes
