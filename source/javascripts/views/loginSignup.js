@@ -76,7 +76,7 @@ function(
     },
 
     updateFields: function (e) {
-      console.log("updateFields",e);
+      // console.log("updateFields",e);
     },
 
     toggleSections: function (e) {
@@ -96,12 +96,10 @@ function(
     },
 
     login: function (e) {
+      var _self = this;
       if(e) {
         e.preventDefault();
       }
-
-      var user = {},
-          _self = this;
 
       // grab all form values and store into data object
       for (var i = 0; i < this.loginForm.length; i++) {
@@ -110,14 +108,10 @@ function(
         }
       }
 
-
-
-      var isValid = this.model.isValid(['email','password']);
-      console.log("isValid",isValid, this.model.attributes);
       // validate
+      var isValid = this.model.isValid(['email','password']);
+      // console.log("isValid",isValid, this.model.attributes);
       if(!isValid){
-        console.log("validationError",_self.model.validationError);
-        // TODO: show error message
         return;
       }
 

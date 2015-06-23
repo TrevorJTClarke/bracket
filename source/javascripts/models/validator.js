@@ -20,7 +20,7 @@ function(
 
       $group.addClass('error');
       // TODO: send error to global error notifier
-      console.log("error",error);
+      // console.log("error",error);
     }
   });
 });

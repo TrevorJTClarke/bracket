@@ -1,10 +1,10 @@
-define(['views/loginSignup', 'models/user', 'backbone.validation', 'jasminequery'], function(LSV, User, Validation) {
+define(['views/loginSignup', 'models/authUser', 'backbone.validation', 'jasminequery', 'models/validator'], function(LSV, authUser, Validation) {
   var view, model;
 
   describe("Login/Signup View", function() {
 
     beforeEach(function () {
-      view = new LSV({ model: User  });
+      view = new LSV({ model: new authUser()  });
     });
 
     describe('when view is constructing', function () {
@@ -44,13 +44,18 @@ define(['views/loginSignup', 'models/user', 'backbone.validation', 'jasminequery
           view.$el.find('#loginSubmit').trigger('click');
         });
 
-        it('email field should be invalidated', function () {
-          expect( view.$el.find('.form-group.email') ).toHaveClass('error');
+        it('validation method should return false', function () {
+          var isValid = view.model.isValid();
+          expect( isValid ).toBeFalsy();
         });
 
-        // it('password field should be invalidated', function () {
-        //     expect( view.$el.find('.form-group.password') ).toHaveClass('error');
-        // });
+        it('email field should be invalidated', function () {
+          expect( view.$el.find('.form-group.email')[0] ).toHaveClass('error');
+        });
+
+        it('password field should be invalidated', function () {
+            expect( view.$el.find('.form-group.password') ).toHaveClass('error');
+        });
 
       });
 
