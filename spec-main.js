@@ -47,6 +47,9 @@ require.config({
     },
     'jasmineajax': {
       'exports': 'MockAjax'
+    },
+    'jasminequery': {
+      'exports': 'jasminequery'
     }
   },
   hbars: {

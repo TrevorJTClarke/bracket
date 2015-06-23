@@ -10,6 +10,7 @@ module.exports = function(config) {
       { pattern: 'source/javascripts/lib/jquery.js', included: false },
       { pattern: 'source/javascripts/lib/q.min.js', included: false },
       { pattern: 'source/javascripts/lib/jasmine-ajax.js', included: false },
+      { pattern: 'source/javascripts/lib/jasmine-jquery.js', included: false },
       { pattern: 'source/javascripts/lib/underscore.js', included: false },
       { pattern: 'source/javascripts/lib/handlebars.js', included: false },
       { pattern: 'source/javascripts/lib/hbars.js', included: false },
