@@ -2,6 +2,7 @@ define([
   'jquery',
   'backbone',
   'models/authUser',
+  'models/user',
   'hbars!templates/login_signup',
   'models/system',
   'models/session',
@@ -11,6 +12,7 @@ function(
   $,
   Backbone,
   authUser,
+  User,
   userTpl,
   System,
   Session
@@ -57,10 +59,6 @@ function(
       $('#loginSection').addClass("ls-active");
       this.$("#tabLogin").toggleClass(activeBtn);
 
-      // validation handling
-      // this.model.on('error', this.renderErrors, this);
-      this.model.on('change', this.updateFields, this);
-
       // allows binding form to validation from model
       Backbone.Validation.bind(this);
 
@@ -73,10 +71,6 @@ function(
       _rootEl.html(this.$el);
 
       return this;
-    },
-
-    updateFields: function (e) {
-      // console.log("updateFields",e);
     },
 
     toggleSections: function (e) {
@@ -110,25 +104,23 @@ function(
 
       // validate
       var isValid = this.model.isValid(['email','password']);
-      // console.log("isValid",isValid, this.model.attributes);
       if(!isValid){
         return;
       }
 
-      // // start session
-      // Session.login( user )
-      //   .then(function (res) {
-      //     State.go("");
-      //   },function (err) {
-      //     var resp = JSON.parse(err.responseText);
-      //     console.log("session login err",resp.error);
-      //     // TODO: show error message
-      //   });
+      // start session
+      Session.login( _self.model.attributes )
+        .then(function (res) {
+          State.go("");
+        },function (err) {
+          var resp = JSON.parse(err.responseText);
+          console.log("session login err",resp.error);
+          // TODO: show error message
+        });
     },
 
     signupUser: function (e) {
       var _self = this;
-      var newUserData = {};
       if(e) {
         e.preventDefault();
       }
@@ -136,27 +128,26 @@ function(
       // grab all form values and store into data object
       for (var i = 0; i < this.signupForm.length; i++) {
         if(this.signupForm[i] && this.signupForm[i].name){
-          newUserData[this.signupForm[i].name] = this.signupForm[i].value;
+          _self.model.set( this.signupForm[i].name, this.signupForm[i].value);
         }
       }
 
-      // Dirty Checks
-      if (!newUserData.firstName || !newUserData.lastName || !newUserData.email || !newUserData.password){
-        // TODO: SHow error message
+      // validate
+      var isValid = _self.model.isValid(['email','password','firstName','lastName']);
+      if(!isValid){
         return;
       }
 
       // add tiny changes
-      newUserData.username = createUsername( newUserData.email );
-      newUserData.initials = createInitials( newUserData.firstName, newUserData.lastName );
-      newUserData.color = newUserData.color.replace("#", "").toUpperCase();
+      _self.model.set("username", createUsername( _self.model.attributes.email ) );
+      _self.model.set("initials", createInitials( _self.model.attributes.firstName, _self.model.attributes.lastName ) );
+      _self.model.set("color", _self.model.attributes.color.replace("#", "").toUpperCase() );
 
       // create new user
-      _self.model.set( newUserData )
-        .save()
+      _self.model.save()
         .then(function(res) {
           Session.setAuth( res );
-          User.cache( newUserData );
+          User.cache( _self.model.attributes );
           // go to main view
           State.go("");
         }, function (err) {

@@ -13,8 +13,8 @@ input {
   background-image: none;
   border: 1px solid #cccccc;
   border-radius: 2px;
-  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, border 160ms ease-in-out;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, border 160ms ease-in-out;
 
   &:focus {
     outline: 0;

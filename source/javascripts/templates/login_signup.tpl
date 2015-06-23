@@ -29,10 +29,10 @@
       <div class="form-group lastName">
         <input type="text" name="lastName" placeholder="Last Name" required>
       </div>
-      <div class="form-group email">
+      <div class="form-group emailSignup">
         <input type="email" name="email" placeholder="Email" required>
       </div>
-      <div class="form-group password">
+      <div class="form-group passwordSignup">
         <input type="password" name="password" placeholder="Password" required>
       </div>
       <div class="form-group color">

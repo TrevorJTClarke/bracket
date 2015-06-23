@@ -64,8 +64,8 @@ define(['routers/state', 'models/cookies', 'backbone'], function(State, Cookie, 
 
         setTimeout(function(){
           fullIsGood = State.isTransitioning;
-          done();
           expect(fullIsGood).toBeFalsy();
+          done();
         },510);
 
       });
