@@ -1,5 +1,5 @@
 define(['models/cookies'], function(Cookies) {
-  describe('Cookies', function() {
+  describe('Cookies Model', function() {
     var Cookie = Cookies;
     var testToken = "fdsa543-fds54-234k-23476-fjdskSI";
 

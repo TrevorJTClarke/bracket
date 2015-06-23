@@ -1,5 +1,5 @@
 define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], function(Session, $, Ajax, Cookie) {
-  describe('Session', function() {
+  describe('Session Model', function() {
     var testCreds = {
       "email": "tclarke@billabong.com",
       "password": "testtest"

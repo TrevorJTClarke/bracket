@@ -1,18 +1,5 @@
-// Stub the baseline file
-function injectBaseHtml() {
-  var tmpl = '<div class="header"></div>'+
-              '<div class="container warp">'+
-                '<div class="main-container"></div>'+
-              '</div>'+
-              '<div class="overlay"></div>'+
-              '<div class="notify"></div>';
-
-  $("body").append(tmpl);
-}
-injectBaseHtml();
-
 define(['views/overlay', 'jquery', 'jasminequery'], function(Overlay, $) {
-  describe('Overlay', function() {
+  describe('Overlay View', function() {
 
     it('should be defined', function() {
       expect(Overlay).toBeDefined();
@@ -60,15 +47,9 @@ define(['views/overlay', 'jquery', 'jasminequery'], function(Overlay, $) {
         expect(Overlay.hide).toBeDefined();
       });
 
-      it('should remove active state', function(done) {
+      it('should remove active state', function() {
         Overlay.hide();
         expect( $("body .overlay") ).not.toHaveClass("active");
-
-        // wait for remove animation success timeout
-        setTimeout(function(){
-          done();
-          expect( $("body .overlay") ).not.toHaveClass("visible");
-        },520);
       });
 
       it('should return a promise', function() {

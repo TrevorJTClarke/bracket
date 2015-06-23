@@ -1,5 +1,5 @@
 define(['routers/state', 'models/cookies', 'backbone'], function(State, Cookie, Backbone) {
-  describe('State', function() {
+  describe('State Router', function() {
 
     afterEach(function () {
       Cookie.clearAll();
@@ -54,7 +54,7 @@ define(['routers/state', 'models/cookies', 'backbone'], function(State, Cookie, 
         // Make sure we have a token
         Cookie.store("token", "fjsdkafjkdfjksadlfs");
 
-        // fire off the method to check 
+        // fire off the method to check
         State.controlFlow();
 
         setTimeout(function(){
