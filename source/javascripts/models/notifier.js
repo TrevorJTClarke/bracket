@@ -57,7 +57,7 @@ function(
         _self.$el.removeClass("active");
       }, dur + 10);
 
-      _self.timers[0] = setTimeout(function(){
+      _self.timers[1] = setTimeout(function(){
         _self.$el.removeClass("error success info warning");
         _self.isActive = false;
       }, dur + 240);
