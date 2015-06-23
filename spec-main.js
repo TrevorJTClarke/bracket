@@ -46,11 +46,13 @@ require.config({
     'jasmineajax': 'lib/jasmine-ajax',
     'underscore': 'lib/underscore',
     'backbone': 'lib/backbone',
+    'backbone.validation': 'lib/backbone.validation.min',
     'text': 'lib/text',
     'Handlebars': 'lib/handlebars',
     'hbars': 'lib/hbars',
   },
   shim: {
+    'backbone.validation': ['backbone'],
     'Q': {
       'exports': 'Q'
     },

@@ -7,6 +7,7 @@ module.exports = function(config) {
     frameworks: ['jasmine', 'requirejs'],
     files: [
       { pattern: 'source/javascripts/lib/backbone.js', included: false },
+      { pattern: 'source/javascripts/lib/backbone.validation.min.js', included: false },
       { pattern: 'source/javascripts/lib/jquery.js', included: false },
       { pattern: 'source/javascripts/lib/q.min.js', included: false },
       { pattern: 'source/javascripts/lib/jasmine-ajax.js', included: false },

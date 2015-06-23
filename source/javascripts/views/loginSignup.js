@@ -55,12 +55,19 @@ function(
       // disable signup, just show login
       $('#loginSection').addClass("ls-active");
       this.$("#tabLogin").toggleClass(activeBtn);
+
+      // validation handling
+      // this.model.on('error', this.renderErrors, this);
+      // this.model.on('change', this.updateFields, this);
     },
 
     render: function() {
       this.template = _.template(userTpl({}));
       this.$el.html(this.template);
       _rootEl.html(this.$el);
+
+      // allows binding form to validation from model
+      Backbone.Validation.bind(this);
 
       return this;
     },
@@ -84,7 +91,8 @@ function(
       if(e) {
         e.preventDefault();
       }
-      var user = {};
+      var user = {},
+          _self = this;
 
       // grab all form values and store into data object
       for (var i = 0; i < this.loginForm.length; i++) {
@@ -94,7 +102,9 @@ function(
       }
 
       // validate
-      if(!user || !user.email || !user.password){
+      if(!this.model.isValid()){
+        console.log("validationError",_self.model.validationError);
+        // TODO: show error message
         return;
       }
 
@@ -103,7 +113,8 @@ function(
         .then(function (res) {
           State.go("");
         },function (err) {
-          console.log("session login err",err);
+          var resp = JSON.parse(err.responseText);
+          console.log("session login err",resp.error);
           // TODO: show error message
         });
     },

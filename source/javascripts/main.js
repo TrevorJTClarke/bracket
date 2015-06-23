@@ -8,6 +8,7 @@ require.config({
     'jquery': 'javascripts/lib/jquery',
     'underscore': 'javascripts/lib/underscore',
     'backbone': 'javascripts/lib/backbone',
+    'backbone.validation': 'javascripts/lib/backbone.validation.min',
 
     // Plugins
     // -------
@@ -26,6 +27,7 @@ require.config({
 
   // Sets the configuration for your third party scripts that are not AMD compatible
   'shim': {
+    'backbone.validation': ['backbone'],
     'Handlebars': {
       'exports': 'Handlebars'
     },
@@ -41,7 +43,8 @@ require.config({
 });
 require([
   'routers/mainRouter',
-  'routers/state'
+  'routers/state',
+  'backbone.validation'
 ],
 function(Router, State) {
   // watch the routes

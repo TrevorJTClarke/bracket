@@ -43,6 +43,16 @@ function(
       "initials": "BB"
     },
 
+    validation: {
+
+      email: {
+        required: true,
+        pattern: 'email',
+        msg: 'Please enter a valid email'
+      }
+
+    },
+
     cache: function ( data ) {
       var _self = this;
       var cleanData = (data)? clearFluff( data ) : null;

@@ -20,6 +20,11 @@ input {
     outline: 0;
   }
 
+  &:invalid,
+  &.error {
+    border-color: red;
+  }
+
   &[type=color] {
     height: 60px;
     border:0;
