@@ -22,6 +22,8 @@ function mock() {
 window.localStorage = new mock();
 localStorage = new mock();
 
+window.State = window.State || {};
+
 // Stub the baseline file
 (function () {
   var tmpl = '<div class="header"></div>'+

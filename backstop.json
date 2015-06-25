@@ -14,8 +14,7 @@
       "removeSelectors": [
       ],
       "selectors": [
-        "body .header",
-        "body .setup-intro",
+        "body .main-container",
         "body"
       ],
       "readyEvent": null,

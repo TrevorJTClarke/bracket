@@ -21,9 +21,13 @@ function(
   // SETUP
   var players = [];
 
+  // PRIVATE METHODS
+  var _rootEl = $(".main-container");
+
   return Backbone.View.extend({
 
-    el: '.main-container',
+    tagName: 'div',
+    className: 'main-setup',
 
     model: new Championship,
 
@@ -43,6 +47,7 @@ function(
 
     // Renders the view's template to the UI
     render: function() {
+      var _self = this;
       // Setting the view's template property using the Underscore template method
       this.template = _.template(setupTpl({
         playerListTpl: playerListTpl({
@@ -52,6 +57,7 @@ function(
 
       // Dynamically updates the UI with the view's template
       this.$el.html(this.template);
+      _rootEl.html(_self.$el);
 
       this.toggleSections();
 

@@ -1,0 +1,42 @@
+/* notifier */
+.notify {
+  background: $success;
+  color: $white;
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  top:-200px;
+  left:0;
+  right: 0;
+  font: normal 21px/24px Helvetica, Arial, sans-serif;
+  z-index: 99999999;
+  -webkit-transition: top 240ms ease-in-out;
+  transition: top 240ms ease-in-out;
+
+  .notify-title {
+    margin:0;
+    padding: 20px 10px;
+    text-align: center;
+  }
+
+  &.active {
+    top: 0;
+  }
+
+  &.info {
+    background: $info;
+  }
+
+  &.success {
+    background: $success;
+  }
+
+  &.warning {
+    background: $warning;
+  }
+
+  &.error {
+    background: $error;
+  }
+}

@@ -5,6 +5,9 @@
   "author": "Trevor Clarke",
   "repository": "",
   "license": "",
+  "scripts": {
+    "backref": "node ./node_modules/backstopjs/gulp reference"
+  },
   "devDependencies": {
     "backstopjs": "garris/backstopjs#master",
     "browser-sync": "^2.7.6",

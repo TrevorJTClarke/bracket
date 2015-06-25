@@ -1,3 +1,6 @@
+/**
+ * This data model is only used for validation purposes, please consult user.js for detailed User use.
+ */
 define([
   'backbone',
   'models/system'
