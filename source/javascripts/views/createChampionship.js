@@ -1,5 +1,6 @@
 define([
   'jquery',
+  'Q',
   'backbone',
   'collections/championships',
   'models/championship',
@@ -10,6 +11,7 @@ define([
 ],
 function(
   $,
+  Q,
   Backbone,
   Championships,
   Championship,
@@ -24,6 +26,54 @@ function(
   // PRIVATE METHODS
   var _rootEl = $(".main-container");
 
+  // Grab root list of players and only return needed data
+  function getAvailablePlayers() {
+    var dfd = Q.defer();
+    var _self = this;
+    var url = PS.CLASSES + PS.USER;
+
+    function formatList (array) {
+      var finArray = [];
+      var me = localStorage.getItem("br-user");
+          me = JSON.parse(me);
+
+      array.map(function (obj,idx) {
+        if(obj.username !== "a"){
+          // only add needed data
+          var addUser = {
+            id: obj.id,
+            firstName: obj.firstName,
+            lastName: obj.lastName,
+            email: obj.email,
+            color: obj.color,
+            initials: obj.initials,
+            added: false
+          };
+
+          if(obj.username === me.username){
+            addUser.email = "Championship Creator";
+            addUser.admin = true;
+          }
+
+          finArray.push( addUser );
+        }
+      });
+
+      return finArray;
+    }
+
+    $.get( url )
+      .success(function (res) {
+        console.log(res);
+        players = formatList( res.results );
+
+        dfd.resolve(players);
+      })
+      .error( dfd.reject );
+
+    return dfd.promise;
+  }
+
   return Backbone.View.extend({
 
     tagName: 'div',
@@ -36,12 +86,16 @@ function(
     },
 
     initialize: function() {
-      this.currentStep = "sectionFirst";
-      this.render();
+      var _self = this;
+      // this.currentStep = "sectionFirst";
+      this.currentStep = "sectionSecond";
       this.championshipTitle = this.$("#chTitle");
 
       // TESTING:
-      this.getAvailablePlayers();
+      getAvailablePlayers();
+      setTimeout(function(){
+        _self.render();
+      },550);
 
       // this.model = new Championship();
       // this.model.set('users', UsersCollection);
@@ -117,19 +171,6 @@ function(
       this.addPlayers();
 
       return this;
-    },
-
-    getAvailablePlayers: function () {
-      var _self = this;
-      var url = PS.CLASSES + PS.USER;
-      $.get( url )
-        .success(function (res) {
-          console.log(res);
-          players = res.results;
-        })
-        .error(function (err) {
-          Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "error", title: err });
-        });
     },
 
     addPlayers: function () {

@@ -19,7 +19,7 @@
       <div class="create-players">
         {{{ playerListTpl }}}
       </div>
-      <button type="submit" class="btn btn-default btn-fixed-bottom">Next</button>
+      <button type="submit" class="btn btn-default btn-fixed-bottom">Done</button>
     </form>
   </div>
   <!-- <div class="col-md-6 col-md-offset-3 create-players">

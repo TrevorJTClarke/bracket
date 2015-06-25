@@ -11,6 +11,7 @@
     .player-meta {
       flex:5;
       position: relative;
+      height: 50px;
     }
 
     &:nth-child(odd){
@@ -28,8 +29,12 @@
   }
 
   .player-name {
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 7px;
+  }
+
+  .player-email {
+    font-size: 11px;
   }
 }
 
@@ -39,11 +44,25 @@
   position: absolute;
   right:0;
   top:0;
-  margin: 0;
+  margin:2px 4px 4px;
   padding: 7px 10px 4px;
   width: auto;
 
   .glyphicon {
     opacity: 0.1;
+  }
+
+  &:hover,
+  &.active {
+    border-color: $success;
+    background: $success;
+
+    .glyphicon {
+      opacity: 0.4;
+    }
+  }
+
+  &.admin {
+    display: none;
   }
 }

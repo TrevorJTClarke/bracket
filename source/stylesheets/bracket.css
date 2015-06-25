@@ -260,7 +260,7 @@ border-color: $darkmain; */ }
 header {
   position: fixed;
   width: 100%;
-  height: 82px;
+  height: 62px;
   margin: 0;
   padding-right: 10px;
   padding-left: 10px;
@@ -269,7 +269,7 @@ header {
   header .navbar {
     background: #155062;
     color: #FFFFFF;
-    height: 84px;
+    height: 64px;
     margin: 0; }
   header .profile {
     position: absolute;
@@ -278,11 +278,14 @@ header {
     opacity: 0;
     -webkit-transition: opacity 220ms ease-in-out;
     transition: opacity 220ms ease-in-out; }
+    header .profile .avatar {
+      width: 40px;
+      padding: 6px 0 4px; }
     header .profile.show {
       opacity: 1; }
   header .logo {
     display: block;
-    width: 40px;
+    width: 28px;
     margin: 20px auto 0;
     font-size: 26px;
     font-weight: 100; }
@@ -298,9 +301,9 @@ header {
     header .nav-action .btn-action {
       color: #f4f4f4;
       line-height: 50px;
-      padding: 5px 15px 15px;
-      font-size: 50px;
-      font-weight: 300; }
+      padding: 0px 7px 4px;
+      font-size: 48px;
+      font-weight: 100; }
 
 /* notifier */
 .notify {
@@ -376,11 +379,11 @@ header {
   border-radius: 50%;
   color: #FFFFFF;
   text-align: center;
-  font-size: 26px;
+  font-size: 19px;
   font-weight: 100;
   padding: 10px 0 0;
   width: 55px;
-  height: 56px;
+  /* height: 56px; */
   flex: 1;
   position: relative;
   z-index: 1;
@@ -397,7 +400,8 @@ header {
   padding: 5px; }
   .player .player-meta {
     flex: 5;
-    position: relative; }
+    position: relative;
+    height: 50px; }
   .player:nth-child(odd) {
     background: #f9f9f9; }
 
@@ -409,8 +413,11 @@ header {
   padding: 3px 0 0 20px; }
 
 .player-meta .player-name {
-  font-size: 18px;
+  font-size: 16px;
   padding-top: 7px; }
+
+.player-meta .player-email {
+  font-size: 11px; }
 
 .player-action {
   border: 2px solid rgba(0, 0, 0, 0.1);
@@ -418,11 +425,20 @@ header {
   position: absolute;
   right: 0;
   top: 0;
-  margin: 0;
+  margin: 2px 4px 4px;
   padding: 7px 10px 4px;
   width: auto; }
   .player-action .glyphicon {
     opacity: 0.1; }
+  .player-action:hover,
+  .player-action.active {
+    border-color: #28BB4B;
+    background: #28BB4B; }
+    .player-action:hover .glyphicon,
+    .player-action.active .glyphicon {
+      opacity: 0.4; }
+  .player-action.admin {
+    display: none; }
 
 /**
  * Create Championship Styling
