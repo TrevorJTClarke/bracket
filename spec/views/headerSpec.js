@@ -17,6 +17,10 @@ define(['views/header', 'models/user', 'models/session', 'routers/state', 'jasmi
         expect(view.toggleAuthElems).toBeDefined();
       });
 
+      it ('should have .toggleButtonContent method', function () {
+        expect(view.toggleButtonContent).toBeDefined();
+      });
+
       it ('should have .viewProfile method', function () {
         expect(view.viewProfile).toBeDefined();
       });
@@ -43,9 +47,9 @@ define(['views/header', 'models/user', 'models/session', 'routers/state', 'jasmi
     describe('when user is logged in', function () {
       var testuser = {
         id: "jfkdlsajf-789dfs-fd9s-f89sd09",
-        firstName: "trevor",
-        lastName: "clarke",
-        email: "tclarke@billabong.com",
+        firstName: "super",
+        lastName: "man",
+        email: "superman@billabong.com",
         color: "155062"
       };
 

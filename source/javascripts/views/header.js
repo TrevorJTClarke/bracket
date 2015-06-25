@@ -25,6 +25,7 @@ function(
     model: User,
 
     initialize: function() {
+      this.newGameActive = false;
       this.render();
       this.listenTo(Session, 'change', this.toggleAuthElems);
 
@@ -37,6 +38,9 @@ function(
       this.template = _.template(template( _self.model.attributes ));
       this.$el.html(this.template);
 
+      // toggle the button context
+      this.toggleButtonContent(true);
+
       return this;
     },
 
@@ -47,18 +51,29 @@ function(
       this.$el.find(".nav-action")[action + "Class"]("show");
     },
 
+    toggleButtonContent: function (bool) {
+      var open = "+",
+          close = "&times;";
+      this.$el.find(".btn-action")[0].innerHTML = (bool === true)? open : close;
+    },
+
     viewProfile: function (e) {
       if(e){
         e.preventDefault();
       }
       State.go("");
+      this.toggleButtonContent(true);
     },
 
     newGame: function (e) {
       if(e){
         e.preventDefault();
       }
-      State.go("setup");
+      var bool = this.newGameActive;
+      var url = (bool === false)? "setup" : "";
+      State.go( url );
+      this.toggleButtonContent( bool );
+      this.newGameActive = !bool;
     }
 
   });
