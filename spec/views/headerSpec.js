@@ -1,4 +1,4 @@
-define(['views/header', 'models/user', 'models/session', 'routers/state', 'jasminequery'], function(Header, User, Session, State) {
+define(['views/header', 'models/user', 'models/session', 'routers/state', 'jasminequery'], function(Header, User, Session) {
   var view, model;
 
   describe("Header View", function() {
@@ -11,6 +11,18 @@ define(['views/header', 'models/user', 'models/session', 'routers/state', 'jasmi
 
       it ('should exist', function () {
         expect(view).toBeDefined();
+      });
+
+      it ('should have .toggleAuthElems method', function () {
+        expect(view.toggleAuthElems).toBeDefined();
+      });
+
+      it ('should have .viewProfile method', function () {
+        expect(view.viewProfile).toBeDefined();
+      });
+
+      it ('should have .newGame method', function () {
+        expect(view.newGame).toBeDefined();
       });
 
     });
@@ -30,13 +42,18 @@ define(['views/header', 'models/user', 'models/session', 'routers/state', 'jasmi
 
     describe('when user is logged in', function () {
       var testuser = {
-      		email: "sdup@billabong.com",
-      		password: "testtest"
+        id: "jfkdlsajf-789dfs-fd9s-f89sd09",
+        firstName: "trevor",
+        lastName: "clarke",
+        email: "tclarke@billabong.com",
+        color: "155062"
       };
 
       beforeEach(function (done) {
-        Session.login(testuser)
-          .then(done,done);
+        // fake the login
+        User.set( testuser );
+        Session.set({ auth: true });
+        done();
       });
 
       it ('should have avatar and create button', function () {
@@ -49,7 +66,9 @@ define(['views/header', 'models/user', 'models/session', 'routers/state', 'jasmi
     describe('when user is logged out', function () {
 
       beforeEach(function (done) {
-        Session.logout();
+        // fake the logout
+        User.remove();
+        Session.set({ auth: false });
         done();
       });
 

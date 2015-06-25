@@ -34,6 +34,7 @@ function(
     // defaults
     this.router = new Router();
     this.isTransitioning = false;
+    this.current = "";
 
     this.initialize = function () {
       Backbone.history.start();
@@ -46,6 +47,7 @@ function(
      */
     this.go = function ( url ) {
       if(this.isTransitioning === true){ return; }
+      if(this.current === url){ return; }
       var _self = this;
 
       // This starts the transitions
@@ -53,8 +55,10 @@ function(
         .then(function () {
           // Wait to actually go until halfway through
           _self.router.navigate( url, true);
+          _self.current = url;
         },function () {
           Backbone.history.navigate("login", true);
+          _self.current = "login";
         });
     };
 

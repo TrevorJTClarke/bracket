@@ -2,12 +2,14 @@ define([
   'jquery',
   'backbone',
   'models/user',
+  'models/session',
   'hbars!templates/header'
 ],
 function(
   $,
   Backbone,
   User,
+  Session,
   template
 ) {
 
@@ -24,7 +26,7 @@ function(
 
     initialize: function() {
       this.render();
-      this.model.on("change", this.render, this);
+      this.listenTo(Session, 'change', this.toggleAuthElems);
 
       return this;
     },
@@ -36,6 +38,13 @@ function(
       this.$el.html(this.template);
 
       return this;
+    },
+
+    toggleAuthElems: function (model) {
+      var isAuthed = model.get("auth");
+      var action = (isAuthed === true)? "add":"remove";
+      this.$el.find(".profile")[action + "Class"]("show");
+      this.$el.find(".nav-action")[action + "Class"]("show");
     },
 
     viewProfile: function (e) {
