@@ -7,7 +7,8 @@ define([
   'models/system',
   'models/session',
   'backbone.validation',
-  'models/notifier'
+  'models/notifier',
+  'routers/state'
 ],
 function(
   $,

@@ -20,6 +20,13 @@ header {
     position: absolute;
     left:20px;
     top: 13px;
+    opacity: 0;
+    -webkit-transition: opacity 220ms ease-in-out;
+    transition: opacity 220ms ease-in-out;
+
+    &.show {
+      opacity: 1;
+    }
   }
 
   .logo {
@@ -34,6 +41,13 @@ header {
     position: absolute;
     right: 10px;
     top: 5px;
+    opacity: 0;
+    -webkit-transition: opacity 220ms ease-in-out;
+    transition: opacity 220ms ease-in-out;
+
+    &.show {
+      opacity: 1;
+    }
 
     .btn-action {
       color: #f4f4f4;
