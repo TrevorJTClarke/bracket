@@ -1,3 +1,4 @@
+![image](./reference/logo_tiny.svg)
 # bracket
 A quick setup of bracket championships.
 
