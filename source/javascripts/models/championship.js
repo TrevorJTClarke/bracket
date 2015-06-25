@@ -2,17 +2,23 @@ define([
   'jquery',
   'backbone',
   'collections/players',
-  'models/player'
+  'models/player',
+  'models/system'
 ],
 function(
   $,
   Backbone,
   Players,
-  Player
+  Player,
+  System
 ){
+  // SETUP
+  var PS = System.get("Parse");
 
   // Creates a new Backbone Model class object
   return Backbone.Model.extend({
+
+    url: PS.CLASSES + PS.CHAMPIONSHIP,
     className: "Championship",
     tierNamespace: 'tier_',
 
@@ -23,13 +29,10 @@ function(
     },
 
     defaults: {
-      'title': 'Championship 1',
-      'players_ref': null,
+      'title': '',
+      'players_ref': '',
       'tiers': 0
     },
-
-    //
-    validate: function(attrs) {},
 
     /**
       * adds user into the Championship.users data

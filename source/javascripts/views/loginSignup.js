@@ -112,6 +112,7 @@ function(
       // start session
       Session.login( _self.model.attributes )
         .then(function (res) {
+          console.log("HERE",res);
           State.go("");
         },function (err) {
           var resp = JSON.parse(err.responseText);

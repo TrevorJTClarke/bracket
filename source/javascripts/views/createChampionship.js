@@ -5,7 +5,8 @@ define([
   'models/championship',
   'hbars!templates/create_championship',
   'hbars!templates/player_listing_item',
-  'models/system'
+  'models/system',
+  'models/notifier'
 ],
 function(
   $,
@@ -18,6 +19,7 @@ function(
 ){
   // SETUP
   var players = [];
+  var PS = System.get("Parse");
 
   // PRIVATE METHODS
   var _rootEl = $(".main-container");
@@ -37,6 +39,9 @@ function(
       this.currentStep = "sectionFirst";
       this.render();
       this.championshipTitle = this.$("#chTitle");
+
+      // TESTING:
+      this.getAvailablePlayers();
 
       // this.model = new Championship();
       // this.model.set('users', UsersCollection);
@@ -77,7 +82,10 @@ function(
       if(e) {
         e.preventDefault();
       }
-      if (!this.championshipTitle.val()){ return; }
+      if (!this.championshipTitle.val()){
+        Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "info", title: "Please enter a championship title!" });
+        return;
+      }
       var _self = this;
       var champData = {
         title: _self.championshipTitle.val()
@@ -87,16 +95,21 @@ function(
       _self.model.set( champData )
         .save()
         .then(function(res) {
-          // console.log("res",res.attributes);
+          console.log("res",res);
+          _self.render();
+          // show the next view
+          _self.currentStep = "sectionSecond";
+          _self.toggleSections();
         }, function (err) {
-          console.log("err",err);
+          Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "error", title: err });
         });
 
 
       // show the next view
-      this.currentStep = "sectionSecond";
-      this.toggleSections();
+      // this.currentStep = "sectionSecond";
+      // this.toggleSections();
 
+      // TODO:
       // update the total count of new users
       // Stats().getMain().increment("championships");
 
@@ -104,6 +117,19 @@ function(
       this.addPlayers();
 
       return this;
+    },
+
+    getAvailablePlayers: function () {
+      var _self = this;
+      var url = PS.CLASSES + PS.USER;
+      $.get( url )
+        .success(function (res) {
+          console.log(res);
+          players = res.results;
+        })
+        .error(function (err) {
+          Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "error", title: err });
+        });
     },
 
     addPlayers: function () {

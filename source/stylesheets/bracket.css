@@ -412,12 +412,17 @@ header {
   font-size: 18px;
   padding-top: 7px; }
 
-.player-meta .player-action {
+.player-action {
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
   position: absolute;
   right: 0;
   top: 0;
-  margin: 20px 10px 23px;
-  opacity: 0.6; }
+  margin: 0;
+  padding: 7px 10px 4px;
+  width: auto; }
+  .player-action .glyphicon {
+    opacity: 0.1; }
 
 /**
  * Create Championship Styling

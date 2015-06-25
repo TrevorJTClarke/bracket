@@ -31,12 +31,19 @@
     font-size: 18px;
     padding-top: 7px;
   }
+}
 
-  .player-action {
-    position: absolute;
-    right:0;
-    top:0;
-    margin: 20px 10px 23px;
-    opacity: 0.6;
+.player-action {
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  position: absolute;
+  right:0;
+  top:0;
+  margin: 0;
+  padding: 7px 10px 4px;
+  width: auto;
+
+  .glyphicon {
+    opacity: 0.1;
   }
 }
