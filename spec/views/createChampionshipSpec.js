@@ -1,7 +1,7 @@
-define(['views/setupIntro'], function(SetupIntroView) {
+define(['views/createChampionship'], function(CreateChampionshipView) {
   // describe("SetupIntroView", function() {
   //   beforeEach(function() {
-  //     this.view = new SetupIntroView();
+  //     this.view = new CreateChampionshipView();
   //   });
   //
   //   it("should be defined", function() {

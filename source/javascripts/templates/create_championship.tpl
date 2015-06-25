@@ -19,8 +19,8 @@
       <button type="submit" class="btn btn-default btn-fixed-bottom">Next</button>
     </form>
   </div>
-  <div class="col-md-6 col-md-offset-3 setup-players">
-    <div class="setup-title">Current Players</div>
+  <div class="col-md-6 col-md-offset-3 create-players">
+    <div class="create-title">Current Players</div>
     <div class="col-md-6 col-md-offset-3">
       {{{ playerListTpl }}}
     </div>

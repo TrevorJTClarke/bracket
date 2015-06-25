@@ -398,43 +398,46 @@ header {
   .player .player-meta {
     flex: 5;
     position: relative; }
-    .player .player-meta .player-name,
-    .player .player-meta .player-email {
-      width: auto;
-      display: block;
-      margin: 0;
-      padding: 3px 0 0 20px; }
-    .player .player-meta .player-name {
-      font-size: 18px;
-      padding-top: 7px; }
-    .player .player-meta .player-action {
-      position: absolute;
-      right: 0;
-      top: 0;
-      margin: 20px 10px 23px;
-      opacity: 0.6; }
   .player:nth-child(odd) {
     background: #f9f9f9; }
 
+.player-meta .player-name,
+.player-meta .player-email {
+  width: auto;
+  display: block;
+  margin: 0;
+  padding: 3px 0 0 20px; }
+
+.player-meta .player-name {
+  font-size: 18px;
+  padding-top: 7px; }
+
+.player-meta .player-action {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 20px 10px 23px;
+  opacity: 0.6; }
+
 /**
- * Setup Intro Styling
+ * Create Championship Styling
  */
-.setup-intro {
+.create-championship {
   width: 100%;
   margin: 40px auto 0; }
-  .setup-intro .row {
+  .create-championship .row {
     display: none; }
-  .setup-intro h3 {
+  .create-championship h3 {
     text-align: center;
     margin: 0 0 25px; }
-  .setup-intro .setup-players {
+  .create-championship .create-players {
     margin-top: 20px; }
-  .setup-intro .setup-title {
+  .create-championship .create-title {
     font-size: 18px;
     padding: 12px;
     width: 100%;
     display: block; }
-  .setup-intro .show {
+  .create-championship .show {
     display: block; }
 
 /* Modules */

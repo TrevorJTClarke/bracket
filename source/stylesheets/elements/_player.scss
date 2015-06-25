@@ -11,31 +11,32 @@
     .player-meta {
       flex:5;
       position: relative;
-
-      .player-name,
-      .player-email {
-        width: auto;
-        display: block;
-        margin: 0;
-        padding: 3px 0 0 20px;
-      }
-
-      .player-name {
-        font-size: 18px;
-        padding-top: 7px;
-      }
-
-      .player-action {
-        position: absolute;
-        right:0;
-        top:0;
-        margin: 20px 10px 23px;
-        opacity: 0.6;
-      }
     }
-
 
     &:nth-child(odd){
       background: $grey01;
     }
+}
+.player-meta {
+
+  .player-name,
+  .player-email {
+    width: auto;
+    display: block;
+    margin: 0;
+    padding: 3px 0 0 20px;
+  }
+
+  .player-name {
+    font-size: 18px;
+    padding-top: 7px;
+  }
+
+  .player-action {
+    position: absolute;
+    right:0;
+    top:0;
+    margin: 20px 10px 23px;
+    opacity: 0.6;
+  }
 }

@@ -3,9 +3,8 @@ define([
   'backbone',
   'collections/championships',
   'models/championship',
-  'hbars!templates/setup_intro',
+  'hbars!templates/create_championship',
   'hbars!templates/player_listing_item',
-  'models/stats',
   'models/system'
 ],
 function(
@@ -13,9 +12,8 @@ function(
   Backbone,
   Championships,
   Championship,
-  setupTpl,
+  createChampionshipTpl,
   playerListTpl,
-  Stats,
   System
 ){
   // SETUP
@@ -27,7 +25,7 @@ function(
   return Backbone.View.extend({
 
     tagName: 'div',
-    className: 'main-setup',
+    className: 'create-championship',
 
     model: new Championship,
 
@@ -49,7 +47,7 @@ function(
     render: function() {
       var _self = this;
       // Setting the view's template property using the Underscore template method
-      this.template = _.template(setupTpl({
+      this.template = _.template(createChampionshipTpl({
         playerListTpl: playerListTpl({
           players: players
         })
@@ -109,37 +107,38 @@ function(
     },
 
     addPlayers: function () {
-      var _self = this;
-      var userData = Parse.Object.extend("User");
-      var query = new Parse.Query(userData);
-      query.limit(10)
-          .find()
-          .then(function (res) {
-            // console.log("res",res);
-            var Players = Parse.Object.extend("ChampionshipPlayers");
-            var plrs = new Players();
-
-            res.forEach(function (obj,idx) {
-              var tempUser = obj.attributes;
-                  tempUser.id = obj.id;
-
-              players.push(tempUser);
-
-              plrs.addUnique("players", obj.id);
-
-            })
-
-            _self.render();
-            plrs.save()
-                .then(function(res) {
-                  console.log("plrs res",res);
-
-                  _self.model.set({ "players_ref": res.id }).save();
-                }, function (err) {
-                  console.log("err",err);
-                });
-
-          });
+      console.log("TODO: addPlayers");
+      // var _self = this;
+      // var userData = Parse.Object.extend("User");
+      // var query = new Parse.Query(userData);
+      // query.limit(10)
+      //     .find()
+      //     .then(function (res) {
+      //       // console.log("res",res);
+      //       var Players = Parse.Object.extend("ChampionshipPlayers");
+      //       var plrs = new Players();
+      //
+      //       res.forEach(function (obj,idx) {
+      //         var tempUser = obj.attributes;
+      //             tempUser.id = obj.id;
+      //
+      //         players.push(tempUser);
+      //
+      //         plrs.addUnique("players", obj.id);
+      //
+      //       })
+      //
+      //       _self.render();
+      //       plrs.save()
+      //           .then(function(res) {
+      //             console.log("plrs res",res);
+      //
+      //             _self.model.set({ "players_ref": res.id }).save();
+      //           }, function (err) {
+      //             console.log("err",err);
+      //           });
+      //
+      //     });
     }
 
   });
