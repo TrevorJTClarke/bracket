@@ -37,10 +37,11 @@ function(
     },
 
     defaults: {
-      "firstName": "Billa",
-      "lastName": "Bong",
-      "email": "bb@billabong.com",
-      "initials": "BB"
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "initials": "",
+      "color": ""
     },
 
     cache: function ( data ) {

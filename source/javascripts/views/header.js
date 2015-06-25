@@ -1,13 +1,13 @@
 define([
   'jquery',
   'backbone',
-  'models/header',
+  'models/user',
   'hbars!templates/header'
 ],
 function(
   $,
   Backbone,
-  Model,
+  User,
   template
 ) {
 
@@ -15,15 +15,20 @@ function(
 
     el: '.header',
 
-    initialize: function() {
-      this.render();
-    },
-
     events: {},
 
-    render: function() {
+    model: User,
 
-      this.template = _.template(template({}));
+    initialize: function() {
+      this.render();
+
+      return this;
+    },
+
+    render: function() {
+      var _self = this;
+
+      this.template = _.template(template( _self.model.attributes ));
       this.$el.html(this.template);
 
       return this;

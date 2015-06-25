@@ -6,7 +6,8 @@ define([
   'hbars!templates/login_signup',
   'models/system',
   'models/session',
-  'backbone.validation'
+  'backbone.validation',
+  'models/notifier'
 ],
 function(
   $,

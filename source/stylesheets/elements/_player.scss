@@ -8,23 +8,6 @@
     flex-wrap: wrap;
     padding: 5px;
 
-    .player-avatar {
-      background: $darksecond; // NOTE: will be changed dynamically
-      border:1px solid rgba(0,0,0,0.3);
-      border-radius: 50%;
-      color:$white;
-      text-align: center;
-      font-size: 26px;
-      font-weight: 100;
-      padding:10px 0 0;
-      width: 55px;
-      height: 56px;
-      flex:1;
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
-    }
-
     .player-meta {
       flex:5;
       position: relative;
