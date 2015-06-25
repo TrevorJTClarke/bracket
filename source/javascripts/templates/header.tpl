@@ -16,7 +16,7 @@
     </div>
 
     <div class="nav-action">
-      <button id="newGame" class="btn btn-action">+</button>
+      <button class="btn btn-action">+</button>
     </div>
   </nav>
 </header>

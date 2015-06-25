@@ -15,7 +15,10 @@ function(
 
     el: '.header',
 
-    events: {},
+    events: {
+      'click .profile': 'viewProfile',
+      'click button': 'newGame'
+    },
 
     model: User,
 
@@ -33,6 +36,20 @@ function(
       this.$el.html(this.template);
 
       return this;
+    },
+
+    viewProfile: function (e) {
+      if(e){
+        e.preventDefault();
+      }
+      State.go("");
+    },
+
+    newGame: function (e) {
+      if(e){
+        e.preventDefault();
+      }
+      State.go("setup");
     }
 
   });
