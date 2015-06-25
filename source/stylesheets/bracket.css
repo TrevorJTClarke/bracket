@@ -271,12 +271,26 @@ header {
     color: #FFFFFF;
     height: 84px;
     margin: 0; }
-    header .navbar .logo {
-      display: block;
-      width: 40px;
-      margin: 20px auto 0;
-      font-size: 26px;
-      font-weight: 100; }
+  header .profile {
+    position: absolute;
+    left: 20px;
+    top: 13px; }
+  header .logo {
+    display: block;
+    width: 40px;
+    margin: 20px auto 0;
+    font-size: 26px;
+    font-weight: 100; }
+  header .nav-action {
+    position: absolute;
+    right: 10px;
+    top: 5px; }
+    header .nav-action .btn-action {
+      color: #f4f4f4;
+      line-height: 50px;
+      padding: 5px 15px 15px;
+      font-size: 50px;
+      font-weight: 300; }
 
 /* notifier */
 .notify {
@@ -348,7 +362,7 @@ header {
  */
 .avatar {
   background: #1472ad;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   color: #FFFFFF;
   text-align: center;
