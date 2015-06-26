@@ -40,6 +40,7 @@ define([
         }
 
         // set base headers
+        jqXHR.setRequestHeader('Content-Type', 'application/json');
         jqXHR.setRequestHeader('X-Parse-Application-Id', PS.API_KEY);
         jqXHR.setRequestHeader('X-Parse-REST-API-Key', PS.REST_KEY);
         jqXHR.setRequestHeader('X-Parse-Session-Token', token);

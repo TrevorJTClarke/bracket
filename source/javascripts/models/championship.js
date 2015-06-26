@@ -30,7 +30,6 @@ function(
 
     defaults: {
       'title': '',
-      'players_ref': '',
       'tiers': 0
     },
     // TODO: asses the need of these methods

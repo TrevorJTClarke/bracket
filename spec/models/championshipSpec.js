@@ -8,7 +8,6 @@ define(['models/championship'], function(Championship) {
 
     it('should have default attrs', function() {
       expect(championship.get('title')).toBeDefined();
-      expect(championship.get('players_ref')).toBeDefined();
       expect(championship.get('tiers')).toBeDefined();
     });
 

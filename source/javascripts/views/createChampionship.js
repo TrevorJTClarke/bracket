@@ -25,51 +25,61 @@ function(
 
   // PRIVATE METHODS
   var _rootEl = $(".main-container");
+  var CP = new ChampionshipPlayers();
 
-  // Grab root list of players and only return needed data
-  function getAvailablePlayers() {
+  // Stores the players reference into model
+  function storePlayersRef( modelId, playersArray ) {
+    // var dfd = Q.defer();
+    // var url = PS.CLASSES + PS.CHAMPIONSHIP + "/" + modelId;
+    // var data = {
+    //   "players": {
+    //     "__op":"AddRelation",
+    //     "objects":[{
+    //       "__type": "Pointer",
+    //       "className": "ChampionshipPlayers",
+    //       "objectId": playersId
+    //     }]
+    //   }
+    // };
+    //
+    // $.ajax({
+    //   url: url,
+    //   type: 'PUT',
+    //   data: JSON.stringify(data),
+    //   dataType: "json",
+    //   "contentType": "application/json",
+    //   success: dfd.resolve,
+    //   error: dfd.reject
+    // });
+    //
+    // return dfd.promise;
+
     var dfd = Q.defer();
-    var _self = this;
-    var url = PS.CLASSES + PS.USER;
+    var url = PS.CLASSES + PS.CHAMPIONSHIP + "/" + modelId;
+    var data = {
+      "players": {
+        "__op":"AddRelation",
+        "objects":[]
+      }
+    };
 
-    function formatList (array) {
-      var finArray = [];
-      var me = localStorage.getItem("br-user");
-          me = JSON.parse(me);
-
-      array.map(function (obj,idx) {
-        if(obj.username !== "a"){
-          // only add needed data
-          var addUser = {
-            id: obj.objectId,
-            firstName: obj.firstName,
-            lastName: obj.lastName,
-            email: obj.email,
-            color: obj.color,
-            initials: obj.initials,
-            added: false
-          };
-
-          if(obj.username === me.username){
-            addUser.email = "Championship Creator";
-            addUser.admin = true;
-          }
-
-          finArray.push( addUser );
-        }
+    for (var i = 0; i < playersArray.length; i++) {
+      data.players.objects.push({
+        __type: 'Pointer',
+        className: '_User',
+        objectId: playersArray[i]
       });
-
-      return finArray;
     }
 
-    $.get( url )
-      .success(function (res) {
-        // quick filtering of player data
-        players = formatList( res.results );
-
-        dfd.resolve(players);
-      })
-      .error( dfd.reject );
+    $.ajax({
+      url: url,
+      type: 'PUT',
+      data: JSON.stringify(data),
+      dataType: 'json',
+      contentType: 'application/json',
+      success: dfd.resolve,
+      error: dfd.reject
+    });
 
     return dfd.promise;
   }
@@ -142,8 +152,9 @@ function(
           // update the current championship data model
           _self.model.set( res );
 
-          getAvailablePlayers()
+          CP.getAvailablePlayers()
             .then(function (res) {
+              players = res;
               _self.render();
               // show the next view
               _self.currentStep = "sectionSecond";
@@ -152,6 +163,7 @@ function(
               // bind add/remove events
               _self.bindPlayers();
 
+              // TODO: this should be handled in the events, WHYA?!
               _self.$el.find("#doneAddingPlayers").on("click", function() {
                 _self.finishCreating();
               });
@@ -164,33 +176,48 @@ function(
     },
 
     finishCreating: function () {
-      console.log("finishCreating players",players);
-      var _self = this;
-      var gamePlayers = new ChampionshipPlayers();
+      var __self = this;
       var playerIds = [];
 
       players.map(function (obj) {
-        playerIds.push(obj.id);
+        if(obj.added === true || obj.admin === true){
+          playerIds.push(obj.id);
+        }
       });
+        console.log("finishCreating playerIds",playerIds);
 
-      gamePlayers.savePlayers( playerIds )
-        .then(function (res) {
-          console.log("gamePlayers.savePlayers res",res);
-          // save the player ref!
-          // TODO: do i need to store as a reference?
-          _self.model.set({ 'players_ref': ref.objectId })
-            .save();
-            // TODO: navigation to tier setup flow
-        }, function (err) {
-          console.log("savePlayers err",err);
-        });
+      // CP.save()
+      //   .then(function (ref) {
+      //     console.log("save players",ref);
+          var champId = __self.model.get("objectId");
+          storePlayersRef( champId, playerIds )
+          // CP.savePlayers( ref.objectId, playerIds )
+            .then(function (res) {
+              // var refId = res.objectId;
+
+                console.log("storePlayersRef finished res",res);
+              // save the players data reference!
+              // storePlayersRef( champId, refId )
+              //     .then(function (res) {
+              //       console.log("storePlayersRef finished res",res);
+              //     },function (err) {
+              //       console.log("storePlayersRef finished err",err);
+              //     });
+                // TODO: navigation to tier setup flow
+            }, function (err) {
+              console.log("savePlayers err",err);
+            });
+        // }, function (err) {
+        //   //
+        // });
+
     },
 
     toggleAddPlayer: function ( item ) {
-      item.added = !item.added;
+      // item.added = !item.added;
       players.map(function (obj,idx) {
         if(obj.id === item.id){
-          obj.added = !obj.added;
+          players[idx].added = !players[idx].added;
           return;
         }
       });
@@ -211,37 +238,3 @@ function(
   });
 
 });
-
-
-// PARSE REFERENCE CODE TESTS
-// var _self = this;
-// var userData = Parse.Object.extend("User");
-// var query = new Parse.Query(userData);
-// query.limit(10)
-//     .find()
-//     .then(function (res) {
-//       // console.log("res",res);
-//       var Players = Parse.Object.extend("ChampionshipPlayers");
-//       var plrs = new Players();
-//
-//       res.forEach(function (obj,idx) {
-//         var tempUser = obj.attributes;
-//             tempUser.id = obj.id;
-//
-//         players.push(tempUser);
-//
-//         plrs.addUnique("players", obj.id);
-//
-//       })
-//
-//       _self.render();
-//       plrs.save()
-//           .then(function(res) {
-//             console.log("plrs res",res);
-//
-//             _self.model.set({ "players_ref": res.id }).save();
-//           }, function (err) {
-//             console.log("err",err);
-//           });
-//
-//     });
