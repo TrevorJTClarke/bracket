@@ -430,11 +430,10 @@ header {
   width: auto; }
   .player-action .glyphicon {
     opacity: 0.1; }
-  .player-action:hover,
   .player-action.active {
     border-color: #28BB4B;
-    background: #28BB4B; }
-    .player-action:hover .glyphicon,
+    background: #28BB4B;
+    box-shadow: 0 0 0; }
     .player-action.active .glyphicon {
       opacity: 0.4; }
   .player-action.admin {
@@ -445,7 +444,7 @@ header {
  */
 .create-championship {
   width: 100%;
-  margin: 40px auto 0; }
+  margin: 5px auto 0; }
   .create-championship .row {
     display: none; }
   .create-championship h3 {

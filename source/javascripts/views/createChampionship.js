@@ -2,8 +2,8 @@ define([
   'jquery',
   'Q',
   'backbone',
-  'collections/championships',
   'models/championship',
+  'models/championshipPlayers',
   'hbars!templates/create_championship',
   'hbars!templates/player_listing_item',
   'models/system',
@@ -13,8 +13,8 @@ function(
   $,
   Q,
   Backbone,
-  Championships,
   Championship,
+  ChampionshipPlayers,
   createChampionshipTpl,
   playerListTpl,
   System
@@ -41,7 +41,7 @@ function(
         if(obj.username !== "a"){
           // only add needed data
           var addUser = {
-            id: obj.id,
+            id: obj.objectId,
             firstName: obj.firstName,
             lastName: obj.lastName,
             email: obj.email,
@@ -64,7 +64,7 @@ function(
 
     $.get( url )
       .success(function (res) {
-        console.log(res);
+        // quick filtering of player data
         players = formatList( res.results );
 
         dfd.resolve(players);
@@ -82,24 +82,17 @@ function(
     model: new Championship,
 
     events: {
-      'click #newChampionship': 'startChampionship'
+      'click #newChampionship': 'startChampionship',
+      'click #doneAddingPlayers': 'finishCreating'
     },
 
     initialize: function() {
       var _self = this;
-      // this.currentStep = "sectionFirst";
-      this.currentStep = "sectionSecond";
-      this.championshipTitle = this.$("#chTitle");
+      _self.currentStep = "sectionFirst";
+      _self.render();
+      _self.championshipTitle = this.$el.find("#chTitle");
 
-      // TESTING:
-      getAvailablePlayers();
-      setTimeout(function(){
-        _self.render();
-      },550);
-
-      // this.model = new Championship();
-      // this.model.set('users', UsersCollection);
-      // this.listenTo(this.model, "change", this.render);
+      return this;
     },
 
     // Renders the view's template to the UI
@@ -117,9 +110,6 @@ function(
       _rootEl.html(_self.$el);
 
       this.toggleSections();
-
-      // Maintains chainability
-      return this;
     },
 
     toggleSections: function () {
@@ -149,65 +139,109 @@ function(
       _self.model.set( champData )
         .save()
         .then(function(res) {
-          console.log("res",res);
-          _self.render();
-          // show the next view
-          _self.currentStep = "sectionSecond";
-          _self.toggleSections();
+          // update the current championship data model
+          _self.model.set( res );
+
+          getAvailablePlayers()
+            .then(function (res) {
+              _self.render();
+              // show the next view
+              _self.currentStep = "sectionSecond";
+              _self.toggleSections();
+
+              // bind add/remove events
+              _self.bindPlayers();
+
+              _self.$el.find("#doneAddingPlayers").on("click", function() {
+                _self.finishCreating();
+              });
+            },function (err) {
+              Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "error", title: err });
+            });
         }, function (err) {
           Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "error", title: err });
         });
-
-
-      // show the next view
-      // this.currentStep = "sectionSecond";
-      // this.toggleSections();
-
-      // TODO:
-      // update the total count of new users
-      // Stats().getMain().increment("championships");
-
-      // start the next view
-      this.addPlayers();
-
-      return this;
     },
 
-    addPlayers: function () {
-      console.log("TODO: addPlayers");
-      // var _self = this;
-      // var userData = Parse.Object.extend("User");
-      // var query = new Parse.Query(userData);
-      // query.limit(10)
-      //     .find()
-      //     .then(function (res) {
-      //       // console.log("res",res);
-      //       var Players = Parse.Object.extend("ChampionshipPlayers");
-      //       var plrs = new Players();
-      //
-      //       res.forEach(function (obj,idx) {
-      //         var tempUser = obj.attributes;
-      //             tempUser.id = obj.id;
-      //
-      //         players.push(tempUser);
-      //
-      //         plrs.addUnique("players", obj.id);
-      //
-      //       })
-      //
-      //       _self.render();
-      //       plrs.save()
-      //           .then(function(res) {
-      //             console.log("plrs res",res);
-      //
-      //             _self.model.set({ "players_ref": res.id }).save();
-      //           }, function (err) {
-      //             console.log("err",err);
-      //           });
-      //
-      //     });
+    finishCreating: function () {
+      console.log("finishCreating players",players);
+      var _self = this;
+      var gamePlayers = new ChampionshipPlayers();
+      var playerIds = [];
+
+      players.map(function (obj) {
+        playerIds.push(obj.id);
+      });
+
+      gamePlayers.savePlayers( playerIds )
+        .then(function (res) {
+          console.log("gamePlayers.savePlayers res",res);
+          // save the player ref!
+          // TODO: do i need to store as a reference?
+          _self.model.set({ 'players_ref': ref.objectId })
+            .save();
+            // TODO: navigation to tier setup flow
+        }, function (err) {
+          console.log("savePlayers err",err);
+        });
+    },
+
+    toggleAddPlayer: function ( item ) {
+      item.added = !item.added;
+      players.map(function (obj,idx) {
+        if(obj.id === item.id){
+          obj.added = !obj.added;
+          return;
+        }
+      });
+    },
+
+    bindPlayers: function () {
+      var _self = this;
+      players.map(function (obj,idx) {
+        var playerData = obj;
+        // bind each button
+        _self.$el.find("#player_" + obj.id).on("click", function(args){
+          $(this).toggleClass("active");
+          _self.toggleAddPlayer( playerData );
+        });
+      });
     }
 
   });
 
 });
+
+
+// PARSE REFERENCE CODE TESTS
+// var _self = this;
+// var userData = Parse.Object.extend("User");
+// var query = new Parse.Query(userData);
+// query.limit(10)
+//     .find()
+//     .then(function (res) {
+//       // console.log("res",res);
+//       var Players = Parse.Object.extend("ChampionshipPlayers");
+//       var plrs = new Players();
+//
+//       res.forEach(function (obj,idx) {
+//         var tempUser = obj.attributes;
+//             tempUser.id = obj.id;
+//
+//         players.push(tempUser);
+//
+//         plrs.addUnique("players", obj.id);
+//
+//       })
+//
+//       _self.render();
+//       plrs.save()
+//           .then(function(res) {
+//             console.log("plrs res",res);
+//
+//             _self.model.set({ "players_ref": res.id }).save();
+//           }, function (err) {
+//             console.log("err",err);
+//           });
+//
+//     });

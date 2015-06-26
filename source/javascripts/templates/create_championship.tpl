@@ -13,21 +13,12 @@
   <div class="col-md-6 col-md-offset-3">
     <form>
       <h3>Add Players</h3>
-      <!-- <div class="form-group">
-        <input type="text" id="chPlayer" placeholder="Enter An Email">
-      </div> -->
       <div class="create-players">
         {{{ playerListTpl }}}
       </div>
-      <button type="submit" class="btn btn-default btn-fixed-bottom">Done</button>
+      <button id="doneAddingPlayers" type="submit" class="btn btn-default btn-fixed-bottom">Done</button>
     </form>
   </div>
-  <!-- <div class="col-md-6 col-md-offset-3 create-players">
-    <div class="create-title">Current Players</div>
-    <div class="col-md-6 col-md-offset-3">
-      {{{ playerListTpl }}}
-    </div>
-  </div> -->
 </div>
 
 <div class="footer-pad"></div>

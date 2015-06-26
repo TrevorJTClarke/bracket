@@ -59,18 +59,18 @@ define(['models/championship'], function(Championship) {
     //   // });
     // });
 
-    describe('.getPlayerById()', function() {
-      it('should have method', function() {
-        expect(championship.getPlayerById).toBeDefined();
-      });
-
-      it('get by Player Key', function() {
-        spyOn(championship, 'getPlayerById').and.callThrough();
-        var tierData = championship.getPlayerById('tier_1');
-
-        expect(championship.getPlayerById).toHaveBeenCalled();
-      });
-    });
+    // describe('.getPlayerById()', function() {
+    //   it('should have method', function() {
+    //     expect(championship.getPlayerById).toBeDefined();
+    //   });
+    //
+    //   it('get by Player Key', function() {
+    //     spyOn(championship, 'getPlayerById').and.callThrough();
+    //     var tierData = championship.getPlayerById('tier_1');
+    //
+    //     expect(championship.getPlayerById).toHaveBeenCalled();
+    //   });
+    // });
 
     // describe('.addTier()', function() {
     //   var bracketData = championship.get('bracket');

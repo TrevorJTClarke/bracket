@@ -33,37 +33,37 @@ function(
       'players_ref': '',
       'tiers': 0
     },
-
-    /**
-      * adds user into the Championship.users data
-      * @param {Object} data model of the user, see example for a sample
-      *
-      * example:
-      * {
-      * 		id: "5u43io-543fdos-fjdksl-riew98787",
-      * 		firstName: "First",
-      * 		lastName: "Last"
-      * }
-      */
-    addPlayer: function(data) {
-      // TODO:
-      var users = this.get('players');
-
-      users[data.id] = data;
-      this.set('players', users);
-    },
-
-    /**
-      * returns a user object from the Championship data
-      * @param  {String} userId is the unique ID of the user, based off their hash
-      * @return {Object}        user data object, see above example
-      */
-    getPlayerById: function(userId) {
-      // TODO:
-      // var usersData = this.get('users');
-      //
-      // return usersData[userId];
-    },
+    // TODO: asses the need of these methods
+    // /**
+    //   * adds user into the Championship.users data
+    //   * @param {Object} data model of the user, see example for a sample
+    //   *
+    //   * example:
+    //   * {
+    //   * 		id: "riew98787",
+    //   * 		firstName: "First",
+    //   * 		lastName: "Last"
+    //   * }
+    //   */
+    // addPlayer: function(data) {
+    //   // TODO:
+    //   var users = this.get('players');
+    //
+    //   users[data.id] = data;
+    //   this.set('players', users);
+    // },
+    //
+    // /**
+    //   * returns a user object from the Championship data
+    //   * @param  {String} userId is the unique ID of the user, based off their hash
+    //   * @return {Object}        user data object, see above example
+    //   */
+    // getPlayerById: function(userId) {
+    //   // TODO:
+    //   // var usersData = this.get('users');
+    //   //
+    //   // return usersData[userId];
+    // },
 
     /**
       * adds a new default tier data into the Championship data

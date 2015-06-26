@@ -7,8 +7,7 @@ define(['backbone'], function(Backbone) {
     },
 
     defaults: {
-      "name": "First Last",
-      "color": "1D677E"
+      "objectId": ""
     }
 
   });

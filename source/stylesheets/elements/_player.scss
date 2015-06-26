@@ -52,10 +52,10 @@
     opacity: 0.1;
   }
 
-  &:hover,
   &.active {
     border-color: $success;
     background: $success;
+    box-shadow: 0 0 0;
 
     .glyphicon {
       opacity: 0.4;
