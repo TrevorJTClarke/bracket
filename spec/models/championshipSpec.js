@@ -8,7 +8,6 @@ define(['models/championship'], function(Championship) {
 
     it('should have default attrs', function() {
       expect(championship.get('title')).toBeDefined();
-      expect(championship.get('players_ref')).toBeDefined();
       expect(championship.get('tiers')).toBeDefined();
     });
 
@@ -59,18 +58,18 @@ define(['models/championship'], function(Championship) {
     //   // });
     // });
 
-    describe('.getPlayerById()', function() {
-      it('should have method', function() {
-        expect(championship.getPlayerById).toBeDefined();
-      });
-
-      it('get by Player Key', function() {
-        spyOn(championship, 'getPlayerById').and.callThrough();
-        var tierData = championship.getPlayerById('tier_1');
-
-        expect(championship.getPlayerById).toHaveBeenCalled();
-      });
-    });
+    // describe('.getPlayerById()', function() {
+    //   it('should have method', function() {
+    //     expect(championship.getPlayerById).toBeDefined();
+    //   });
+    //
+    //   it('get by Player Key', function() {
+    //     spyOn(championship, 'getPlayerById').and.callThrough();
+    //     var tierData = championship.getPlayerById('tier_1');
+    //
+    //     expect(championship.getPlayerById).toHaveBeenCalled();
+    //   });
+    // });
 
     // describe('.addTier()', function() {
     //   var bracketData = championship.get('bracket');

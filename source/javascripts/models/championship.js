@@ -2,65 +2,46 @@ define([
   'jquery',
   'backbone',
   'collections/players',
-  'models/player'
+  'models/player',
+  'models/system'
 ],
 function(
   $,
   Backbone,
   Players,
-  Player
+  Player,
+  System
 ){
+  // SETUP
+  var PS = System.get("Parse");
 
   // Creates a new Backbone Model class object
   return Backbone.Model.extend({
+
+    url: PS.CLASSES + PS.CHAMPIONSHIP,
     className: "Championship",
     tierNamespace: 'tier_',
 
     initialize: function() {
-      // this.set("players", new Players() );
-
       return this;
     },
 
     defaults: {
-      'title': 'Championship 1',
-      'players_ref': null,
+      'title': '',
       'tiers': 0
     },
 
-    //
-    validate: function(attrs) {},
-
-    /**
-      * adds user into the Championship.users data
-      * @param {Object} data model of the user, see example for a sample
-      *
-      * example:
-      * {
-      * 		id: "5u43io-543fdos-fjdksl-riew98787",
-      * 		firstName: "First",
-      * 		lastName: "Last"
-      * }
-      */
-    addPlayer: function(data) {
-      // TODO:
-      var users = this.get('players');
-
-      users[data.id] = data;
-      this.set('players', users);
-    },
-
-    /**
-      * returns a user object from the Championship data
-      * @param  {String} userId is the unique ID of the user, based off their hash
-      * @return {Object}        user data object, see above example
-      */
-    getPlayerById: function(userId) {
-      // TODO:
-      // var usersData = this.get('users');
-      //
-      // return usersData[userId];
-    },
+    // /**
+    //   * returns a user object from the Championship data
+    //   * @param  {String} userId is the unique ID of the user, based off their hash
+    //   * @return {Object}        user data object, see above example
+    //   */
+    // getPlayerById: function(userId) {
+    //   // TODO:
+    //   // var usersData = this.get('users');
+    //   //
+    //   // return usersData[userId];
+    // },
 
     /**
       * adds a new default tier data into the Championship data

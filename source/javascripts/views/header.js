@@ -70,7 +70,7 @@ function(
         e.preventDefault();
       }
       var bool = this.newGameActive;
-      var url = (bool === false)? "setup" : "";
+      var url = (bool === false)? "create" : "";
       State.go( url );
       this.toggleButtonContent( bool );
       this.newGameActive = !bool;

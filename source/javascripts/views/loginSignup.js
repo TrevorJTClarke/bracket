@@ -6,6 +6,7 @@ define([
   'hbars!templates/login_signup',
   'models/system',
   'models/session',
+  'models/player',
   'backbone.validation',
   'models/notifier'
 ],
@@ -16,7 +17,8 @@ function(
   User,
   userTpl,
   System,
-  Session
+  Session,
+  Player
 ){
 
   // PRIVATE METHODS
@@ -112,6 +114,7 @@ function(
       // start session
       Session.login( _self.model.attributes )
         .then(function (res) {
+          console.log("HERE",res);
           State.go("");
         },function (err) {
           var resp = JSON.parse(err.responseText);
@@ -142,14 +145,25 @@ function(
       _self.model.set("username", createUsername( _self.model.attributes.email ) );
       _self.model.set("initials", createInitials( _self.model.attributes.firstName, _self.model.attributes.lastName ) );
       _self.model.set("color", _self.model.attributes.color.replace("#", "").toUpperCase() );
+      _self.model.url = "/users";
 
       // create new user
       _self.model.save()
         .then(function(res) {
-          Session.setAuth( res );
           User.cache( _self.model.attributes );
+          Session.setAuth( res );
           // go to main view
           State.go("");
+
+          // create player in DB and store reference
+          console.log("plUser res",res);
+          // create a new player for game data
+          var plUser = new Player();
+          var plUserData = _self.model.attributes;
+          delete plUserData.id;
+          delete plUserData.password;
+          plUser.set( plUserData );
+          plUser.saveDataRef( "_User", res.objectId );
         }, function (err) {
           Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "error", title: err });
         });

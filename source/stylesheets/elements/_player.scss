@@ -11,31 +11,58 @@
     .player-meta {
       flex:5;
       position: relative;
-
-      .player-name,
-      .player-email {
-        width: auto;
-        display: block;
-        margin: 0;
-        padding: 3px 0 0 20px;
-      }
-
-      .player-name {
-        font-size: 18px;
-        padding-top: 7px;
-      }
-
-      .player-action {
-        position: absolute;
-        right:0;
-        top:0;
-        margin: 20px 10px 23px;
-        opacity: 0.6;
-      }
+      height: 50px;
     }
-
 
     &:nth-child(odd){
       background: $grey01;
     }
+}
+.player-meta {
+
+  .player-name,
+  .player-email {
+    width: auto;
+    display: block;
+    margin: 0;
+    padding: 3px 0 0 20px;
+  }
+
+  .player-name {
+    font-size: 16px;
+    padding-top: 7px;
+  }
+
+  .player-email {
+    font-size: 11px;
+  }
+}
+
+.player-action {
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  position: absolute;
+  right:0;
+  top:0;
+  margin:2px 4px 4px;
+  padding: 7px 10px 4px;
+  width: auto;
+
+  .glyphicon {
+    opacity: 0.1;
+  }
+
+  &.active {
+    border-color: $success;
+    background: $success;
+    box-shadow: 0 0 0;
+
+    .glyphicon {
+      opacity: 0.4;
+    }
+  }
+
+  &.admin {
+    display: none;
+  }
 }

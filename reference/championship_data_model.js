@@ -5,7 +5,6 @@
  */
 {
   id: "jfkdlsajf-789dfs-fd9s-f89sd09",
-  players_ref: "34jfkd-543jklfds-fjdkslfjks",
   title: "Championship 2",
   tiers: 1,
   tier_1: [{

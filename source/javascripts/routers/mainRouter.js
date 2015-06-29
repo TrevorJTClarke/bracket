@@ -5,7 +5,7 @@ define([
   "backbone",
   "views/header",
   "views/mainIndex",
-  "views/setupIntro",
+  "views/createChampionship",
   "views/loginSignup",
   'models/session',
   'models/user'
@@ -15,7 +15,7 @@ function(
   Backbone,
   HeaderView,
   MainIndexView,
-  SetupIntroView,
+  CreateChampionshipView,
   LoginSignupView,
   Session,
   User
@@ -25,7 +25,7 @@ function(
 
     routes: {
       "login": "login",
-      "setup": "setup",
+      "create": "create",
       "": "index"
     },
 
@@ -57,8 +57,8 @@ function(
       this.loadView(new LoginSignupView());
     },
 
-    setup: function () {
-      this.loadView(new SetupIntroView());
+    create: function () {
+      this.loadView(new CreateChampionshipView());
     },
 
   });
