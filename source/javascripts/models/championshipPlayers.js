@@ -11,6 +11,9 @@ function(
   // SETUP
   var PS = System.get("Parse");
 
+  // TODO: setup GET players for Championships
+  // 'where={"ChampionshipsRef":{"__type":"Pointer","className":"Championships","objectId":"3pf74Md0VT"}}'
+
   return Backbone.Model.extend({
 
     url: PS.CLASSES + PS.CHAMPIONSHIPPLAYERS,
@@ -20,45 +23,29 @@ function(
     },
 
     defaults: {
-      // 'players': []
     },
 
-    savePlayers: function ( objectId, playersArray ) {
-      // var dfd = Q.defer();
-      // var _self = this;
-      //
-      // _self.set({ players: playersArray })
-      //   .save()
-      //   .then( dfd.resolve, dfd.reject );
-      //
-      // return dfd.promise;
-
+    savePlayers: function ( champID, playersArray ) {
       var dfd = Q.defer();
-      var url = PS.CLASSES + PS.CHAMPIONSHIPPLAYERS + "/" + objectId;
+      var url = "/batch";
+      var champDataRef = System.getParseRef( "Championships", champID );
       var data = {
-        "players": {
-          "__op":"AddRelation",
-          "objects":[]
-        }
+        "requests": []
       };
 
       for (var i = 0; i < playersArray.length; i++) {
-        data.players.objects.push({
-          __type: 'Pointer',
-          className: '_User',
-          objectId: playersArray[i]
+        data.requests.push({
+          method: 'PUT',
+          path: "/1" + PS.CLASSES + PS.CHAMPIONSHIPPLAYERS + "/" + playersArray[i],
+          body: {
+            "ChampionshipsRef": champDataRef
+          }
         });
       }
 
-      $.ajax({
-        url: url,
-        type: 'PUT',
-        data: JSON.stringify(data),
-        dataType: 'json',
-        contentType: 'application/json',
-        success: dfd.resolve,
-        error: dfd.reject
-      });
+      $.post( url, JSON.stringify(data) )
+        .success( dfd.resolve )
+        .error( dfd.reject );
 
       return dfd.promise;
     },
@@ -67,7 +54,7 @@ function(
     getAvailablePlayers: function () {
       var dfd = Q.defer();
       var _self = this;
-      var url = PS.CLASSES + PS.USER;
+      var url = PS.CLASSES + PS.CHAMPIONSHIPPLAYERS;
 
       function formatList (array) {
         var finArray = [];

@@ -62,14 +62,20 @@ function(
         "objects":[]
       }
     };
+    // var data = {
+    //   players: []
+    // };
 
     for (var i = 0; i < playersArray.length; i++) {
       data.players.objects.push({
-        __type: 'Pointer',
-        className: '_User',
-        objectId: playersArray[i]
+        '__type': 'Pointer',
+        // 'className': 'ChampionshipPlayers',
+        'className': '_User',
+        'objectId': playersArray[i]
       });
+      // data.players.push(playersArray[i]);
     }
+    console.log("data",data);
 
     $.ajax({
       url: url,
@@ -101,6 +107,13 @@ function(
       _self.currentStep = "sectionFirst";
       _self.render();
       _self.championshipTitle = this.$el.find("#chTitle");
+
+      // CP.getPlayers(["n9AZCPxMHF","B8D8hHd9Sx"])
+      //   .then(function (ress) {
+      //     console.log("ress",ress);
+      //   },function (errr) {
+      //     console.log("errr",errr);
+      //   });
 
       return this;
     },
@@ -184,33 +197,16 @@ function(
           playerIds.push(obj.id);
         }
       });
-        console.log("finishCreating playerIds",playerIds);
 
-      // CP.save()
-      //   .then(function (ref) {
-      //     console.log("save players",ref);
-          var champId = __self.model.get("objectId");
-          storePlayersRef( champId, playerIds )
-          // CP.savePlayers( ref.objectId, playerIds )
-            .then(function (res) {
-              // var refId = res.objectId;
+      var champId = __self.model.get("objectId");
+      CP.savePlayers( champId, playerIds )
+        .then(function (res) {
 
-                console.log("storePlayersRef finished res",res);
-              // save the players data reference!
-              // storePlayersRef( champId, refId )
-              //     .then(function (res) {
-              //       console.log("storePlayersRef finished res",res);
-              //     },function (err) {
-              //       console.log("storePlayersRef finished err",err);
-              //     });
-                // TODO: navigation to tier setup flow
-            }, function (err) {
-              console.log("savePlayers err",err);
-            });
-        // }, function (err) {
-        //   //
-        // });
-
+            console.log("savePlayers finished res",res);
+            // TODO: navigation to tier setup flow
+        }, function (err) {
+          console.log("savePlayers err",err);
+        });
     },
 
     toggleAddPlayer: function ( item ) {

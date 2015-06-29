@@ -16,5 +16,18 @@ define(['models/system'], function(System) {
       expect(PS.REST_KEY).toEqual("vRKLltmPuDjdfxFFNs6ZD7iHuG5su0J6nTh0VT36");
     });
 
+    it('Parse references build correctly', function() {
+      var tempRef = sys.getParseRef( "Championships", "12345" );
+      var testParseRef = {
+        '__op': 'AddRelation',
+        'objects': [{
+          '__type': 'Pointer',
+          'className': 'Championships',
+          'objectId': '12345'
+        }]
+      };
+      expect( tempRef ).toEqual( testParseRef );
+    });
+
   });
 });

@@ -19,9 +19,23 @@ function(
         "REST_KEY": "vRKLltmPuDjdfxFFNs6ZD7iHuG5su0J6nTh0VT36",
         "CLASSES": "/classes",
         "USER": "/_User",
-        "CHAMPIONSHIP": "/Championship",
+        "USERS": "/users",
+        "CHAMPIONSHIP": "/Championships",
         "CHAMPIONSHIPPLAYERS": "/ChampionshipPlayers"
       }
+    },
+
+    getParseRef: function ( name, id ) {
+      if(!name || !id){ throw new Error("Name or ID needed!"); }
+
+      return {
+        '__op': 'AddRelation',
+        'objects': [{
+          '__type': 'Pointer',
+          'className': name,
+          'objectId': id
+        }]
+      };
     }
 
   });
