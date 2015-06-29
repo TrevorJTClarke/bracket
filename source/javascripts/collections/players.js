@@ -18,8 +18,8 @@ function(
   // Mutates the data to be formatted into what UI needs
   function formatList (array) {
     var finArray = [];
-    var me = localStorage.getItem("br-user");
-        me = JSON.parse(me);
+    var myself = localStorage.getItem("br-user");
+        myself = (myself)? JSON.parse(myself) : {};
 
     array.map(function (obj,idx) {
       if(obj.username !== "a"){
@@ -28,7 +28,7 @@ function(
             addUser.id = obj.objectId;
             addUser.added = false;
 
-        if(obj.username === me.username){
+        if(obj.username === myself.username){
           addUser.email = "Championship Creator";
           addUser.admin = true;
         }

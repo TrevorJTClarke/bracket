@@ -6,24 +6,27 @@ define(['collections/players'], function(Players) {
       expect(plyrs).toBeDefined();
     });
 
-    // it('can store player references correctly', function() {
-    //   var tempRef = players.saveDataRef( "Championships", "12345" );
-    //
-    //   expect( tempRef.promise ).toBeDefined();
-    // });
+    it('should have correct url', function() {
+      expect(plyrs.url).toEqual("/classes/ChampionshipPlayers");
+    });
 
     describe('.savePlayers()', function () {
 
       it('should send batch requests to save all player refs', function () {
-        expect(true).toBe(true);
+        var playerIds = ["1234XYZ","ABC4321"];
+        var saveIt = plyrs.savePlayers("CHAMPS",playerIds);
+
+        expect(saveIt.promiseDispatch).toBeDefined();
       });
 
     });
 
     describe('.getAvailablePlayers()', function () {
 
-      it('should send batch requests to save all player refs', function () {
-        expect(true).toBe(true);
+      it('should retrieve all player items', function () {
+        var allPlayers = plyrs.getAvailablePlayers();
+
+        expect(allPlayers.promiseDispatch).toBeDefined();
       });
 
     });
