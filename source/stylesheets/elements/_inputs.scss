@@ -9,9 +9,9 @@ input {
   line-height: 23px;
   color: $grey08;
   vertical-align: middle;
-  background-color: #ffffff;
+  background-color: transparent;
   background-image: none;
-  border: 1px solid #cccccc;
+  border: 1px solid $grey04;
   border-radius: 2px;
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, border 160ms ease-in-out;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, border 160ms ease-in-out;
