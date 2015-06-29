@@ -22,6 +22,11 @@ function(
   // SETUP
   var PS = System.get("Parse");
 
+    // TODO:
+    // get associated stuffsssss
+    // GET /classes/Championships
+    // where={"$relatedTo":{"object":{"__type":"Pointer","className":"ChampionshipPlayers","objectId":"wrawx1tefZ"},"key":"ChampionshipsRef"}}
+
   var UserModel = Backbone.Model.extend({
 
     url: PS.USER,
@@ -60,6 +65,17 @@ function(
       this.clear();
       this.id = null;
       localStorage.removeItem("br-user");
+    },
+
+    getPlayer: function () {
+      // TODO: get my player item, so I can reference the other data
+      // similar to:
+      // GET /classes/ChampionshipPlayers
+      // 'where={"UserRef":{"__type":"Pointer","className":"_User","objectId":"3pf74Md0VT"}}'
+    },
+
+    getAllChampionships: function () {
+      // TODO: see top
     }
 
   });

@@ -15,6 +15,9 @@ function(
 
     url: PS.CLASSES + PS.CHAMPIONSHIPPLAYERS,
 
+    /**
+     * used for seperation between the logged in User, and the player part of a championship
+     */
     initialize: function() {
       return this;
     },
@@ -26,6 +29,25 @@ function(
       'email': ''
     },
 
+    /**
+     * store a reference to the specified data set, based on ID, useful for associating a championship to a player
+     * @param  {String} type is the reference to a data class
+     * @param  {String} id   is the index to the data class item
+     * @return {Promise}
+     *
+     * Example:
+     * "Championships", "ZYX1234"
+     *
+     * Return and Saves:
+     * {
+         '__op': 'AddRelation',
+         'objects': [{
+           '__type': 'Pointer',
+           'className': 'Championships',
+           'objectId': 'ZYX1234'
+         }]
+       }
+     */
     saveDataRef: function ( type, id ) {
 
       var _self = this;

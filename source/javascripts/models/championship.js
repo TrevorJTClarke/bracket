@@ -15,6 +15,10 @@ function(
   // SETUP
   var PS = System.get("Parse");
 
+  // TODO: setup GET players for Championships
+  // GET /classes/ChampionshipPlayers
+  // 'where={"ChampionshipsRef":{"__type":"Pointer","className":"Championships","objectId":"3pf74Md0VT"}}'
+
   // Creates a new Backbone Model class object
   return Backbone.Model.extend({
 
