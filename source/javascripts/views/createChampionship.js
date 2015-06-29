@@ -75,6 +75,9 @@ function(
       }
     },
 
+    /**
+     * Allows user to create a new championship with a title, then proceeds to next step
+     */
     startChampionship: function (e) {
       if(e) {
         e.preventDefault();
@@ -118,9 +121,17 @@ function(
         });
     },
 
+    /**
+     * stores the players and references for the championship, then proceeds to next UI step
+     */
     finishCreating: function () {
       var __self = this;
       var playerIds = [];
+
+      // TODO:
+      // setup logic for base player requirement totals
+      //  EX: if only two players, show single match
+      //  if 3 players, require 4
 
       players.map(function (obj) {
         if(obj.added === true || obj.admin === true){
@@ -139,6 +150,10 @@ function(
         });
     },
 
+    /**
+     * toggles if the player is included in the championship game
+     * @param  {object} item is the player data
+     */
     toggleAddPlayer: function ( item ) {
       // item.added = !item.added;
       players.map(function (obj,idx) {
@@ -149,6 +164,9 @@ function(
       });
     },
 
+    /**
+     * After all player data is found, bind any methods to the updated templates
+     */
     bindPlayers: function () {
       var _self = this;
       players.map(function (obj,idx) {

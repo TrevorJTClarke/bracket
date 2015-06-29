@@ -15,10 +15,6 @@ function(
   // SETUP
   var PS = System.get("Parse");
 
-  // TODO: setup GET players for Championships
-  // GET /classes/ChampionshipPlayers
-  // 'where={"ChampionshipsRef":{"__type":"Pointer","className":"Championships","objectId":"3pf74Md0VT"}}'
-
   // Creates a new Backbone Model class object
   return Backbone.Model.extend({
 
@@ -27,8 +23,6 @@ function(
     tierNamespace: 'tier_',
 
     initialize: function() {
-      // this.set("players", new Players() );
-
       return this;
     },
 
@@ -36,26 +30,7 @@ function(
       'title': '',
       'tiers': 0
     },
-    // TODO: asses the need of these methods
-    // /**
-    //   * adds user into the Championship.users data
-    //   * @param {Object} data model of the user, see example for a sample
-    //   *
-    //   * example:
-    //   * {
-    //   * 		id: "riew98787",
-    //   * 		firstName: "First",
-    //   * 		lastName: "Last"
-    //   * }
-    //   */
-    // addPlayer: function(data) {
-    //   // TODO:
-    //   var users = this.get('players');
-    //
-    //   users[data.id] = data;
-    //   this.set('players', users);
-    // },
-    //
+
     // /**
     //   * returns a user object from the Championship data
     //   * @param  {String} userId is the unique ID of the user, based off their hash

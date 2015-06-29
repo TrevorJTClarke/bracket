@@ -57,5 +57,49 @@ define(['models/user'], function(User) {
 
     });
 
+    describe('TODO: .getPlayer()', function() {
+
+      // beforeEach(function() {
+      //   spyOn(user, 'remove').and.callThrough();
+      //   user.remove();
+      // });
+      //
+      // it('should have method', function() {
+      //   expect(user.remove).toBeDefined();
+      // });
+      // 
+      // it('should remove cached user data', function() {
+      //   expect(user.remove).toHaveBeenCalled();
+      // });
+      //
+      // it('verified cleared user data from localStorage', function() {
+      //   var userData = localStorage.getItem('br-user');
+      //   expect(userData).toBeNull();
+      // });
+
+    });
+
+    describe('TODO: .getAllChampionships()', function() {
+
+      // beforeEach(function() {
+      //   spyOn(user, 'remove').and.callThrough();
+      //   user.remove();
+      // });
+      //
+      // it('should have method', function() {
+      //   expect(user.remove).toBeDefined();
+      // });
+      //
+      // it('should remove cached user data', function() {
+      //   expect(user.remove).toHaveBeenCalled();
+      // });
+      //
+      // it('verified cleared user data from localStorage', function() {
+      //   var userData = localStorage.getItem('br-user');
+      //   expect(userData).toBeNull();
+      // });
+
+    });
+
   });
 });
