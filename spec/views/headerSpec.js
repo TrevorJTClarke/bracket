@@ -26,7 +26,7 @@ define(['views/header', 'models/user', 'models/session', 'routers/state', 'jasmi
       });
 
       it ('should have .newGame method', function () {
-        expect(view.newGame).toBeDefined();
+        expect(view.logout).toBeDefined();
       });
 
     });

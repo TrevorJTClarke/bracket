@@ -24,7 +24,7 @@ function(
     model: User,
 
     events: {
-      'click button': 'logout'
+      'click #newChampionship': 'newGame'
     },
 
     initialize: function() {
@@ -44,9 +44,11 @@ function(
       return this;
     },
 
-    logout: function () {
-      State.go("login");
-      Session.logout();
+    newGame: function (e) {
+      if(e){
+        e.preventDefault();
+      }
+      State.go("create");
     }
 
   });

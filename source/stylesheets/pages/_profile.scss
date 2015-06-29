@@ -1,0 +1,25 @@
+/**
+ * Profile Styling
+ */
+.profile {
+
+  .profile-meta {
+    text-align: center;
+  }
+}
+.profile-meta {
+
+  h3 {
+    margin: 20px 0 0;
+    font: {
+      size: 36px;
+      weight: 100;
+    }
+  }
+
+  span {
+    font: {
+      size: 12px;
+    }
+  }
+}

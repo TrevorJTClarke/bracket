@@ -19,7 +19,7 @@ function(
 
     events: {
       'click .profile': 'viewProfile',
-      'click button': 'newGame'
+      'click button': 'logout'
     },
 
     model: User,
@@ -52,9 +52,9 @@ function(
     },
 
     toggleButtonContent: function (bool) {
-      var open = "+",
-          close = "&times;";
-      this.$el.find(".btn-action")[0].innerHTML = (bool === true)? open : close;
+      // var open = "+",
+      //     close = "&times;";
+      // this.$el.find(".btn-action")[0].innerHTML = (bool === true)? open : close;
     },
 
     viewProfile: function (e) {
@@ -65,15 +65,9 @@ function(
       this.toggleButtonContent(true);
     },
 
-    newGame: function (e) {
-      if(e){
-        e.preventDefault();
-      }
-      var bool = this.newGameActive;
-      var url = (bool === false)? "create" : "";
-      State.go( url );
-      this.toggleButtonContent( bool );
-      this.newGameActive = !bool;
+    logout: function () {
+      State.go("login");
+      Session.logout();
     }
 
   });
