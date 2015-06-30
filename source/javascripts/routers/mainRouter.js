@@ -5,6 +5,7 @@ define([
   "backbone",
   "views/header",
   "views/mainIndex",
+  "views/scoreboard",
   "views/createChampionship",
   "views/loginSignup",
   'models/session',
@@ -15,6 +16,7 @@ function(
   Backbone,
   HeaderView,
   MainIndexView,
+  ScoreboardView,
   CreateChampionshipView,
   LoginSignupView,
   Session,
@@ -26,6 +28,7 @@ function(
     routes: {
       "login": "login",
       "create": "create",
+      "scoreboard": "scoreboard",
       "": "index"
     },
 
@@ -35,11 +38,9 @@ function(
 
     loadView: function ( view ) {
       if(this.view === undefined){
-        this.view = view;
-      } else {
         this.view.remove();
-        this.view = view;
       }
+      this.view = view;
     },
 
 
@@ -47,6 +48,7 @@ function(
      * -----------------------------------------------------
      * Route Handlers
      * -----------------------------------------------------
+     * TODO: this is dumb, take time to refactor
      */
 
     index: function() {
@@ -59,6 +61,10 @@ function(
 
     create: function () {
       this.loadView(new CreateChampionshipView());
+    },
+
+    scoreboard: function () {
+      this.loadView(new ScoreboardView());
     },
 
   });
