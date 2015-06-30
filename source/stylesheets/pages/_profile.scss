@@ -111,7 +111,7 @@
 
   .match-item {
     border-bottom: 1px solid $grey03;
-    border-left: 5px solid transparent;
+    border-left: 5px solid rgba(0,0,0,0.05);
     padding: 10px;
     position: relative;
 
@@ -132,7 +132,7 @@
 
     .m-subtitle {
       font-size: 12px;
-      opacity: 0.6;
+      /* opacity: 0.6; */
     }
 
     .glyphicon {

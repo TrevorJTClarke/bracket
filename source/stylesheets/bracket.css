@@ -550,7 +550,7 @@ header {
   margin: 20px 0; }
   .profile-matches .match-item {
     border-bottom: 1px solid #dfdfdf;
-    border-left: 5px solid transparent;
+    border-left: 5px solid rgba(0, 0, 0, 0.05);
     padding: 10px;
     position: relative; }
     .profile-matches .match-item:first-child {
@@ -563,7 +563,7 @@ header {
       font-size: 18px; }
     .profile-matches .match-item .m-subtitle {
       font-size: 12px;
-      opacity: 0.6; }
+      /* opacity: 0.6; */ }
     .profile-matches .match-item .glyphicon {
       color: #0b0d0d;
       position: absolute;

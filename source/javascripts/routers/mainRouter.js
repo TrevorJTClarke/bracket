@@ -23,13 +23,35 @@ function(
   User
 ) {
 
+  // internal
+  var viewMap = {
+    'index': MainIndexView,
+    'create': CreateChampionshipView,
+    'scoreboard': ScoreboardView,
+    'login': LoginSignupView,
+  };
+
   return Backbone.Router.extend({
 
+    /**
+     * -----------------------------------------------------
+     * Route Handlers
+     * -----------------------------------------------------
+     * TODO: this is dumb, take time to refactor
+     */
     routes: {
-      "login": "login",
-      "create": "create",
-      "scoreboard": "scoreboard",
-      "": "index"
+      "login": function() {
+        this.loadView("login")
+      },
+      "create": function() {
+        this.loadView("create")
+      },
+      "scoreboard": function() {
+        this.loadView("scoreboard")
+      },
+      "": function() {
+        this.loadView("index")
+      }
     },
 
     initialize: function() {
@@ -40,32 +62,9 @@ function(
       if(this.view !== undefined && typeof this.view.remove !== undefined){
         this.view.remove();
       }
-      this.view = view;
-    },
-
-
-    /**
-     * -----------------------------------------------------
-     * Route Handlers
-     * -----------------------------------------------------
-     * TODO: this is dumb, take time to refactor
-     */
-
-    index: function() {
-      this.loadView(new MainIndexView());
-    },
-
-    login: function () {
-      this.loadView(new LoginSignupView());
-    },
-
-    create: function () {
-      this.loadView(new CreateChampionshipView());
-    },
-
-    scoreboard: function () {
-      this.loadView(new ScoreboardView());
-    },
+      this.view = new viewMap[view]();
+      this.view.initialize();
+    }
 
   });
 });
