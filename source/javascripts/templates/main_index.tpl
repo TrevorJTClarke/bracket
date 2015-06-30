@@ -2,7 +2,7 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="profile-meta">
       <h3>{{firstName}} {{lastName}}</h3>
-      <span>{{email}}{{this/win}}</span>
+      <span>{{email}}</span>
     </div>
   </div>
 </div>

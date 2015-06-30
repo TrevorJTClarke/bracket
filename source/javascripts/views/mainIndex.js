@@ -21,6 +21,19 @@ function(
   // PRIVATE METHODS
   var _rootEl = $(".main-container");
 
+  // sort the championships based on time
+  function insertionSort( gameArray, attrToSortBy ){
+    var finArray = gameArray;
+    for(var k=1; k < finArray.length; k++){
+      for(var i=k; i > 0 && new Date(finArray[i][attrToSortBy]) < new Date(finArray[i-1][attrToSortBy]); i--){
+        var tmpFile = finArray[i];
+        finArray[i] = finArray[i-1];
+        finArray[i-1] = tmpFile;
+      }
+    }
+    return finArray.reverse();
+  }
+
   return Backbone.View.extend({
 
     tagName: 'div',
@@ -74,7 +87,10 @@ function(
 
           _self.model.getAllChampionships()
             .then(function (res) {
-              _self.gamesData = res;
+              // sort before add
+              var readyGames = insertionSort( res, "updatedAt" );
+
+              _self.gamesData = readyGames;
               _self.render();
             });
         },function (err) {
