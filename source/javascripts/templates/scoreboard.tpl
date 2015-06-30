@@ -9,10 +9,10 @@
       <div class="score-user">tclarke</div>
     </div>
   </div>
-  <div class="score-actions">
-    <button id="score_0" class="btn btn-score">+</button>
-    <button id="score_1" class="btn btn-score">+</button>
-  </div>
+</div>
+<div class="score-actions">
+  <button id="score_0" class="btn btn-score">+</button>
+  <button id="score_1" class="btn btn-score">+</button>
 </div>
 <div class="scoreboard-footer">
   <div class="score-timer">

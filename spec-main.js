@@ -51,6 +51,7 @@ require.config({
     'backbone.validation': 'lib/backbone.validation.min',
     'text': 'lib/text',
     'Handlebars': 'lib/handlebars',
+    'Helpers': 'lib/handlebars.helpers',
     'hbars': 'lib/hbars',
   },
   shim: {
@@ -64,6 +65,7 @@ require.config({
     'Handlebars': {
       'exports': 'Handlebars'
     },
+    'Helpers': ['Handlebars'],
     'jasmineajax': {
       'exports': 'MockAjax'
     },

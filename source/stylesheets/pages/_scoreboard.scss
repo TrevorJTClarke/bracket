@@ -12,7 +12,7 @@
     color: $grey01;
     flex: 1;
     width: 50vw;
-    min-height: 100vh;
+    height: calc(100vh - 112px);/* subtract header and footer heights from total height  */
     text-align: center;
     text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
 

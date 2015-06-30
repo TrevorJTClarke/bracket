@@ -37,7 +37,7 @@ function(
     },
 
     loadView: function ( view ) {
-      if(this.view === undefined){
+      if(this.view === undefined && this.view.remove){
         this.view.remove();
       }
       this.view = view;

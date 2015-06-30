@@ -14,6 +14,7 @@ require.config({
     // -------
     'text': 'javascripts/lib/text',
     'Handlebars': 'javascripts/lib/handlebars',
+    'Helpers': 'javascripts/lib/handlebars.helpers',
     'hbars': 'javascripts/lib/hbars',
 
     // Base Files
@@ -31,6 +32,7 @@ require.config({
     'Handlebars': {
       'exports': 'Handlebars'
     },
+    'Helpers': ['Handlebars'],
     'Q': {
       'exports': 'Q'
     }
@@ -46,7 +48,8 @@ require([
   'routers/state',
   'backbone.validation',
   'models/validator',
-  'models/notifier'
+  'models/notifier',
+  'Helpers'
 ],
 function(Router, State) {
   // watch the routes
