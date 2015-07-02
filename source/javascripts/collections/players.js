@@ -81,6 +81,8 @@ function(
     /**
      * Grab root list of players and only return needed data
      * @return {Promise}
+     *
+     * NOTE: this is a safer way of retrieving all list, since regular fetch stores blank references
      */
     getAvailablePlayers: function () {
       var dfd = Q.defer();

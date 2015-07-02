@@ -43,7 +43,8 @@ function(
     gamesData: [],
 
     events: {
-      'click #newChampionship': 'newGame'
+      'click #newChampionship': 'newGame',
+      'click [data-navigate]': 'navigate'
     },
 
     initialize: function() {
@@ -106,6 +107,11 @@ function(
         e.preventDefault();
       }
       State.go("create");
+    },
+
+    navigate: function (e) {
+      var url = e.currentTarget.dataset.navigate;
+      State.go(url);
     }
 
   });

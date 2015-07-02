@@ -8,6 +8,7 @@ define([
   "views/scoreboard",
   "views/createChampionship",
   "views/loginSignup",
+  "views/game",
   'models/session',
   'models/user'
 ],
@@ -19,6 +20,7 @@ function(
   ScoreboardView,
   CreateChampionshipView,
   LoginSignupView,
+  GameView,
   Session,
   User
 ) {
@@ -29,6 +31,7 @@ function(
     'create': CreateChampionshipView,
     'scoreboard': ScoreboardView,
     'login': LoginSignupView,
+    'game': GameView,
   };
 
   return Backbone.Router.extend({
@@ -37,20 +40,24 @@ function(
      * -----------------------------------------------------
      * Route Handlers
      * -----------------------------------------------------
-     * TODO: this is dumb, take time to refactor
+     * TODO: this is dumb?!, take time to refactor
      */
     routes: {
       "login": function() {
-        this.loadView("login")
+        this.loadView("login");
       },
       "create": function() {
-        this.loadView("create")
+        this.loadView("create");
       },
       "scoreboard": function() {
-        this.loadView("scoreboard")
+        this.loadView("scoreboard");
+      },
+      "games/:gameId": function(gameId) {
+        console.log("gameId",gameId);
+        this.loadView("game", { gameId: gameId });
       },
       "": function() {
-        this.loadView("index")
+        this.loadView("index");
       }
     },
 
@@ -59,11 +66,11 @@ function(
       return this;
     },
 
-    loadView: function ( view ) {
+    loadView: function ( view, args ) {
       if(this.view !== undefined && typeof this.view.remove !== undefined){
         this.view.remove();
       }
-      this.view = new viewMap[view]();
+      this.view = new viewMap[view]( args );
     }
 
   });
