@@ -56,6 +56,7 @@ function(
 
     initialize: function() {
       new HeaderView();
+      return this;
     },
 
     loadView: function ( view ) {
@@ -63,7 +64,6 @@ function(
         this.view.remove();
       }
       this.view = new viewMap[view]();
-      this.view.initialize();
     }
 
   });

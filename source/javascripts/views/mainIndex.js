@@ -58,6 +58,7 @@ function(
     render: function() {
       var _self = this;
       var tmplData = _self.model.attributes;
+      _self.$el.empty();
 
       if(_self.gamesData){
         tmplData.gamesTpl = gamesTpl({
@@ -68,6 +69,7 @@ function(
       _self.template = _.template(profileTpl(tmplData));
       _self.$el.html(this.template);
       _rootEl.html(_self.$el);
+      _self.delegateEvents();
 
       return this;
     },

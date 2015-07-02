@@ -17,10 +17,6 @@ define(['views/header', 'models/user', 'models/session', 'routers/state', 'jasmi
         expect(view.toggleAuthElems).toBeDefined();
       });
 
-      it ('should have .toggleButtonContent method', function () {
-        expect(view.toggleButtonContent).toBeDefined();
-      });
-
       it ('should have .viewProfile method', function () {
         expect(view.viewProfile).toBeDefined();
       });

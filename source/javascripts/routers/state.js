@@ -38,7 +38,7 @@ function(
 
     this.initialize = function () {
       Backbone.history.start();
-      this.go("");
+      this.current = window.location.hash || "";
     };
 
     /**
@@ -57,7 +57,7 @@ function(
           _self.router.navigate( url, true);
           _self.current = url;
         },function () {
-          Backbone.history.navigate("login", true);
+          _self.router.navigate("login", {trigger: true, replace: true});
           _self.current = "login";
         });
     };
