@@ -1,12 +1,16 @@
-var gulp        = require('gulp');
-var uglify      = require('gulp-uglifyjs');
-var concat      = require('gulp-concat');
-var template    = require('gulp-template-compile');
-var jasmine     = require('gulp-jasmine-phantom');
-var sass        = require('gulp-sass');
-var rjs         = require('gulp-requirejs');
-var browserSync = require('browser-sync');
-var reload      = browserSync.reload;
+var fs          = require('fs')
+  , url         = require('url')
+  , path        = require('path')
+  , gulp        = require('gulp')
+  , uglify      = require('gulp-uglifyjs')
+  , concat      = require('gulp-concat')
+  , template    = require('gulp-template-compile')
+  , jasmine     = require('gulp-jasmine-phantom')
+  , sass        = require('gulp-sass')
+  , rjs         = require('gulp-requirejs')
+  , modRewrite  = require('connect-modrewrite')
+  , browserSync = require('browser-sync')
+  , reload      = browserSync.reload;
 
 // // concat the JS files
 // gulp.task('smash', function() {
@@ -48,31 +52,29 @@ gulp.task('sass', function () {
         .pipe(sass('bracket.css').on('error', sass.logError))
         .pipe(gulp.dest('./source/stylesheets'));
 });
-
 gulp.task('sass:watch', function () {
     gulp.watch('./sass/**/*.scss', ['sass']);
 });
-
-
 var watcherSass = gulp.watch('./source/stylesheets/**/*.scss', [
     'sass',
     'sass:watch'
 ], { cwd: 'source' }, reload);
 
+
+// The default file if the file/path is not found
+var defaultFile = "index.html";
+var folder = path.resolve(__dirname);
 // watch files for changes and reload
 gulp.task('serve', function() {
     browserSync({
+        files: ["./stylesheets/**/*.scss", "./javascripts/**/*.js", "./index.html"],
         server: {
             baseDir: 'source',
-            middleware: function(req, res, next) {
-                var fileName = url.parse(req.url);
-                fileName = fileName.href.split(fileName.search).join("");
-                var fileExists = fs.existsSync(folder + fileName);
-                if (!fileExists && fileName.indexOf("browser-sync-client") < 0) {
-                    req.url = "/" + defaultFile;
-                }
-                return next();
-            }
+            middleware: [
+              modRewrite([
+                '!\\.\\w+$ /index.html [L]'
+              ])
+            ]
         },
         notify: false
     });
@@ -87,12 +89,6 @@ gulp.task('serve', function() {
 
 
 // setup defaults
-// gulp.task('default', [
-//     'smash',
-//     'compress',
-//     'templatify',
-//     'copy',
-//     'sass',
-//     'sass:watch',
-//     'serve'
-// ]);
+gulp.task('default', [
+    'serve'
+]);

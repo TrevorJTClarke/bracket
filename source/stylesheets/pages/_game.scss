@@ -1,0 +1,68 @@
+/**
+ * Game Styling
+ */
+.game-container {
+  width: 1000px;
+  display: flex;
+  flex-direction: row;
+  padding: 0 40px;
+}
+.game {
+  width: 100%;
+  overflow: scroll;
+}
+.round{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  width:80px;
+  list-style:none;
+  padding:0;
+
+  .spacer{
+    flex-grow:1;
+
+    &:first-child,
+    &:last-child{
+      flex-grow:.5;
+    }
+  }
+
+  .game-spacer{
+    flex-grow:1;
+  }
+}
+
+.match {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  padding: 10px 5px;
+  margin: auto;
+
+  .match-tag {
+    background: $grey03;
+    color: $grey08;
+    position: absolute;
+    width: 20px;
+    left: -20px;
+    top: 0;
+    bottom: 0;
+  }
+
+  .match-first,
+  .match-second {
+    margin: auto 5px;
+
+    .avatar {
+      min-height: 50px;
+    }
+  }
+
+  .match-first {}
+  .match-second {}
+
+
+}
