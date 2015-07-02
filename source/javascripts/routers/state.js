@@ -37,7 +37,7 @@ function(
     this.current = "";
 
     this.initialize = function () {
-      Backbone.history.start();
+      Backbone.history.start({pushState: true});
       this.current = window.location.hash || "";
     };
 

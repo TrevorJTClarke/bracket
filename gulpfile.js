@@ -54,56 +54,6 @@ gulp.task('sass:watch', function () {
 });
 
 
-// // run tests
-// gulp.task('rjs', function() {
-//     rjs({
-//         baseUrl: './public/js/app/models',
-//         out: 'bracket.rjs.js',
-//         paths: {
-//             "jquery": "../../libs/jquery",
-//             "underscore": "../../libs/underscore",
-//             "backbone": "../../libs/backbone",
-//             "backbone.localStorage": "../../libs/backbone.localStorage",
-//             "text": "../../libs/text"
-//         },
-//         shim: {
-//             "backbone.localStorage": ["backbone"]
-//         },
-//         name: "HeaderModel"
-//     })
-//     .pipe(gulp.dest('./public/js/tests/')); // pipe it to the output DIR
-// });
-// gulp.task('test', function () {
-//     return gulp.src([
-//             // './public/js/app/models/HeaderModel.js',
-//             './public/js/tests/models/HeaderModel.js'
-//         ])
-//         .pipe(jasmine({
-//             includeStackTrace: true,
-//             integration: true,
-//             vendor: [
-//                 // './public/js/tests/bracket.rjs.js',
-//                 // './public/js/tests/config.js',
-//                 './public/js/libs/underscore.js',
-//                 './public/js/libs/jquery.js',
-//                 './public/js/libs/require.min.js',
-//                 './public/js/libs/backbone.js',
-//                 './public/js/libs/backbone.localStorage.js',
-//                 './public/js/libs/text.js',
-//             ],
-//             keepRunner: './'
-//         }));
-// });
-
-/**
- * watchers
- */
-// var watcherJs = gulp.watch('./source/javascripts/**/*.js', [
-//     'smash',
-//     'compress',
-//     'templatify',
-//     'copy'
-// ], { cwd: 'source' }, reload);
 var watcherSass = gulp.watch('./source/stylesheets/**/*.scss', [
     'sass',
     'sass:watch'
@@ -113,7 +63,16 @@ var watcherSass = gulp.watch('./source/stylesheets/**/*.scss', [
 gulp.task('serve', function() {
     browserSync({
         server: {
-            baseDir: 'source'
+            baseDir: 'source',
+            middleware: function(req, res, next) {
+                var fileName = url.parse(req.url);
+                fileName = fileName.href.split(fileName.search).join("");
+                var fileExists = fs.existsSync(folder + fileName);
+                if (!fileExists && fileName.indexOf("browser-sync-client") < 0) {
+                    req.url = "/" + defaultFile;
+                }
+                return next();
+            }
         },
         notify: false
     });
