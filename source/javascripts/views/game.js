@@ -45,7 +45,7 @@ function(
     model: new Championship(),
 
     events: {
-      // 'click #newChampionship': 'newGame'
+      // 'click #doneEditingPlayers': 'finishGame' // bind event for when done adding players to game layout
     },
 
     initialize: function(options) {
@@ -58,13 +58,28 @@ function(
       _self.getBaseData( options );
       console.log("search",parseQuery());
 
-      if(queryParams.editor === true){
+      if(queryParams.editor === "true"){
         _self.setupEditor();
       }
     },
 
     render: function() {
       var _self = this;
+
+      _self.buildChildViews();
+      _rootEl.html(_self.$el);
+      _self.delegateEvents();
+
+      console.log("_self.modelCache",_self.modelCache);
+
+      return this;
+    },
+
+    // logic for using cached templates over new ones
+    buildChildViews: function () {
+      var _self = this,
+          template;
+
       var tmplData = _self.model.attributes;
       _self.$el.empty();
 
@@ -72,17 +87,19 @@ function(
         // for(var k in _self.modelCache){
         //   tmplData[k] = _self.modelCache[k];
         // }
+        // TODO: abstract this!
         tmplData.gameEditor = gameEditorTpl({
-          gameEditorPlayers: gameEditorPlayerTpl({})
+          gameEditorPlayers: gameEditorPlayerTpl({
+            editPlayers: _self.modelCache.allPlayers || []
+          })
         });
       // }
 
       _self.template = _.template(gameTpl(tmplData));
       _self.$el.html(this.template);
-      _rootEl.html(_self.$el);
-      _self.delegateEvents();
 
-      return this;
+      // return the template to render
+      // return template;
     },
 
     getBaseData: function ( options ) {
@@ -92,6 +109,7 @@ function(
           url: _self.model.url + "/" + options.gameId
         })
         .then(function (res) {
+          _self.modelCache.championship = res;
           _self.model.set(res);
           _self.render();
         },function (err) {
@@ -100,11 +118,15 @@ function(
     },
 
     setupEditor: function () {
+      var _self = this;
+      console.log("HEReeee");
 
       // grab the full data from DB
       PL.getAvailablePlayers()
         .then(function (res) {
           console.log("players res",res);
+          _self.modelCache.allPlayers = res;
+          _self.render();
         },function (err) {
           console.log("err",err);
         });
