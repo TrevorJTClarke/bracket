@@ -88,11 +88,14 @@
       background: $grey04;
     }
   }
-}
 
-.randomize {
-  background: transparent;
-  border-color: $white;
+  &.active {
+    border-color: $main;
+
+    .match-tag {
+      background: $main;
+    }
+  }
 }
 
 .round-spacers {

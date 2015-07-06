@@ -703,10 +703,10 @@ header {
     border: 2px dashed #373e3e; }
     .match .empty.focussed {
       background: #a8afb0; }
-
-.randomize {
-  background: transparent;
-  border-color: #FFFFFF; }
+  .match.active {
+    border-color: #288a5b; }
+    .match.active .match-tag {
+      background: #288a5b; }
 
 .round-spacers {
   display: flex;
@@ -749,7 +749,7 @@ header {
   z-index: 999; }
 
 .edit-players {
-  background: #a8afb0;
+  background: #dfdfdf;
   display: flex;
   flex-direction: column;
   padding: 13px 20px;
@@ -760,6 +760,12 @@ header {
   width: 100px; }
   .edit-players .game-player {
     margin: 7px auto; }
+
+.randomize {
+  background: transparent;
+  border-color: #373e3e;
+  color: #373e3e;
+  line-height: 56px; }
 
 /* Responsive */
 /* responsive */

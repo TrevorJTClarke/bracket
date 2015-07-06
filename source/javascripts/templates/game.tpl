@@ -1,30 +1,8 @@
-<div class="game-editor">
-  <div class="edit-players">
-    <div class="game-player">
-      <div class="avatar randomize">
-        <i class="glyphicon glyphicon-random"></i>
-      </div>
-    </div>
-    <div class="game-player" data-player-id="12345">
-      <div class="avatar" style="background:#2FAB70;">TC</div>
-    </div>
-    <div class="game-player" data-player-id="12345">
-      <div class="avatar" style="background:#2f52ab;">MD</div>
-    </div>
-    <div class="game-player" data-player-id="12345">
-      <div class="avatar" style="background:#2FAB70;">TC</div>
-    </div>
-    <div class="game-player" data-player-id="12345">
-      <div class="avatar" style="background:#2f52ab;">MD</div>
-    </div>
-  </div>
-  <button id="doneEditingPlayers" class="btn btn-default btn-fixed-bottom">Finish</button>
-</div>
-
+{{{gameEditor}}}
 <div class="game-container editing">
   <ul class="round round-1">
 		<li class="spacer">&nbsp;</li>
-    <li class="match">
+    <li class="match active">
       <div class="match-tag"><span>1</span></div>
       <div class="match-first">
         <div class="avatar empty"></div>

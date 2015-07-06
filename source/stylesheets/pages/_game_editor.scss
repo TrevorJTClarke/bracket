@@ -8,7 +8,7 @@
 }
 
 .edit-players {
-  background: $grey04;
+  background: $grey03;
   display: flex;
   flex-direction: column;
   padding: 13px 20px;
@@ -21,4 +21,10 @@
   .game-player {
     margin: 7px auto;
   }
+}
+.randomize {
+  background: transparent;
+  border-color: $grey07;
+  color: $grey07;
+  line-height: 56px;
 }
