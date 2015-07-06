@@ -93,17 +93,4 @@
     </li>
 		<li class="spacer">&nbsp;</li>
   </ul>
-  <ul class="round round-3">
-    <li class="spacer">&nbsp;</li>
-    <li class="match">
-      <div class="match-tag"><span>7</span></div>
-      <div class="match-first">
-        <div class="avatar" style="background:#2FAB70;">TC</div>
-      </div>
-      <div class="match-second">
-        <div class="avatar" style="background:#2f52ab;">MD</div>
-      </div>
-    </li>
-		<li class="spacer">&nbsp;</li>
-  </ul>
 </div>

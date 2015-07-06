@@ -22,7 +22,7 @@ function(
         myself = (myself)? JSON.parse(myself) : {};
 
     array.map(function (obj,idx) {
-      if(obj.username !== "a"){
+      if(obj.username !== "a" && obj.firstName !== ""){
         // only add needed data
         var addUser = obj;
             addUser.id = obj.objectId;
@@ -92,6 +92,7 @@ function(
         .success(function (res) {
           // quick filtering of player data
           var players = formatList( res.results );
+          console.log("_self.url",_self.url,players);
 
           dfd.resolve(players);
         })

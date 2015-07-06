@@ -52,7 +52,7 @@ function(
       "scoreboard": function() {
         this.loadView("scoreboard");
       },
-      "games/:gameId": function(gameId) {
+      ":gameId": function(gameId) {
         console.log("gameId",gameId);
         this.loadView("game", { gameId: gameId });
       },

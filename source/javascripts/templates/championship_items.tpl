@@ -1,5 +1,5 @@
 {{#each games}}
-<li data-navigate="/games/{{objectId}}" class="match-item {{#if active}}active{{/if}}">
+<li data-navigate="/{{objectId}}" class="match-item {{#if active}}active{{/if}}">
   <div class="m-title">{{title}}</div>
   <div class="m-subtitle"><span class="label{{#if status}} label-{{gameStatus this}}{{/if}}">{{status}}</span> {{#if updatedAt}}{{timeago this}}{{/if}}</div>
   <i class="glyphicon glyphicon-chevron-right"></i>
