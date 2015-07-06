@@ -5,7 +5,7 @@
   width: 1000px;
   display: flex;
   flex-direction: row;
-  padding: 0 40px;
+  padding: 0 10px;
 }
 .game {
   width: 100%;
@@ -15,7 +15,7 @@
   display:flex;
   flex-direction:column;
   justify-content:center;
-  width:80px;
+  width: 100px;
   list-style:none;
   padding:0;
 
@@ -34,27 +34,33 @@
 }
 
 .match {
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 2px;
+  border: 1px solid $grey03;
+  border-radius:0 10px 10px 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   position: relative;
   padding: 10px 5px;
-  margin: auto;
+  margin: 0 0 0 20px;
 
   .match-tag {
     background: $grey03;
-    color: $grey08;
+    border-radius: 10px 0 0 10px;
+    color: $white;
     position: absolute;
     width: 20px;
-    left: -20px;
-    top: 0;
-    bottom: 0;
+    left: -21px;
+    top: -1px;
+    bottom: -1px;
+
+    span {
+      display: block;
+      padding: 24px 6px;
+    }
   }
 
   .match-first,
   .match-second {
-    margin: auto 5px;
+    margin:5px auto;
 
     .avatar {
       min-height: 50px;
@@ -65,4 +71,46 @@
   .match-second {}
 
 
+}
+
+.round-spacers {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  width: 50px;
+  list-style:none;
+  padding:0;
+
+  &:after {
+    position: absolute;
+    content: "";
+    border-top: 1px solid $grey03;
+    width: 25px;
+    top: 50%;
+    right: -25px;
+  }
+
+  .line-spacer {
+    flex-grow:1;
+
+    &:first-child,
+    &:last-child{
+      flex-grow:.5;
+    }
+    &:nth-child(even){
+      border: 1px solid $grey03;
+      border-left: 0px;
+      width: 52%;
+      position: relative;
+
+      &:after {
+        position: absolute;
+        content: "";
+        border-top: 1px solid $grey03;
+        width: 100%;
+        top: 50%;
+        right: -100%;
+      }
+    }
+  }
 }

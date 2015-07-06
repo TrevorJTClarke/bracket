@@ -641,7 +641,7 @@ header {
   width: 1000px;
   display: flex;
   flex-direction: row;
-  padding: 0 40px; }
+  padding: 0 10px; }
 
 .game {
   width: 100%;
@@ -651,7 +651,7 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 80px;
+  width: 100px;
   list-style: none;
   padding: 0; }
   .round .spacer {
@@ -663,27 +663,63 @@ header {
     flex-grow: 1; }
 
 .match {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  border: 1px solid #dfdfdf;
+  border-radius: 0 10px 10px 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   position: relative;
   padding: 10px 5px;
-  margin: auto; }
+  margin: 0 0 0 20px; }
   .match .match-tag {
     background: #dfdfdf;
-    color: #1e2222;
+    border-radius: 10px 0 0 10px;
+    color: #FFFFFF;
     position: absolute;
     width: 20px;
-    left: -20px;
-    top: 0;
-    bottom: 0; }
+    left: -21px;
+    top: -1px;
+    bottom: -1px; }
+    .match .match-tag span {
+      display: block;
+      padding: 24px 6px; }
   .match .match-first,
   .match .match-second {
-    margin: auto 5px; }
+    margin: 5px auto; }
     .match .match-first .avatar,
     .match .match-second .avatar {
       min-height: 50px; }
+
+.round-spacers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50px;
+  list-style: none;
+  padding: 0; }
+  .round-spacers:after {
+    position: absolute;
+    content: "";
+    border-top: 1px solid #dfdfdf;
+    width: 25px;
+    top: 50%;
+    right: -25px; }
+  .round-spacers .line-spacer {
+    flex-grow: 1; }
+    .round-spacers .line-spacer:first-child,
+    .round-spacers .line-spacer:last-child {
+      flex-grow: .5; }
+    .round-spacers .line-spacer:nth-child(even) {
+      border: 1px solid #dfdfdf;
+      border-left: 0px;
+      width: 52%;
+      position: relative; }
+      .round-spacers .line-spacer:nth-child(even):after {
+        position: absolute;
+        content: "";
+        border-top: 1px solid #dfdfdf;
+        width: 100%;
+        top: 50%;
+        right: -100%; }
 
 /* Responsive */
 /* responsive */
