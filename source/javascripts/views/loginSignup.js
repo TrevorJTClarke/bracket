@@ -114,7 +114,6 @@ function(
       // start session
       Session.login( _self.model.attributes )
         .then(function (res) {
-          console.log("HERE",res);
           State.go("");
         },function (err) {
           var resp = JSON.parse(err.responseText);
@@ -156,8 +155,6 @@ function(
           State.go("");
 
           // create player in DB and store reference
-          console.log("plUser res",res);
-          // create a new player for game data
           var plUser = new Player();
           var plUserData = _self.model.attributes;
           delete plUserData.id;

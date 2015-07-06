@@ -12,7 +12,9 @@
       </svg>
     </div>
     <div class="nav-action {{#if firstName}}show{{/if}}">
-      <button class="btn btn-action">+</button>
+      <button class="btn btn-action">
+        <i class="glyphicon glyphicon-log-in"></i>
+      </button>
     </div>
   </nav>
 </header>

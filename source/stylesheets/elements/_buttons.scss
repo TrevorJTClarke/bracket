@@ -5,7 +5,7 @@
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
-  border-radius: 2px;
+  border-radius: 3px;
   box-shadow: 0 0 0;
   display: block;
   padding: 15px 12px;
@@ -41,9 +41,7 @@
   }
 
   &:hover {
-/*     color: $grey01;
-background-color: $main;
-border-color: $darkmain; */
+
   }
 
   &.btn-default {
@@ -54,6 +52,20 @@ border-color: $darkmain; */
     &:hover {
       outline: 0;
       color: $grey01;
+      background-color: darken($darkmain, 5%);
+      border-color: darken($darkmain, 10%);
+    }
+
+  }
+
+  &.btn-outline {
+    color: $grey08;
+    background: transparent;
+    border-color: $darkmain;
+
+    &:hover {
+      outline: 0;
+      color: $grey09;
       background-color: darken($darkmain, 5%);
       border-color: darken($darkmain, 10%);
     }

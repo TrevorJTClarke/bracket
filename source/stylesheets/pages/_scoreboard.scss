@@ -1,0 +1,81 @@
+/**
+ * Scoreboard Styling
+ */
+.score-panel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 10;
+
+  .panel-item {
+    color: $grey01;
+    flex: 1;
+    width: 50vw;
+    height: calc(100vh - 112px);/* subtract header and footer heights from total height  */
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
+
+    .score-total {
+      margin: 20vh 0 10px;
+      font: {
+        size: 75px;
+        weight: 700;
+      }
+    }
+    .score-user {
+      font: {
+        size: 18px;
+        weight: 100;
+      }
+    }
+  }
+}
+
+.score-actions {
+  position: fixed;
+  bottom:50px;
+  left:0;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  z-index: 30;
+
+  button.btn-score {
+    background: rgba(255,255,255,0.3);
+    border-radius: 0;
+    color: $grey01;
+    font-size: 50px;
+    font-weight: 100;
+    line-height: 50px;
+    padding-top: 2px;
+    flex:1;
+    width: 50vw;
+  }
+}
+
+.scoreboard-footer {
+  background: $grey03;
+  position: fixed;
+  bottom:0;
+  left:0;
+  width: 100vw;
+  padding: 10px;
+  font-size: 22px;
+  z-index: 50;
+
+  .score-timer {
+
+  }
+
+  .btn-rematch {
+    border: 1px solid $grey05;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 5px 8px;
+    font-size: 12px;
+    width: auto;
+  }
+}

@@ -5,8 +5,10 @@ define([
   "backbone",
   "views/header",
   "views/mainIndex",
+  "views/scoreboard",
   "views/createChampionship",
   "views/loginSignup",
+  "views/game",
   'models/session',
   'models/user'
 ],
@@ -15,51 +17,61 @@ function(
   Backbone,
   HeaderView,
   MainIndexView,
+  ScoreboardView,
   CreateChampionshipView,
   LoginSignupView,
+  GameView,
   Session,
   User
 ) {
 
+  // internal
+  var viewMap = {
+    'index': MainIndexView,
+    'create': CreateChampionshipView,
+    'scoreboard': ScoreboardView,
+    'login': LoginSignupView,
+    'game': GameView,
+  };
+
   return Backbone.Router.extend({
-
-    routes: {
-      "login": "login",
-      "create": "create",
-      "": "index"
-    },
-
-    initialize: function() {
-      new HeaderView();
-    },
-
-    loadView: function ( view ) {
-      if(this.view === undefined){
-        this.view = view;
-      } else {
-        this.view.remove();
-        this.view = view;
-      }
-    },
-
 
     /**
      * -----------------------------------------------------
      * Route Handlers
      * -----------------------------------------------------
+     * TODO: this is dumb?!, take time to refactor
      */
-
-    index: function() {
-      this.loadView(new MainIndexView());
+    routes: {
+      "login": function() {
+        this.loadView("login");
+      },
+      "create": function() {
+        this.loadView("create");
+      },
+      "scoreboard": function() {
+        this.loadView("scoreboard");
+      },
+      "games/:gameId": function(gameId) {
+        console.log("gameId",gameId);
+        this.loadView("game", { gameId: gameId });
+      },
+      "": function() {
+        this.loadView("index");
+      }
     },
 
-    login: function () {
-      this.loadView(new LoginSignupView());
+    initialize: function() {
+      new HeaderView();
+      return this;
     },
 
-    create: function () {
-      this.loadView(new CreateChampionshipView());
-    },
+    loadView: function ( view, args ) {
+      if(this.view !== undefined && typeof this.view.remove !== undefined){
+        this.view.remove();
+      }
+      this.view = new viewMap[view]( args );
+    }
 
   });
 });

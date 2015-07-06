@@ -27,7 +27,10 @@ function(
       "lastName": "",
       "email": "",
       "password": "",
-      "color": ""
+      "color": "",
+      "win": 0,
+      "loss": 0,
+      "tie": 0
     },
 
     validation: {

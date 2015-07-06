@@ -86,9 +86,12 @@ function(
         Backbone.Notifier.trigger("NOTIFY:GLOBAL", { type: "info", title: "Please enter a championship title!" });
         return;
       }
+      // TODO: setup "admin" as an owner of the game, so they can edit etc
       var _self = this;
       var champData = {
-        title: _self.championshipTitle.val()
+        title: _self.championshipTitle.val(),
+        active: false,
+        status: "pending"
       };
 
       // create new championship reference, then store new data

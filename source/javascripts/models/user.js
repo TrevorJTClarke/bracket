@@ -1,11 +1,16 @@
 define([
+  'Q',
   'backbone',
   'models/system'
 ],
 function(
+  Q,
   Backbone,
   System
 ){
+
+  // PRIVATE METHODS
+  var PS = System.get('Parse');
 
   // Internal Helpers
   function clearFluff ( data ) {
@@ -75,10 +80,23 @@ function(
      * @return {Promise}
      */
     getPlayer: function () {
-      // TODO: get my player item, so I can reference the other data
-      // similar to:
-      // GET /classes/ChampionshipPlayers
-      // 'where={"UserRef":{"__type":"Pointer","className":"_User","objectId":"3pf74Md0VT"}}'
+      var dfd = Q.defer(),
+          _self = this,
+          url = PS.CLASSES + PS.CHAMPIONSHIPPLAYERS;
+
+      // Special query values added
+      url = url + '?where={"UserRef":{"__type":"Pointer","className":"_User","objectId":"' + _self.id + '"}}'
+
+      $.get( url )
+        .success(function (res) {
+          var data = res.results[0];
+          _self.set("playerId", data.objectId );
+
+          dfd.resolve( data );
+        })
+        .error( dfd.reject );
+
+      return dfd.promise;
     },
 
     /**
@@ -86,10 +104,24 @@ function(
      * @return {Promise}
      */
     getAllChampionships: function () {
-      // TODO:
-      // GET /classes/Championships
-      // where={"$relatedTo":{"object":{"__type":"Pointer","className":"ChampionshipPlayers","objectId":"wrawx1tefZ"},"key":"ChampionshipsRef"}}
+      var dfd = Q.defer(),
+          _self = this,
+          url = PS.CLASSES + PS.CHAMPIONSHIPS,
+          plId = _self.get('playerId');
 
+      // Must get Player first!!
+      if(!plId){ return; }
+
+      // Special query values added
+      url = url + '?where={"$relatedTo":{"object":{"__type":"Pointer","className":"ChampionshipPlayers","objectId":"' + plId + '"},"key":"ChampionshipsRef"}}'
+
+      $.get( url )
+        .success(function (res) {
+          dfd.resolve( res.results );
+        })
+        .error( dfd.reject );
+
+      return dfd.promise;
     }
 
   });

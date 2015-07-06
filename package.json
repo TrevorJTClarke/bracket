@@ -11,6 +11,8 @@
   "devDependencies": {
     "backstopjs": "garris/backstopjs#master",
     "browser-sync": "^2.7.6",
+    "connect-history-api-fallback": "^1.1.0",
+    "connect-modrewrite": "^0.8.1",
     "gulp-concat": "^2.5.2",
     "gulp-jasmine": "^2.0.1",
     "gulp-jasmine-phantom": "^1.2.0",

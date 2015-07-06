@@ -21,6 +21,7 @@ function(
         "USER": "/_User",
         "USERS": "/users",
         "CHAMPIONSHIP": "/Championships",
+        "CHAMPIONSHIPS": "/Championships",
         "CHAMPIONSHIPPLAYERS": "/ChampionshipPlayers"
       }
     },

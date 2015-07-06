@@ -19,7 +19,7 @@ function(
 
     events: {
       'click .profile': 'viewProfile',
-      'click button': 'newGame'
+      'click button': 'logout'
     },
 
     model: User,
@@ -38,9 +38,6 @@ function(
       this.template = _.template(template( _self.model.attributes ));
       this.$el.html(this.template);
 
-      // toggle the button context
-      this.toggleButtonContent(true);
-
       return this;
     },
 
@@ -51,29 +48,16 @@ function(
       this.$el.find(".nav-action")[action + "Class"]("show");
     },
 
-    toggleButtonContent: function (bool) {
-      var open = "+",
-          close = "&times;";
-      this.$el.find(".btn-action")[0].innerHTML = (bool === true)? open : close;
-    },
-
     viewProfile: function (e) {
       if(e){
         e.preventDefault();
       }
       State.go("");
-      this.toggleButtonContent(true);
     },
 
-    newGame: function (e) {
-      if(e){
-        e.preventDefault();
-      }
-      var bool = this.newGameActive;
-      var url = (bool === false)? "create" : "";
-      State.go( url );
-      this.toggleButtonContent( bool );
-      this.newGameActive = !bool;
+    logout: function () {
+      State.go("login");
+      Session.logout();
     }
 
   });
