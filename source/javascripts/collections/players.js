@@ -92,7 +92,6 @@ function(
         .success(function (res) {
           // quick filtering of player data
           var players = formatList( res.results );
-          console.log("_self.url",_self.url,players);
 
           dfd.resolve(players);
         })

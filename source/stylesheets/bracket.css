@@ -284,7 +284,8 @@ header {
     transition: opacity 220ms ease-in-out; }
     header .profile .avatar {
       width: 40px;
-      padding: 6px 0 4px; }
+      height: 40px;
+      line-height: 40px; }
     header .profile.show {
       opacity: 1; }
   header .logo {
@@ -378,16 +379,17 @@ header {
  * Avatar Styling
  */
 .avatar {
-  background: #1472ad;
+  background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   color: #FFFFFF;
   text-align: center;
   font-size: 19px;
   font-weight: 100;
-  padding: 10px 0 0;
+  padding: 0;
   width: 55px;
-  /* height: 56px; */
+  height: 55px;
+  line-height: 55px;
   flex: 1;
   position: relative;
   z-index: 1;
@@ -638,14 +640,20 @@ header {
  * Game Styling
  */
 .game-container {
-  width: 1000px;
+  width: 420px;
   display: flex;
   flex-direction: row;
   padding: 0 10px; }
+  .game-container.editing {
+    padding-left: 130px;
+    padding-bottom: 82px; }
 
 .game {
   width: 100%;
-  overflow: scroll; }
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0; }
 
 .round {
   display: flex;
@@ -669,7 +677,8 @@ header {
   flex-direction: column;
   position: relative;
   padding: 10px 5px;
-  margin: 0 0 0 20px; }
+  margin: 0 0 0 20px;
+  /* modification for inactive/unfilled avatars */ }
   .match .match-tag {
     background: #dfdfdf;
     border-radius: 10px 0 0 10px;
@@ -690,6 +699,14 @@ header {
     .match .match-first .avatar,
     .match .match-second .avatar {
       min-height: 50px; }
+  .match .empty {
+    border: 2px dashed #373e3e; }
+    .match .empty.focussed {
+      background: #a8afb0; }
+
+.randomize {
+  background: transparent;
+  border-color: #FFFFFF; }
 
 .round-spacers {
   display: flex;
@@ -722,6 +739,27 @@ header {
         width: 100%;
         top: 50%;
         right: -100%; }
+
+/**
+ * Game Styling
+ */
+.game-editor {
+  position: fixed;
+  width: 100%;
+  z-index: 999; }
+
+.edit-players {
+  background: #a8afb0;
+  display: flex;
+  flex-direction: column;
+  padding: 13px 20px;
+  position: fixed;
+  left: 0;
+  top: 62px;
+  bottom: 62px;
+  width: 100px; }
+  .edit-players .game-player {
+    margin: 7px auto; }
 
 /* Responsive */
 /* responsive */

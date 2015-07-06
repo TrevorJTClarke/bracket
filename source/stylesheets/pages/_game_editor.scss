@@ -1,0 +1,24 @@
+/**
+ * Game Styling
+ */
+.game-editor {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+
+.edit-players {
+  background: $grey04;
+  display: flex;
+  flex-direction: column;
+  padding: 13px 20px;
+  position: fixed;
+  left:0;
+  top:62px;
+  bottom:62px;
+  width: 100px;
+
+  .game-player {
+    margin: 7px auto;
+  }
+}

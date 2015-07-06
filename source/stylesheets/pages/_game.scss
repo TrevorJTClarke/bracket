@@ -1,17 +1,23 @@
 /**
  * Game Styling
  */
-$round-height-offset: 4px;
-
 .game-container {
-  width: 1000px;
+  width: 420px;
   display: flex;
   flex-direction: row;
   padding: 0 10px;
+
+  &.editing {
+    padding-left: 130px;
+    padding-bottom: 82px;
+  }
 }
 .game {
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
 }
 .round{
   display:flex;
@@ -74,7 +80,19 @@ $round-height-offset: 4px;
   .match-first {}
   .match-second {}
 
+  /* modification for inactive/unfilled avatars */
+  .empty {
+    border: 2px dashed $grey07;
 
+    &.focussed {
+      background: $grey04;
+    }
+  }
+}
+
+.randomize {
+  background: transparent;
+  border-color: $white;
 }
 
 .round-spacers {

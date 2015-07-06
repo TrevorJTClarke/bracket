@@ -2,16 +2,17 @@
  * Avatar Styling
  */
 .avatar {
-  background: $darksecond; // NOTE: will be changed dynamically
+  background: transparent; // NOTE: will be changed dynamically
   border:1px solid rgba(255,255,255,0.3);
   border-radius: 50%;
   color:$white;
   text-align: center;
   font-size: 19px;
   font-weight: 100;
-  padding:10px 0 0;
+  padding: 0;
   width: 55px;
-  /* height: 56px; */
+  height: 55px;
+  line-height: 55px;
   flex:1;
   position: relative;
   z-index: 1;
