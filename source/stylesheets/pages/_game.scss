@@ -1,6 +1,8 @@
 /**
  * Game Styling
  */
+$round-height-offset: 4px;
+
 .game-container {
   width: 1000px;
   display: flex;
@@ -51,10 +53,12 @@
     left: -21px;
     top: -1px;
     bottom: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     span {
-      display: block;
-      padding: 24px 6px;
+      padding: 0 6px;
     }
   }
 
