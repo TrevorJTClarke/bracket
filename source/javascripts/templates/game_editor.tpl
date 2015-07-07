@@ -1,6 +1,6 @@
 <div class="game-editor">
   <div class="edit-players">
-    <div class="game-player">
+    <div id="randomize" class="game-player">
       <div class="avatar randomize">
         <i class="glyphicon glyphicon-random"></i>
       </div>

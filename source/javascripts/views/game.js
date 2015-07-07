@@ -55,7 +55,7 @@ function(
       players: ["jfkdlsajf-789dfs-fd9s-f89sd09", "jfkdlsajf-789dfs-fd9s-f89sd09"],
       winner: null,
       status: "pending"
-    }],
+    }]
   };
 
   return Backbone.View.extend({
@@ -69,13 +69,13 @@ function(
     model: new Championship(),
 
     events: {
-      // 'click #doneEditingPlayers': 'finishGame' // bind event for when done adding players to game layout
+      // 'click #doneEditingPlayers': 'finishGame' // bind event for when done adding players to game layout,
+      'click #randomize': 'randomizePlayers'
     },
 
     initialize: function(options) {
       var _self = this;
       var queryParams = parseQuery();
-      console.log("search",parseQuery(), options);
 
       _self.model.set(options);
       _self.render();
@@ -96,6 +96,7 @@ function(
       _self.$el.find(container).addClass(editing);
       _rootEl.html(_self.$el);
       _self.delegateEvents();
+      _self.bindDragElems();
 
       // console.log("RENDERING",_self.modelCache);
 
@@ -129,13 +130,16 @@ function(
 
         for (var i = 0; i < tiers[k].length; i++) {
           var tmpMatch = {
-            num: i + 1
+            num: i + 1,
+            winner: null,
+            status: "pending",
+            players: [{},{}]
           };
 
           tmpTier.push({ matchesTpl: matchesTpl( tmpMatch ) });
         }
         tmpSpacers.length = Math.round(tmpTier.length / 2);
-        console.log("tmpTier",tmpTier);
+        // console.log("tmpTier",tmpTier);
         tmplData.tiers.push({ spacers: matchesSpacersTpl(tmpSpacers), tiersContainer: tiersContainerTpl( tmpTier ) });
       }
 
@@ -166,7 +170,7 @@ function(
       // grab the full data from DB
       PL.getAvailablePlayers()
         .then(function (res) {
-          console.log("players res",res);
+          // console.log("players res",res);
           _self.modelCache.allPlayers = res;
           _self.render();
         },function (err) {
@@ -178,20 +182,54 @@ function(
         // this.el.bind("dragstart", _.bind(this._dragStartEvent, this));
     },
 
-  	_dragStartEvent: function (e) {
-  		var data;
-  		if (e.originalEvent) e = e.originalEvent;
-  		e.dataTransfer.effectAllowed = "copy"; // default to copy
-  		data = this.dragStart(e.dataTransfer, e);
+    randomizePlayers: function (e) {
+      console.log("hey");
+    },
 
-  		window._backboneDragDropObject = null;
-  		if (data !== undefined) {
-  			window._backboneDragDropObject = data; // we cant bind an object directly because it has to be a string, json just won't do
-  		}
-  	},
 
-  	dragStart: function (dataTransfer, e) { // override me, return data to be bound to drag
-      console.log("dataTransfer",dataTransfer);
+
+    /**
+     * Drag && Drop Handlers
+     */
+    bindDragElems: function () {
+      var _self = this;
+      var players = $(".game-player");
+      if(!_self.modelCache.allPlayers || players.length <= 1){ return; }
+      players.splice(0,1);
+      // drag handler fun
+      var offset = null;
+      var start = function(e) {
+        var orig = e.originalEvent;
+        var pos = $(this).position();
+        offset = {
+          x: orig.changedTouches[0].pageX - pos.left,
+          y: orig.changedTouches[0].pageY - pos.top
+        };
+
+        $(this).addClass("dragging");
+      };
+      var move = function(e) {
+        e.preventDefault();
+        var orig = e.originalEvent;
+        $(this).css({
+          position: "absolute",
+          top: orig.changedTouches[0].pageY - offset.y - 20,
+          left: orig.changedTouches[0].pageX - offset.x
+        });
+      };
+      var remove = function (e) {
+        $(this).removeClass("dragging");
+      };
+      $.fn.draggable = function() {
+        this.bind("touchstart", start);
+        this.bind("touchmove", move);
+        this.bind("touchend", remove);
+      };
+
+      _.forEach(players,function (player) {
+        $(player).draggable();
+      });
+
     }
 
   });
