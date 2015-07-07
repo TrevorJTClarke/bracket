@@ -103,16 +103,14 @@ function(
         // then store into the new tier
         _self.addMatch( matchArray, tierId );
       }
-      console.log("fdsafdsa",_self.get('tier_1'));
     },
 
     /**
-     *
+     * removes all data from all tiers
      */
     clearTiers: function () {
       var _self = this,
           tierCount = parseInt(_self.get('tierCount'), 10);
-      _self.set("tiers", null);
 
       if(tierCount > 0){
         for (var i = 1; i <= tierCount; i++) {
@@ -120,7 +118,9 @@ function(
           var tmpTierData = _self.set( nm, []);
         }
       }
-      console.log("this.attributes",this.attributes);
+
+      _self.set("tiers", null);
+      _self.set("tierCount", 0);
     },
 
     /**

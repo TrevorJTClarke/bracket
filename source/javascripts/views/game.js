@@ -30,10 +30,6 @@ function(
 
   // TODO:
   // if is edit mode
-  //    show the editor
-  //    get all players
-  //    bind players to drag
-  //    setup randomizer fn
   //    setup finish form submittable
   // if no edit mode, just layout each of the games with links to their games
 
@@ -57,7 +53,7 @@ function(
     model: new Championship(),
 
     events: {
-      // 'click #doneEditingPlayers': 'finishGame' // bind event for when done adding players to game layout,
+      'click #doneEditingPlayers': 'finishGame',
       'click #randomize': 'randomizePlayers'
     },
 
@@ -85,8 +81,9 @@ function(
 
       _self.$el.empty();
       _self.buildChildViews();
-      // TODO: Change THIS!
-      _self.$el.find(container).addClass(editing);
+      if(_self.isEditor){
+        _self.$el.find(container).addClass(editing);
+      }
       _rootEl.html(_self.$el);
       _self.delegateEvents();
       _self.bindDragElems();
@@ -144,7 +141,6 @@ function(
         tmplData.tiers.push({ spacers: matchesSpacersTpl(tmpSpacers), tiersContainer: tiersContainerTpl( tmpTier ) });
       }
 
-      console.log("tmplData.tiers",tmplData.tiers);
       var gameElement = gameTpl(tmplData);
 
       _self.template = _.template( gameElement );
@@ -181,6 +177,14 @@ function(
     },
 
     /**
+     *
+     */
+    finishGame: function () {
+      console.log("finishGame");
+      this.cleanEditor();
+    },
+
+    /**
      * creates randomized array of players
      * sets up a new tier structure based on the new array setup
      */
@@ -207,8 +211,38 @@ function(
 
       // TODO: re-render with new tier setup
       _self.render();
+      _self.cleanEditorPlayers();
     },
 
+    /**
+     * removes all editor elements
+     */
+    cleanEditor: function () {
+      var finishBtn = $("#doneEditingPlayers"),
+          editor = $(".game-editor");
+
+      this.cleanEditorPlayers();
+
+      // remove the editor itself
+      finishBtn.remove();
+      editor.remove();
+
+      // remove editing state
+      this.$el.find(container).removeClass(editing);
+    },
+
+    /**
+     * removes all editor players
+     */
+    cleanEditorPlayers: function () {
+      var players = $(".game-player");
+          players.splice(0,1);
+
+      // remove all player elements and their events
+      _.forEach(players,function (player) {
+        $(player).remove();
+      });
+    },
 
 
     /**
