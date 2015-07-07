@@ -53,7 +53,6 @@ function(
         this.loadView("scoreboard");
       },
       ":gameId": function(gameId) {
-        console.log("gameId",gameId);
         this.loadView("game", { gameId: gameId });
       },
       "": function() {
