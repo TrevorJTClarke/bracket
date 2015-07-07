@@ -11,7 +11,8 @@ function(
   System
 ) {
   // SETUP
-  var PS = System.get("Parse");
+  var PS = System.get("Parse"),
+      mainUrl = PS.CLASSES + PS.CHAMPIONSHIPPLAYERS;
 
   // PRIVATE METHODS
 
@@ -47,7 +48,8 @@ function(
 
   return Backbone.Collection.extend({
 
-    url: PS.CLASSES + PS.CHAMPIONSHIPPLAYERS,
+    // creates mad duplicate players
+    // url: PS.CLASSES + PS.CHAMPIONSHIPPLAYERS,
 
     // model: Player
 
@@ -92,7 +94,7 @@ function(
       var dfd = Q.defer();
       var _self = this;
 
-      $.get( _self.url )
+      $.get( mainUrl )
         .success(function (res) {
           // quick filtering of player data
           var players = formatList( res.results );

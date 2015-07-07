@@ -650,6 +650,7 @@ header {
 
 .game {
   width: 100%;
+  height: calc(100vh - 62px);
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   margin: 0;
@@ -701,8 +702,10 @@ header {
     border: 2px dashed #373e3e; }
     .match .empty.focussed {
       background: #a8afb0; }
+  .match.draghover,
   .match.active {
     border-color: #288a5b; }
+    .match.draghover .match-tag,
     .match.active .match-tag {
       background: #288a5b; }
 

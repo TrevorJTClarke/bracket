@@ -63,11 +63,13 @@ function(
       * Status - One of the following: 1. new, 2. pending, 3. finished, 4. bye
       */
     addMatch: function ( players, tierId ) {
-      var tierData = this.get(tierId) || [];
+      var _self = this,
+          tierData = _self.get(tierId) || [];
       var baseData = {
-          players: players,
-          winner: null,
-          status: 'new'
+        sort: tierData.length + 1 || 1,
+        players: players,
+        winner: null,
+        status: 'new'
       };
 
       tierData.push(baseData);
@@ -119,8 +121,7 @@ function(
         }
       }
 
-      _self.set("tiers", null);
-      _self.set("tierCount", 0);
+      _self.set("tiers", []);
     },
 
     /**

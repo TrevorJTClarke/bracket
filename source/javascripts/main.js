@@ -6,6 +6,7 @@ require.config({
     // --------------
     'Q': 'javascripts/lib/q.min',
     'jquery': 'javascripts/lib/jquery',
+    'pep': 'javascripts/lib/jquery.pep.min',
     'underscore': 'javascripts/lib/underscore',
     'backbone': 'javascripts/lib/backbone',
     'backbone.validation': 'javascripts/lib/backbone.validation.min',
@@ -29,6 +30,7 @@ require.config({
   // Sets the configuration for your third party scripts that are not AMD compatible
   'shim': {
     'backbone.validation': ['backbone'],
+    'pep': ['jquery'],
     'Handlebars': {
       'exports': 'Handlebars'
     },
@@ -49,7 +51,8 @@ require([
   'backbone.validation',
   'models/validator',
   'models/notifier',
-  'Helpers'
+  'Helpers',
+  'pep'
 ],
 function(Router, State) {
   // watch the routes

@@ -2,7 +2,7 @@
  * Game Styling
  */
 .game-container {
-  width: 420px;
+  width: 420px; // TODO: setup for dynamic
   display: flex;
   flex-direction: row;
   padding: 0 10px;
@@ -14,6 +14,7 @@
 }
 .game {
   width: 100%;
+  height: calc(100vh - 62px);
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   margin: 0;
@@ -85,6 +86,7 @@
     }
   }
 
+  &.draghover,
   &.active {
     border-color: $main;
 

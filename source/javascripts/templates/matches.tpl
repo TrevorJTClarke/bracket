@@ -1,6 +1,6 @@
 <li class="spacer">&nbsp;</li>
-<li class="match">
-  <div class="match-tag"><span>{{num}}</span></div>
+<li class="match"{{#if sort}} id="match_{{sort}}"{{/if}}>
+  <div class="match-tag"><span>{{sort}}</span></div>
   {{#each players}}
   <div class="match-player">
     {{#if firstName}}

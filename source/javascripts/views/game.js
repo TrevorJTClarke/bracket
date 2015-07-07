@@ -29,8 +29,7 @@ function(
   }
 
   // TODO:
-  // if is edit mode
-  //    setup finish form submittable
+  // finish form submittable
   // if no edit mode, just layout each of the games with links to their games
 
   // PRIVATE METHODS
@@ -63,11 +62,9 @@ function(
       // TODO:
       // get total players
       // generate tier matches
-      _self.getBaseData( options );
 
-      // _self.model.set(options);
-      // _self.render();
       _self.listenTo(_self.model, 'change', this.render);
+      _self.getBaseData( options );
 
       if(queryParams.editor === "true"){
         _self.isEditor = true;
@@ -87,6 +84,7 @@ function(
       _rootEl.html(_self.$el);
       _self.delegateEvents();
       _self.bindDragElems();
+      // _self.bindDropElems();
 
       // console.log("RENDERING",_self.modelCache);
 
@@ -198,7 +196,9 @@ function(
       // create random array of players
       // an awesome example: http://bost.ocks.org/mike/shuffle/
       function randomizeArray ( array ) {
-        var copy = [], n = array.length, i;
+        var copy = [],
+            n = array.length,
+            i;
         while (n) {
           i = Math.floor(Math.random() * n--);
           copy.push(array.splice(i, 1)[0]);
@@ -209,7 +209,7 @@ function(
       // insert the array into tier matches
       _self.model.associatePlayers( randomizeArray( players ) );
 
-      // TODO: re-render with new tier setup
+      // re-render with new tier setup
       _self.render();
       _self.cleanEditorPlayers();
     },
@@ -252,42 +252,108 @@ function(
       var _self = this;
       var players = $(".game-player");
       if(!_self.modelCache.allPlayers || players.length <= 1){ return; }
+      // remove the silly random button
       players.splice(0,1);
-      // drag handler fun
-      var offset = null;
-      var start = function(e) {
-        var orig = e.originalEvent;
-        var pos = $(this).position();
-        offset = {
-          x: orig.changedTouches[0].pageX - pos.left,
-          y: orig.changedTouches[0].pageY - pos.top
-        };
 
-        $(this).addClass("dragging");
-      };
-      var move = function(e) {
-        e.preventDefault();
-        var orig = e.originalEvent;
-        $(this).css({
-          position: "absolute",
-          top: orig.changedTouches[0].pageY - offset.y - 20,
-          left: orig.changedTouches[0].pageX - offset.x
+      function bindPlayer( item ) {
+        $(item).pep({
+          droppable: '.match',
+          droppableActiveClass: 'draghover',
+          activeClass: 'dragging',
+          shouldEase: false,
+          place:false,
+          cssEaseDuration: 1,
+          cssEaseString: "ease-in-out",
+          velocityMultiplier: 1,
+          useCSSTranslation: false,
+          moveTo: function (x,y) {
+            var tiny = this.$el[0],
+                offLeft = tiny.offsetLeft,
+                offTop = tiny.offsetTop;
+            // offLeft = "offLeft " + left + " + " + offLeft;
+            // offTop = "offTop " + top + " + " + offTop;
+
+            this.$el.css({
+              left: x,
+              top: y
+            });
+            // this.$el.top = top;
+            console.log("e,obj",x,y);
+            // if(dragObject){
+          	// 	dragObject.style.position = 'absolute';
+          	// 	dragObject.style.top      = mousePos.y - mouseOffset.y;
+          	// 	dragObject.style.left     = mousePos.x - mouseOffset.x;
+          	// 	return false;
+          	// }
+          },
+          stop: function(ev, obj){
+            if(this.activeDropRegions.length > 0){
+              _self.handleDrop(this.activeDropRegions[0]);
+            }
+          },
+          revert: true,
+          revertIf: function(ev, obj){
+            return !this.activeDropRegions.length;
+          }
         });
-      };
-      var remove = function (e) {
-        $(this).removeClass("dragging");
-      };
-      $.fn.draggable = function() {
-        this.bind("touchstart", start);
-        this.bind("touchmove", move);
-        this.bind("touchend", remove);
-      };
+      }
 
       _.forEach(players,function (player) {
-        $(player).draggable();
+        bindPlayer( player );
       });
 
+    },
+
+    handleDrop: function (el) {
+      console.log("el",el);
+      // TODO:
+      // remove el from start
+      // add data to match
+      // re-render
     }
 
   });
 });
+// document.onmousemove = mouseMove;
+// document.onmouseup   = mouseUp;
+// var dragObject  = null;
+// var mouseOffset = null;
+// function getMouseOffset(target, ev){
+// 	ev = ev || window.event;
+// 	var docPos    = getPosition(target);
+// 	var mousePos  = mouseCoords(ev);
+// 	return {x:mousePos.x - docPos.x, y:mousePos.y - docPos.y};
+// }
+// function getPosition(e){
+// 	var left = 0;
+// 	var top  = 0;
+// 	while (e.offsetParent){
+// 		left += e.offsetLeft;
+// 		top  += e.offsetTop;
+// 		e     = e.offsetParent;
+// 	}
+// 	left += e.offsetLeft;
+// 	top  += e.offsetTop;
+// 	return {x:left, y:top};
+// }
+// function mouseMove(ev){
+// 	ev           = ev || window.event;
+// 	var mousePos = mouseCoords(ev);
+// 	if(dragObject){
+// 		dragObject.style.position = 'absolute';
+// 		dragObject.style.top      = mousePos.y - mouseOffset.y;
+// 		dragObject.style.left     = mousePos.x - mouseOffset.x;
+// 		return false;
+// 	}
+// }
+// function mouseUp(){
+// 	dragObject = null;
+// }
+// function makeDraggable(item){
+// 	if(!item) return;
+// 	item.onmousedown = function(ev){
+// 		dragObject  = this;
+// 		mouseOffset = getMouseOffset(this, ev);
+// 		return false;
+// 	}
+// }

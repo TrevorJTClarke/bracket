@@ -46,6 +46,7 @@ require.config({
     'jquery': 'lib/jquery',
     'jasminequery': 'lib/jasmine-jquery',
     'jasmineajax': 'lib/jasmine-ajax',
+    'pep': 'lib/jquery.pep.min',
     'underscore': 'lib/underscore',
     'backbone': 'lib/backbone',
     'backbone.validation': 'lib/backbone.validation.min',
@@ -56,6 +57,7 @@ require.config({
   },
   shim: {
     'backbone.validation': ['backbone'],
+    'pep': ['jquery'],
     'Q': {
       'exports': 'Q'
     },
