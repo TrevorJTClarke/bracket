@@ -27,6 +27,10 @@ function(
         var addUser = obj;
             addUser.id = obj.objectId;
             addUser.added = false;
+        delete addUser.ChampionshipsRef;
+        delete addUser.UserRef;
+        delete addUser.createdAt;
+        delete addUser.updatedAt;
 
         if(obj.username === myself.username){
           addUser.email = "Championship Creator";

@@ -28,41 +28,82 @@ function(
 
     defaults: {
       'title': '',
-      'tiers': 0
+      'tierCount': 0
     },
 
-    // /**
-    //   * returns a user object from the Championship data
-    //   * @param  {String} userId is the unique ID of the user, based off their hash
-    //   * @return {Object}        user data object, see above example
-    //   */
-    // getPlayerById: function(userId) {
-    //   // TODO:
-    //   // var usersData = this.get('users');
-    //   //
-    //   // return usersData[userId];
-    // },
+    /**
+     * insert players into assigned match slots, used for randomizer function
+     */
+    associatePlayers: function ( playersArray ) {
+      // check for first tier
+      var _self = this,
+          tierId = 'tier_1',
+          mainTier = this.get(tierId);
+      if(!mainTier){
+        // create new tier, only since we dont have one
+        this.addTier();
+      }
+
+      // separate players into matches
+      for (var i = 0; i <= Math.round(playersArray.length / 2); i++) {
+        var matchArray = playersArray.splice(0,2);
+
+        // then store into the new tier
+        _self.addMatch( matchArray, tierId );
+      }
+
+      return _self.get(tierId);
+    },
 
     /**
-      * adds a new default tier data into the Championship data
+      * adds a new match to a tier data set
       *
       * Options:
       * Winner - The ID hash of the user that has won
       * Status - One of the following: 1. new, 2. pending, 3. finished, 4. bye
       */
+    addMatch: function ( players, tierId ) {
+      var tierData = this.get(tierId) || [];
+      var baseData = {
+          players: players,
+          winner: null,
+          status: 'new'
+      };
+
+      tierData.push(baseData);
+      this.set(tierId, tierData);
+    },
+
+    /**
+      * adds new tier data into the Championship data
+      */
     addTier: function () {
-        var bracket = this.get('bracket');
-            bracket.tiers = bracket.tiers + 1;
-        var newTierName = this.tierNamespace + bracket.tiers;
+        var tierCount = this.get('tierCount'),
+            currentTier = parseInt(tierCount,10) + 1,
+            newTierName = this.tierNamespace + currentTier;
+        this.set('tierCount', currentTier);
+        this.set(newTierName, []);
+    },
 
-        // setup the baseline data for the tiers
-        bracket[newTierName] = [{
-            players: [],
-            winner: null,
-            status: 'new'
-        }];
+    /**
+     *
+     */
+    generateTier: function ( total ) {
+      // check for first tier
+      var _self = this,
+          tierId = 'tier_1',
+          mainTier = this.get(tierId);
+      if(mainTier){ return; }
+      // create new tier, only since we dont have one
+      this.addTier();
 
-        this.set('bracket', bracket);
+      // separate players into matches
+      for (var i = 0; i < Math.round(total / 2); i++) {
+        var matchArray = [{},{}];
+        // then store into the new tier
+        _self.addMatch( matchArray, tierId );
+      }
+      console.log("fdsafdsa",_self.get('tier_1'));
     },
 
     /**
