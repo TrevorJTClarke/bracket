@@ -107,6 +107,23 @@ function(
     },
 
     /**
+     *
+     */
+    clearTiers: function () {
+      var _self = this,
+          tierCount = parseInt(_self.get('tierCount'), 10);
+      _self.set("tiers", null);
+
+      if(tierCount > 0){
+        for (var i = 1; i <= tierCount; i++) {
+          var nm = _self.tierNamespace + i;
+          var tmpTierData = _self.set( nm, []);
+        }
+      }
+      console.log("this.attributes",this.attributes);
+    },
+
+    /**
       * returns a specific tier data object
       * @param  {String} tierId is the unique ID of the tier, Example: "tier_1"
       * @return {Object}        tier data object, see example for a sample

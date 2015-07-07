@@ -83,7 +83,9 @@ function(
       var _self = this;
       if(!_self.modelCache || _self.modelCache.championship === undefined){return;}
 
+      _self.$el.empty();
       _self.buildChildViews();
+      // TODO: Change THIS!
       _self.$el.find(container).addClass(editing);
       _rootEl.html(_self.$el);
       _self.delegateEvents();
@@ -98,9 +100,9 @@ function(
     buildChildViews: function () {
       var _self = this,
           template;
-      var tiers = _self.model.get('tier_1');
+      var tierCount = parseInt(_self.model.get('tierCount'), 10);
       var tmplData = _self.model.attributes;
-      _self.$el.empty();
+      var tiersData = [];
 
       // TODO: abstract this!
       if(_self.isEditor){
@@ -111,32 +113,38 @@ function(
         });
       }
 
-      // tiers > tiersContainer > tier > matchesTpl > num
-
       // If no base tier, generate the first set based on players available
-      if(_self.modelCache.allPlayers && !tiers){
+      if(_self.modelCache.allPlayers && tierCount === 0){
         var fakeTotalPlayers = 4;
             fakeTotalPlayers = _self.modelCache.allPlayers.length;
         _self.model.generateTier( fakeTotalPlayers );
-        tiers = _self.model.get('tier_1');
+        tierCount = 1;
       }
 
-      // piece together the tiers
+      // find all tier data, and prep for templates
+      if(tierCount > 0){
+        for (var i = 1; i <= tierCount; i++) {
+          var nm = _self.model.tierNamespace + i;
+          var tmpTierData = _self.model.get( nm );
+
+          tiersData[nm] = tmpTierData || [];
+        }
+      }
+
       tmplData.tiers = [];
-      // for(var k in tiers){
+      for(var k in tiersData){
         var tmpTier = [];
         var tmpSpacers = [];
 
-      // Add match templates
-      if(tiers){
-        for (var i = 0; i < tiers.length; i++) {
-          tmpTier.push({ matchesTpl: matchesTpl( tiers[i] ) });
+        // Add match templates
+        for (var i = 0; i < tiersData[k].length; i++) {
+          tmpTier.push({ matchesTpl: matchesTpl( tiersData[k][i] ) });
         }
         tmpSpacers.length = Math.round(tmpTier.length / 2);
-        // console.log("tmpTier",tmpTier);
         tmplData.tiers.push({ spacers: matchesSpacersTpl(tmpSpacers), tiersContainer: tiersContainerTpl( tmpTier ) });
       }
 
+      console.log("tmplData.tiers",tmplData.tiers);
       var gameElement = gameTpl(tmplData);
 
       _self.template = _.template( gameElement );
@@ -180,6 +188,9 @@ function(
       var _self = this;
       var players = _self.modelCache.allPlayers.slice(0);
 
+      // remove old data
+      _self.model.clearTiers();
+
       // create random array of players
       // an awesome example: http://bost.ocks.org/mike/shuffle/
       function randomizeArray ( array ) {
@@ -195,6 +206,7 @@ function(
       _self.model.associatePlayers( randomizeArray( players ) );
 
       // TODO: re-render with new tier setup
+      _self.render();
     },
 
 
