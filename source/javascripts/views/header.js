@@ -33,30 +33,31 @@ function(
     },
 
     render: function() {
-      var _self = this;
+      var _this = this;
 
-      this.template = _.template(template( _self.model.attributes ));
+      this.template = _.template(template(_this.model.attributes));
       this.$el.html(this.template);
 
       return this;
     },
 
-    toggleAuthElems: function (model) {
-      var isAuthed = model.get("auth");
-      var action = (isAuthed === true)? "add":"remove";
-      this.$el.find(".profile")[action + "Class"]("show");
-      this.$el.find(".nav-action")[action + "Class"]("show");
+    toggleAuthElems: function(model) {
+      var isAuthed = model.get('auth');
+      var action = (isAuthed === true) ? 'add' : 'remove';
+      this.$el.find('.profile')[action + 'Class']('show');
+      this.$el.find('.nav-action')[action + 'Class']('show');
     },
 
-    viewProfile: function (e) {
-      if(e){
+    viewProfile: function(e) {
+      if (e) {
         e.preventDefault();
       }
-      State.go("");
+
+      State.go('');
     },
 
-    logout: function () {
-      State.go("login");
+    logout: function() {
+      State.go('login');
       Session.logout();
     }
 

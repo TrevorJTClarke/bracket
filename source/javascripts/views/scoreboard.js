@@ -14,7 +14,7 @@ function(
 ) {
 
   // PRIVATE METHODS
-  var _rootEl = $(".main-container");
+  var _rootEl = $('.main-container');
 
   return Backbone.View.extend({
 
@@ -28,26 +28,27 @@ function(
     },
 
     initialize: function() {
-      var _self = this;
+      var _this = this;
 
-      _self.render();
-      _self.listenTo(_self.model, 'change', this.render);
+      _this.render();
+      _this.listenTo(_this.model, 'change', this.render);
     },
 
     render: function() {
-      var _self = this;
+      var _this = this;
 
-      _self.template = _.template(template( _self.model.attributes ));
-      _self.$el.html(this.template);
-      _rootEl.html(_self.$el);
+      _this.template = _.template(template(_this.model.attributes));
+      _this.$el.html(this.template);
+      _rootEl.html(_this.$el);
 
       return this;
     },
 
-    newGame: function (e) {
-      if(e){
+    newGame: function(e) {
+      if (e) {
         e.preventDefault();
       }
+
       // State.go("create");
     }
 
