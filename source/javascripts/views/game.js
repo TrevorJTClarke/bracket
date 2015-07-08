@@ -25,7 +25,7 @@ function(
 
   function parseQuery() {
     var search = window.location.search.substring(1);
-    return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+    return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
   }
 
   // TODO:
@@ -33,13 +33,13 @@ function(
   // if no edit mode, just layout each of the games with links to their games
 
   // PRIVATE METHODS
-  var _rootEl = $(".main-container");
+  var _rootEl = $('.main-container');
   var PL = new Players();
-  var editing   = "editing",
-      active    = "active",
-      empty     = "empty",
-      focussed  = "focussed",
-      container = ".game-container";
+  var editing   = 'editing';
+  var active    = 'active';
+  var empty     = 'empty';
+  var focussed  = 'focussed';
+  var container = '.game-container';
 
   return Backbone.View.extend({
     templateCache: {},
@@ -57,129 +57,140 @@ function(
     },
 
     initialize: function(options) {
-      var _self = this;
+      var _this = this;
       var queryParams = parseQuery();
+
       // TODO:
       // get total players
       // generate tier matches
 
-      _self.listenTo(_self.model, 'change', this.render);
-      _self.getBaseData( options );
+      _this.listenTo(_this.model, 'change', this.render);
+      _this.getBaseData(options);
 
-      if(queryParams.editor === "true"){
-        _self.isEditor = true;
-        _self.setupEditor();
+      if (queryParams.editor === 'true') {
+        _this.isEditor = true;
+        _this.setupEditor();
       }
     },
 
     render: function(noBindDrag) {
-      var _self = this;
-      if(!_self.modelCache || _self.modelCache.championship === undefined){return;}
-
-      _self.$el.empty();
-      _self.buildChildViews();
-      if(_self.isEditor){
-        _self.$el.find(container).addClass(editing);
-      }
-      _rootEl.html(_self.$el);
-      _self.delegateEvents();
-      if(!noBindDrag){
-        _self.bindDragElems();
+      var _this = this;
+      if (!_this.modelCache || _this.modelCache.championship === undefined) {
+        return;
       }
 
-      // console.log("RENDERING",_self.modelCache);
+      _this.$el.empty();
+      _this.buildChildViews();
+      if (_this.isEditor) {
+        _this.$el.find(container).addClass(editing);
+      }
+
+      _rootEl.html(_this.$el);
+      _this.delegateEvents();
+      if (!noBindDrag) {
+        _this.bindDragElems();
+      }
+
+      // console.log("RENDERING",_this.modelCache);
 
       return this;
     },
 
     // logic for using cached templates over new ones
-    buildChildViews: function () {
-      var _self = this,
-          template;
-      var tierCount = parseInt(_self.model.get('tierCount'), 10);
-      var tmplData = _self.model.attributes;
+    buildChildViews: function() {
+      var _this = this;
+      var template;
+      var tierCount = parseInt(_this.model.get('tierCount'), 10);
+      var tmplData = _this.model.attributes;
       var tiersData = [];
 
       // TODO: abstract this!
-      if(_self.isEditor){
+      if (_this.isEditor) {
         tmplData.gameEditor = gameEditorTpl({
           gameEditorPlayers: gameEditorPlayerTpl({
-            editPlayers: _self.modelCache.allPlayers || []
+            editPlayers: _this.modelCache.allPlayers || []
           })
         });
       }
 
       // If no base tier, generate the first set based on players available
-      if(_self.modelCache.allPlayers && tierCount === 0){
+      if (_this.modelCache.allPlayers && tierCount === 0) {
         var fakeTotalPlayers = 4;
-            fakeTotalPlayers = _self.modelCache.allPlayers.length;
-        _self.model.generateTier( fakeTotalPlayers );
+
+        fakeTotalPlayers = _this.modelCache.allPlayers.length;
+        _this.model.generateTier(fakeTotalPlayers);
         tierCount = 1;
       }
 
       // find all tier data, and prep for templates
-      if(tierCount > 0){
+      if (tierCount > 0) {
         for (var i = 1; i <= tierCount; i++) {
-          var nm = _self.model.tierNamespace + i;
-          var tmpTierData = _self.model.get( nm );
+          var nm = _this.model.tierNamespace + i;
+          var tmpTierData = _this.model.get(nm);
 
           tiersData[nm] = tmpTierData || [];
         }
       }
 
       tmplData.tiers = [];
-      for(var k in tiersData){
+      for (var k in tiersData) {
         var tmpTier = [];
         var tmpSpacers = [];
 
         // Add match templates
         for (var i = 0; i < tiersData[k].length; i++) {
-          tmpTier.push({ matchesTpl: matchesTpl( tiersData[k][i] ) });
+          tmpTier.push({ matchesTpl: matchesTpl(tiersData[k][i])});
         }
+
         tmpSpacers.length = Math.round(tmpTier.length / 2);
-        tmplData.tiers.push({ spacers: matchesSpacersTpl(tmpSpacers), tiersContainer: tiersContainerTpl( tmpTier ) });
+        tmplData.tiers.push({ spacers: matchesSpacersTpl(tmpSpacers), tiersContainer: tiersContainerTpl(tmpTier)});
       }
 
       var gameElement = gameTpl(tmplData);
 
-      _self.template = _.template( gameElement );
-      _self.$el.html(this.template);
+      _this.template = _.template(gameElement);
+      _this.$el.html(this.template);
     },
 
-    getBaseData: function ( options ) {
-      var _self = this;
+    getBaseData: function(options) {
+      var _this = this;
+
       // grab the full data from DB
-      _self.model.fetch({
-          url: _self.model.url + "/" + options.gameId
+      _this.model.fetch({
+          url: _this.model.url + '/' + options.gameId
         })
-        .then(function (res) {
-          _self.modelCache.championship = res;
-          _self.model.set(res);
-          _self.render();
-        },function (err) {
-          console.log("err",err);
+        .then(function(res) {
+          _this.modelCache.championship = res;
+          _this.model.set(res);
+          _this.render();
+        },
+
+        function(err) {
+          console.log('err', err);
         });
     },
 
-    setupEditor: function () {
-      var _self = this;
+    setupEditor: function() {
+      var _this = this;
 
       // grab the full data from DB
       PL.getAvailablePlayers()
-        .then(function (res) {
+        .then(function(res) {
           // console.log("players res",res);
-          _self.modelCache.allPlayers = res;
-          _self.render();
-        },function (err) {
-          console.log("err",err);
+          _this.modelCache.allPlayers = res;
+          _this.render();
+        },
+
+        function(err) {
+          console.log('err', err);
         });
     },
 
     /**
      *
      */
-    finishGame: function () {
-      console.log("finishGame");
+    finishGame: function() {
+      console.log('finishGame');
       this.cleanEditor();
     },
 
@@ -187,40 +198,41 @@ function(
      * creates randomized array of players
      * sets up a new tier structure based on the new array setup
      */
-    randomizePlayers: function (e) {
-      var _self = this;
-      var players = _self.modelCache.allPlayers.slice(0);
+    randomizePlayers: function(e) {
+      var _this = this;
+      var players = _this.modelCache.allPlayers.slice(0);
 
       // remove old data
-      _self.model.clearTiers();
+      _this.model.clearTiers();
 
       // create random array of players
       // an awesome example: http://bost.ocks.org/mike/shuffle/
-      function randomizeArray ( array ) {
-        var copy = [],
-            n = array.length,
-            i;
+      function randomizeArray(array) {
+        var copy = [];
+        var n = array.length;
+        var i;
         while (n) {
           i = Math.floor(Math.random() * n--);
           copy.push(array.splice(i, 1)[0]);
         }
+
         return copy;
       }
 
       // insert the array into tier matches
-      _self.model.associatePlayers( randomizeArray( players ) );
+      _this.model.associatePlayers(randomizeArray(players));
 
       // re-render with new tier setup
-      _self.render(true);
-      _self.cleanEditorPlayers();
+      _this.render(true);
+      _this.cleanEditorPlayers();
     },
 
     /**
      * removes all editor elements
      */
-    cleanEditor: function () {
-      var finishBtn = $("#doneEditingPlayers"),
-          editor = $(".game-editor");
+    cleanEditor: function() {
+      var finishBtn = $('#doneEditingPlayers');
+      var editor = $('.game-editor');
 
       this.cleanEditorPlayers();
 
@@ -235,12 +247,13 @@ function(
     /**
      * removes all editor players
      */
-    cleanEditorPlayers: function () {
-      var players = $(".game-player");
-          players.splice(0,1);
+    cleanEditorPlayers: function() {
+      var players = $('.game-player');
+
+      players.splice(0, 1);
 
       // remove all player elements and their events
-      _.forEach(players,function (player) {
+      _.forEach(players, function(player) {
         $(player).remove();
       });
     },
@@ -249,22 +262,26 @@ function(
     /**
      * Drag && Drop Handlers
      */
-    bindDragElems: function () {
-      var _self = this;
-      var players = $(".game-player");
-      if(!_self.modelCache.allPlayers || players.length <= 1){ return; }
+    bindDragElems: function() {
+      var _this = this;
+      var players = $('.game-player');
+
+      if (!_this.modelCache.allPlayers || players.length <= 1) {
+        return;
+      }
+
       // remove the silly random button
-      players.splice(0,1);
+      players.splice(0, 1);
 
       // Binds the player to be drag and dropped into a match
-      function bindPlayer( item ) {
+      function bindPlayer(item) {
         $(item).pep({
           droppable: '.match',
           droppableActiveClass: 'draghover',
           activeClass: 'dragging',
           shouldEase: false,
           place:false,
-          initiate: function () {
+          initiate: function() {
             // set the absolute positioning so drag can work correctly
             var pl = this.$el[0];
             this.$el.css({
@@ -272,71 +289,77 @@ function(
               top: pl.offsetTop
             });
           },
-          moveTo: function (x,y) {
+
+          moveTo: function(x, y) {
             // get initial x/y positioning
-            var tiny = this.$el,
-                offLeft = parseInt(tiny.css('left').replace("px",""),10),
-                offTop = parseInt(tiny.css('top').replace("px",""),10),
-                cords = {};
+            var tiny = this.$el;
+            var offLeft = parseInt(tiny.css('left').replace('px', ''), 10);
+            var offTop = parseInt(tiny.css('top').replace('px', ''), 10);
+            var cords = {};
 
             // removing the funky cordinate formatting
-            function formatCord(val,type) {
-              val = val.split("=");
+            function formatCord(val, type) {
+              val = val.split('=');
               cords[type] = {
-                num: parseInt(val[1],10),
+                num: parseInt(val[1], 10),
                 opp: val[0]
               };
             }
 
-            formatCord(x,"x");
-            formatCord(y,"y");
+            formatCord(x, 'x');
+            formatCord(y, 'y');
+
             // set the updated position based on updated touch value
-            offLeft = (cords.x.opp === "+")? offLeft + cords.x.num: offLeft - cords.x.num;
-            offTop = (cords.y.opp === "+")? offTop + cords.y.num: offTop - cords.y.num;
+            offLeft = (cords.x.opp === '+') ? offLeft + cords.x.num : offLeft - cords.x.num;
+            offTop = (cords.y.opp === '+') ? offTop + cords.y.num : offTop - cords.y.num;
 
             this.$el.css({
               position: 'absolute',
-              left: offLeft + "px",
-              top: offTop + "px"
+              left: offLeft + 'px',
+              top: offTop + 'px'
             });
           },
-          stop: function(ev, obj){
-            if(this.activeDropRegions.length > 0){
-              _self.handleDrop(this.activeDropRegions[0], this.$el);
+
+          stop: function(ev, obj) {
+            if (this.activeDropRegions.length > 0) {
+              _this.handleDrop(this.activeDropRegions[0], this.$el);
             }
           },
-          rest: function () {
-            this.$el.removeClass("dragging");
+
+          rest: function() {
+            this.$el.removeClass('dragging');
           },
+
           revert: true,
-          revertIf: function(ev, obj){
+          revertIf: function(ev, obj) {
             return !this.activeDropRegions.length;
           }
         });
       }
 
-      _.forEach(players,function (player) {
+      _.forEach(players, function(player) {
         // add events to player
-        bindPlayer( player );
+        bindPlayer(player);
       });
 
     },
 
-    handleDrop: function (container,player) {
-      var _self = this,
-          playerId = $(player).data('drag'),
-          matchId = $(container).attr('id').replace("match_","");
-          matchId = parseInt(matchId,10);
+    handleDrop: function(container, player) {
+      var _this = this;
+      var playerId = $(player).data('drag');
+      var matchId = $(container).attr('id').replace('match_', '');
+
+      matchId = parseInt(matchId, 10);
 
       // remove el from start
       $(player).remove();
 
       // add data to match
-      _self.model.addPlayerToTier(1, playerId, matchId);
+      _this.model.addPlayerToTier(1, playerId, matchId);
 
       // TODO:
       // re-render
-      // _self.render();
+      // _this.render();
     }
 
   });

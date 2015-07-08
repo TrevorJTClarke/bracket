@@ -23,10 +23,10 @@ function(
     },
 
     defaults: {
-      'firstName': '',
-      'lastName': '',
-      'color': '',
-      'email': ''
+      firstName: '',
+      lastName: '',
+      color: '',
+      email: ''
     },
 
     /**
@@ -48,15 +48,16 @@ function(
          }]
        }
      */
-    saveDataRef: function ( type, id ) {
+    saveDataRef: function(type, id) {
 
-      var _self = this;
+      var _this = this;
+
       // save a ref to the user data
-      var dataRef = System.getParseRef( type, id );
-      _self.set( type.replace("_","") + 'Ref', dataRef );
+      var dataRef = System.getParseRef(type, id);
+      _this.set(type.replace('_', '') + 'Ref', dataRef);
 
       // store the user data as a player and return promise
-      return _self.save();
+      return _this.save();
     }
 
   });

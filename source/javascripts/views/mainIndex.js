@@ -19,18 +19,19 @@ function(
   //  link to game
 
   // PRIVATE METHODS
-  var _rootEl = $(".main-container");
+  var _rootEl = $('.main-container');
 
   // sort the championships based on time
-  function insertionSort( gameArray, attrToSortBy ){
+  function insertionSort(gameArray, attrToSortBy) {
     var finArray = gameArray;
-    for(var k=1; k < finArray.length; k++){
-      for(var i=k; i > 0 && new Date(finArray[i][attrToSortBy]) < new Date(finArray[i-1][attrToSortBy]); i--){
+    for (var k = 1; k < finArray.length; k++) {
+      for (var i = k; i > 0 && new Date(finArray[i][attrToSortBy]) < new Date(finArray[i - 1][attrToSortBy]); i--) {
         var tmpFile = finArray[i];
-        finArray[i] = finArray[i-1];
-        finArray[i-1] = tmpFile;
+        finArray[i] = finArray[i - 1];
+        finArray[i - 1] = tmpFile;
       }
     }
+
     return finArray.reverse();
   }
 
@@ -48,29 +49,29 @@ function(
     },
 
     initialize: function() {
-      var _self = this;
+      var _this = this;
 
-      _self.render();
-      _self.listenTo(_self.model, 'change', this.render);
+      _this.render();
+      _this.listenTo(_this.model, 'change', this.render);
 
-      _self.constructView();
+      _this.constructView();
     },
 
     render: function() {
-      var _self = this;
-      var tmplData = _self.model.attributes;
-      _self.$el.empty();
+      var _this = this;
+      var tmplData = _this.model.attributes;
+      _this.$el.empty();
 
-      if(_self.gamesData){
+      if (_this.gamesData) {
         tmplData.gamesTpl = gamesTpl({
-          games: _self.gamesData
+          games: _this.gamesData
         });
       }
 
-      _self.template = _.template(profileTpl(tmplData));
-      _self.$el.html(this.template);
-      _rootEl.html(_self.$el);
-      _self.delegateEvents();
+      _this.template = _.template(profileTpl(tmplData));
+      _this.$el.html(this.template);
+      _rootEl.html(_this.$el);
+      _this.delegateEvents();
 
       return this;
     },
@@ -78,38 +79,41 @@ function(
     /**
      * grabs all associated data for view, lazily
      */
-    constructView: function () {
-      var _self = this;
+    constructView: function() {
+      var _this = this;
 
-      _self.model.getPlayer()
-        .then(function (res) {
+      _this.model.getPlayer()
+        .then(function(res) {
           delete res.ChampionshipsRef;
           delete res.UserRef;
-          _self.model.set( res );
-          _self.render();
+          _this.model.set(res);
+          _this.render();
 
-          _self.model.getAllChampionships()
-            .then(function (res) {
+          _this.model.getAllChampionships()
+            .then(function(res) {
               // sort before add
-              var readyGames = insertionSort( res, "updatedAt" );
+              var readyGames = insertionSort(res, 'updatedAt');
 
-              _self.gamesData = readyGames;
-              _self.render();
+              _this.gamesData = readyGames;
+              _this.render();
             });
-        },function (err) {
-          console.log("player ref res",err);
+        },
+
+        function(err) {
+          console.log('player ref res', err);
         });
 
     },
 
-    newGame: function (e) {
-      if(e){
+    newGame: function(e) {
+      if (e) {
         e.preventDefault();
       }
-      State.go("create");
+
+      State.go('create');
     },
 
-    navigate: function (e) {
+    navigate: function(e) {
       var url = e.currentTarget.dataset.navigate;
       State.go(url);
     }
