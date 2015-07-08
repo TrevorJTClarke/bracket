@@ -25,40 +25,44 @@ function(
 ) {
 
   //  PRIVATE
-  var mainEl = $(".main-container"),
-      hidden = "invisible",
-      offsetDefault = 500;
+  var mainEl = $('.main-container');
+  var hidden = 'invisible';
+  var offsetDefault = 500;
 
-  var stateManager = function () {
+  var StateManager = function() {
 
     // defaults
     this.router = new Router();
     this.isTransitioning = false;
-    this.current = "";
+    this.current = '';
 
-    this.initialize = function () {
+    this.initialize = function() {
       Backbone.history.start({pushState: true});
-      this.current = window.location.hash || "";
+      this.current = window.location.hash || '';
     };
 
     /**
      * navigates user to the specified view
      * @param  {String} url - the route to navigate to, specified in the mainRouter.js
      */
-    this.go = function ( url ) {
-      if(this.isTransitioning === true){ return; }
-      if(this.current === url){ return; }
-      var _self = this;
+    this.go = function(url) {
+      if (this.isTransitioning === true) { return; }
+
+      if (this.current === url) { return; }
+
+      var _this = this;
 
       // This starts the transitions
-      _self.controlFlow()
-        .then(function () {
+      _this.controlFlow()
+        .then(function() {
           // Wait to actually go until halfway through
-          _self.router.navigate( url, true);
-          _self.current = url;
-        },function () {
-          _self.router.navigate("login", {trigger: true, replace: true});
-          _self.current = "login";
+          _this.router.navigate(url, true);
+          _this.current = url;
+        },
+
+        function() {
+          _this.router.navigate('login', {trigger: true, replace: true});
+          _this.current = 'login';
         });
     };
 
@@ -66,20 +70,20 @@ function(
      * handles the transition logic, see the Flow noted above
      * @return {Promise} can execute next function after finished transition
      */
-    this.controlFlow = function () {
-      var dfd = Q.defer(),
-          _self = this,
-          isValid = Session.checkAuth();
+    this.controlFlow = function() {
+      var dfd = Q.defer();
+      var _this = this;
+      var isValid = Session.checkAuth();
 
-      if(isValid === true){
-        _self.transitionStart();
+      if (isValid === true) {
+        _this.transitionStart();
 
-        setTimeout(function(){
-          _self.transitionEnd();
+        setTimeout(function() {
+          _this.transitionEnd();
         }, offsetDefault);
 
         // use offset to all promise to return at given time offset
-        setTimeout(function(){
+        setTimeout(function() {
           dfd.resolve();
         }, offsetDefault / 2);
       } else {
@@ -92,8 +96,9 @@ function(
     /**
      * starts the transition between current view and then next view
      */
-    this.transitionStart = function () {
+    this.transitionStart = function() {
       this.isTransitioning = true;
+
       // show overlay
       this.overlay.show();
     };
@@ -101,7 +106,7 @@ function(
     /**
      * ends the transition between current view and then next view
      */
-    this.transitionEnd = function () {
+    this.transitionEnd = function() {
       // remove overlay
       this.overlay.hide();
 
@@ -120,5 +125,5 @@ function(
 
   };
 
-  return new stateManager();
+  return new StateManager();
 });

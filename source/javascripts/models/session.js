@@ -19,24 +19,24 @@ define([
 ) {
 
   // SETUP
-  var PS = System.get("Parse");
+  var PS = System.get('Parse');
 
   var SessionModel = Backbone.Model.extend({
 
-    initialize: function () {
-      var _self = this,
-          token = _self.get("sessionToken");
+    initialize: function() {
+      var _this = this;
+      var token = _this.get('sessionToken');
 
       // Set the headers to talk to Parse
-      $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+      $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
         // set the base route
-        if(options.url.search(PS.ROOT) === -1){
+        if (options.url.search(PS.ROOT) === -1) {
           options.url = PS.ROOT + options.url;
         }
 
         // get session token from local data, or cookie
-        if(!token){
-          token = Cookie.find("token");
+        if (!token) {
+          token = Cookie.find('token');
         }
 
         // set base headers
@@ -62,20 +62,20 @@ define([
      * 		password: "testPass1"
      * }
      */
-    login: function( data ) {
-      var _self = this,
-          username = encodeURIComponent( data.email.split("@")[0] ),
-          password = encodeURIComponent( data.password ),
-          credString = "?username=" + username + "&password=" + password;
+    login: function(data) {
+      var _this = this;
+      var username = encodeURIComponent(data.email.split('@')[0]);
+      var password = encodeURIComponent(data.password);
+      var credString = '?username=' + username + '&password=' + password;
 
       // Do a GET to /login and send the serialized form creds
-      return Backbone.sync("read", this, {
-        url: "/login" + credString,
-        success: function (res) {
+      return Backbone.sync('read', this, {
+        url: '/login' + credString,
+        success: function(res) {
           // Set the token and trigger an auth change
-          Cookie.store("token", res.sessionToken);
-          User.cache( res );
-          _self.set({ auth: true, sessionToken: res.sessionToken });
+          Cookie.store('token', res.sessionToken);
+          User.cache(res);
+          _this.set({ auth: true, sessionToken: res.sessionToken });
         }
       });
     },
@@ -84,14 +84,14 @@ define([
      * removes a user session
      */
     logout: function() {
-      var _self = this;
+      var _this = this;
       User.remove();
-      Cookie.remove("token");
+      Cookie.remove('token');
 
-      _self.url = "/logout";
-      _self.destroy({
-        success: function (model,err) {
-          _self.set({ auth: false, sessionToken: null });
+      _this.url = '/logout';
+      _this.destroy({
+        success: function(model, err) {
+          _this.set({ auth: false, sessionToken: null });
         }
       });
     },
@@ -103,27 +103,28 @@ define([
      * NOTE: getAuth is wrapped around the router history
      */
     getAuth: function() {
-      var _self = this;
-      var token = Cookie.find("token");
+      var _this = this;
+      var token = Cookie.find('token');
 
-      if(!token){
+      if (!token) {
         return {
-          then: function (res,err) {
+          then: function(res, err) {
             err(true);
           }
         };
       }
 
-      return Backbone.sync("read", this, {
-        url: "/users/me",
-        success: function (res) {
+      return Backbone.sync('read', this, {
+        url: '/users/me',
+        success: function(res) {
           // proceed forth!
-          User.cache( res );
+          User.cache(res);
         },
-        error: function (err) {
+
+        error: function(err) {
           User.remove();
-          Cookie.remove("token");
-          _self.set({ auth: false, sessionToken: null });
+          Cookie.remove('token');
+          _this.set({ auth: false, sessionToken: null });
         }
       });
     },
@@ -139,9 +140,10 @@ define([
      * 		sessionToken: "5afsHGliHVFhMGRlQ1odOYa1n"
      * }
      */
-    setAuth: function ( data ) {
-      if(!data || !data.sessionToken){ return; }
-      Cookie.store("token", data.sessionToken);
+    setAuth: function(data) {
+      if (!data || !data.sessionToken) { return; }
+
+      Cookie.store('token', data.sessionToken);
       this.set({ auth: true, sessionToken: data.sessionToken });
     },
 
@@ -150,8 +152,8 @@ define([
      * @return {Boolean}
      */
     checkAuth: function() {
-      var token = Cookie.find("token");
-      return (token && token.length > 10)? true : false;
+      var token = Cookie.find('token');
+      return (token && token.length > 10) ? true : false;
     }
 
   });

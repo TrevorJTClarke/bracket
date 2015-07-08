@@ -1,14 +1,14 @@
 // MainRouter.js
 // ----------------
 define([
-  "jquery",
-  "backbone",
-  "views/header",
-  "views/mainIndex",
-  "views/scoreboard",
-  "views/createChampionship",
-  "views/loginSignup",
-  "views/game",
+  'jquery',
+  'backbone',
+  'views/header',
+  'views/mainIndex',
+  'views/scoreboard',
+  'views/createChampionship',
+  'views/loginSignup',
+  'views/game',
   'models/session',
   'models/user'
 ],
@@ -27,11 +27,11 @@ function(
 
   // internal
   var viewMap = {
-    'index': MainIndexView,
-    'create': CreateChampionshipView,
-    'scoreboard': ScoreboardView,
-    'login': LoginSignupView,
-    'game': GameView,
+    index: MainIndexView,
+    create: CreateChampionshipView,
+    scoreboard: ScoreboardView,
+    login: LoginSignupView,
+    game: GameView
   };
 
   return Backbone.Router.extend({
@@ -43,20 +43,24 @@ function(
      * TODO: this is dumb?!, take time to refactor
      */
     routes: {
-      "login": function() {
-        this.loadView("login");
+      login: function() {
+        this.loadView('login');
       },
-      "create": function() {
-        this.loadView("create");
+
+      create: function() {
+        this.loadView('create');
       },
-      "scoreboard": function() {
-        this.loadView("scoreboard");
+
+      scoreboard: function() {
+        this.loadView('scoreboard');
       },
-      ":gameId": function(gameId) {
-        this.loadView("game", { gameId: gameId });
+
+      ':gameId': function(gameId) {
+        this.loadView('game', { gameId: gameId });
       },
-      "": function() {
-        this.loadView("index");
+
+      '': function() {
+        this.loadView('index');
       }
     },
 
@@ -65,11 +69,12 @@ function(
       return this;
     },
 
-    loadView: function ( view, args ) {
-      if(this.view !== undefined && typeof this.view.remove !== undefined){
+    loadView: function(view, args) {
+      if (this.view !== undefined && typeof this.view.remove !== undefined) {
         this.view.remove();
       }
-      this.view = new viewMap[view]( args );
+
+      this.view = new viewMap[view](args);
     }
 
   });
