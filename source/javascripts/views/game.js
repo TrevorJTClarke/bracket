@@ -72,7 +72,7 @@ function(
       }
     },
 
-    render: function() {
+    render: function(noBindDrag) {
       var _self = this;
       if(!_self.modelCache || _self.modelCache.championship === undefined){return;}
 
@@ -83,8 +83,9 @@ function(
       }
       _rootEl.html(_self.$el);
       _self.delegateEvents();
-      _self.bindDragElems();
-      // _self.bindDropElems();
+      if(!noBindDrag){
+        _self.bindDragElems();
+      }
 
       // console.log("RENDERING",_self.modelCache);
 
@@ -210,7 +211,7 @@ function(
       _self.model.associatePlayers( randomizeArray( players ) );
 
       // re-render with new tier setup
-      _self.render();
+      _self.render(true);
       _self.cleanEditorPlayers();
     },
 
@@ -255,6 +256,7 @@ function(
       // remove the silly random button
       players.splice(0,1);
 
+      // Binds the player to be drag and dropped into a match
       function bindPlayer( item ) {
         $(item).pep({
           droppable: '.match',
@@ -262,34 +264,49 @@ function(
           activeClass: 'dragging',
           shouldEase: false,
           place:false,
-          cssEaseDuration: 1,
-          cssEaseString: "ease-in-out",
-          velocityMultiplier: 1,
-          useCSSTranslation: false,
+          initiate: function () {
+            // set the absolute positioning so drag can work correctly
+            var pl = this.$el[0];
+            this.$el.css({
+              left: pl.offsetLeft,
+              top: pl.offsetTop
+            });
+          },
           moveTo: function (x,y) {
-            var tiny = this.$el[0],
-                offLeft = tiny.offsetLeft,
-                offTop = tiny.offsetTop;
-            // offLeft = "offLeft " + left + " + " + offLeft;
-            // offTop = "offTop " + top + " + " + offTop;
+            // get initial x/y positioning
+            var tiny = this.$el,
+                offLeft = parseInt(tiny.css('left').replace("px",""),10),
+                offTop = parseInt(tiny.css('top').replace("px",""),10),
+                cords = {};
+
+            // removing the funky cordinate formatting
+            function formatCord(val,type) {
+              val = val.split("=");
+              cords[type] = {
+                num: parseInt(val[1],10),
+                opp: val[0]
+              };
+            }
+
+            formatCord(x,"x");
+            formatCord(y,"y");
+            // set the updated position based on updated touch value
+            offLeft = (cords.x.opp === "+")? offLeft + cords.x.num: offLeft - cords.x.num;
+            offTop = (cords.y.opp === "+")? offTop + cords.y.num: offTop - cords.y.num;
 
             this.$el.css({
-              left: x,
-              top: y
+              position: 'absolute',
+              left: offLeft + "px",
+              top: offTop + "px"
             });
-            // this.$el.top = top;
-            console.log("e,obj",x,y);
-            // if(dragObject){
-          	// 	dragObject.style.position = 'absolute';
-          	// 	dragObject.style.top      = mousePos.y - mouseOffset.y;
-          	// 	dragObject.style.left     = mousePos.x - mouseOffset.x;
-          	// 	return false;
-          	// }
           },
           stop: function(ev, obj){
             if(this.activeDropRegions.length > 0){
-              _self.handleDrop(this.activeDropRegions[0]);
+              _self.handleDrop(this.activeDropRegions[0], this.$el);
             }
+          },
+          rest: function () {
+            this.$el.removeClass("dragging");
           },
           revert: true,
           revertIf: function(ev, obj){
@@ -299,61 +316,28 @@ function(
       }
 
       _.forEach(players,function (player) {
+        // add events to player
         bindPlayer( player );
       });
 
     },
 
-    handleDrop: function (el) {
-      console.log("el",el);
-      // TODO:
+    handleDrop: function (container,player) {
+      var _self = this,
+          playerId = $(player).data('drag'),
+          matchId = $(container).attr('id').replace("match_","");
+          matchId = parseInt(matchId,10);
+
       // remove el from start
+      $(player).remove();
+
       // add data to match
+      _self.model.addPlayerToTier(1, playerId, matchId);
+
+      // TODO:
       // re-render
+      // _self.render();
     }
 
   });
 });
-// document.onmousemove = mouseMove;
-// document.onmouseup   = mouseUp;
-// var dragObject  = null;
-// var mouseOffset = null;
-// function getMouseOffset(target, ev){
-// 	ev = ev || window.event;
-// 	var docPos    = getPosition(target);
-// 	var mousePos  = mouseCoords(ev);
-// 	return {x:mousePos.x - docPos.x, y:mousePos.y - docPos.y};
-// }
-// function getPosition(e){
-// 	var left = 0;
-// 	var top  = 0;
-// 	while (e.offsetParent){
-// 		left += e.offsetLeft;
-// 		top  += e.offsetTop;
-// 		e     = e.offsetParent;
-// 	}
-// 	left += e.offsetLeft;
-// 	top  += e.offsetTop;
-// 	return {x:left, y:top};
-// }
-// function mouseMove(ev){
-// 	ev           = ev || window.event;
-// 	var mousePos = mouseCoords(ev);
-// 	if(dragObject){
-// 		dragObject.style.position = 'absolute';
-// 		dragObject.style.top      = mousePos.y - mouseOffset.y;
-// 		dragObject.style.left     = mousePos.x - mouseOffset.x;
-// 		return false;
-// 	}
-// }
-// function mouseUp(){
-// 	dragObject = null;
-// }
-// function makeDraggable(item){
-// 	if(!item) return;
-// 	item.onmousedown = function(ev){
-// 		dragObject  = this;
-// 		mouseOffset = getMouseOffset(this, ev);
-// 		return false;
-// 	}
-// }

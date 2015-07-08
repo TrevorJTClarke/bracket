@@ -58,7 +58,7 @@ function(
     /**
       * adds a new match to a tier data set
       *
-      * Options:
+      * Data Options:
       * Winner - The ID hash of the user that has won
       * Status - One of the following: 1. new, 2. pending, 3. finished, 4. bye
       */
@@ -130,15 +130,17 @@ function(
       * @return {Object}        tier data object, see example for a sample
       *
       * Example:
-      * {
-      * 		users: ["5u43io-543fdos-fjdksl-riew98787","5u43io-543fdos-fjdksl-riew98787"],
-      * 		winner: "5u43io-543fdos-fjdksl-riew98787",
-      * 		status: "finished"
-      * }
+      * [{
+      * 		players: ["5u43io8787","5w98787"],
+      * 		winner: "5u43io8787",
+      * 		status: "finished",
+      * 		sort: 2
+      * }]
       */
     getTierById: function(tierId) {
-      var champData = this.get('bracket');
-      var tierData = (champData && champData[tierId])? champData[tierId]: null;
+      var _self = this,
+          tierName = _self.tierNamespace + tierId,
+          tierData = _self.get( tierName );
 
       return tierData;
     },
@@ -147,28 +149,44 @@ function(
       * adds a user to a specific tier
       * @param  {String} tierId   the unique ID of the tier, example "tier_1"
       * @param  {String} userId   the unique ID of the user to add to the tier, based off of the user ID hash
-      * @param  {number} tierPosition (Optional) - sets the user at a specific tier position
-      * @param  {number} gamePosition (Optional) - sets the user at a specific game position
+      * @param  {number} matchId (Optional) - sets the user at a specific match
+      * @param  {number} matchPosition (Optional) - sets the user at a specific match position
       */
-    addPlayerToTier: function(tierId, userId, tierPosition, gamePosition) {
+    addPlayerToTier: function(tierId, userId, matchId, matchPosition) {
       if(!tierId || !userId) {
         return;
       }
+      var _self = this,
+          tierName = _self.tierNamespace + tierId,
+          tierData = _self.get( tierName );
 
-      var champData = this.get('bracket');
-      var tierData = (champData && champData[tierId])? champData[tierId]: null;
+      // TODO: refactor this cheezbiznesss
+      // assess area to place the player
+      function processMatchPlayer ( id ) {
+        var mPlayers = tierData[id].players;
 
-      // defaults
-      tierPosition = tierPosition || 0;
-      gamePosition = gamePosition || 0;
+        if(typeof mPlayers[0] === "string"){
+          if(typeof mPlayers[1] === "string"){
+            // add the player to first position
+            tierData[id].players[0] = userId;
+          } else {
+            // add the player to first position
+            tierData[id].players[1] = userId;
+          }
+        } else {
+          // add the player to first position
+          tierData[id].players[0] = userId;
+        }
+      }
 
-      // set the user in the correct position
-      tierData[tierPosition].users[gamePosition] = userId;
-      // set the data back into the bracket
-      champData[tierId] = tierData;
+      tierData.forEach(function (obj,idx) {
+        if(obj.sort === matchId){
+          processMatchPlayer( idx );
+        }
+      });
 
       // update data to main model
-      this.set('bracket', champData);
+      _self.get( tierName, tierData );
     }
 
   });
