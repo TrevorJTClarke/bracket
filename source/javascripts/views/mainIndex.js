@@ -15,9 +15,6 @@ function(
   Session
 ) {
 
-  // TODO:
-  //  link to game
-
   // PRIVATE METHODS
   var _rootEl = $('.main-container');
 

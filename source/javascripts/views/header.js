@@ -37,6 +37,7 @@ function(
 
       this.template = _.template(template(_this.model.attributes));
       this.$el.html(this.template);
+      this.delegateEvents();
 
       return this;
     },

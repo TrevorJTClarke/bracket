@@ -25,12 +25,22 @@ function(
 
   function parseQuery() {
     var search = window.location.search.substring(1);
-    return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+    return JSON.parse('{' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '}');
   }
 
   // TODO:
-  // finish form submittable
   // if no edit mode, just layout each of the games with links to their games
+  //
+  // drag/drop
+  // setup revert
+  // setup capture
+  // auto capture if only 1 left
+  // setup championship js/actions
+  // finish “finish”
+  // generate the rest of the matches
+  // unbind drag/drop
+  // setup “players” list of players data
+  // setup helper function to build html of player
 
   // PRIVATE METHODS
   var _rootEl = $('.main-container');
@@ -81,12 +91,16 @@ function(
 
       _this.$el.empty();
       _this.buildChildViews();
-      if (_this.isEditor) {
-        _this.$el.find(container).addClass(editing);
-      }
 
       _rootEl.html(_this.$el);
       _this.delegateEvents();
+
+      if (_this.isEditor) {
+        _this.$el.find(container).addClass(editing);
+      } else {
+        _this.bindMatchToScoreboard();
+      }
+
       if (!noBindDrag) {
         _this.bindDragElems();
       }
@@ -187,11 +201,35 @@ function(
     },
 
     /**
-     *
+     * Save the game to the DB
      */
     finishGame: function() {
       console.log('finishGame');
+      var _this = this;
+      var cacheModel = this.model.clone();
+      var unsetOpts = ['silent'];
+
       this.cleanEditor();
+
+      // update the model, and remove its ID
+      cacheModel.url = cacheModel.url + '/' +  cacheModel.get('objectId');
+      cacheModel.unset('objectId', unsetOpts);
+      cacheModel.unset('tiers', unsetOpts);
+      cacheModel.unset('gameEditor', unsetOpts);
+
+      // send changes to DB
+      $.ajax({
+          url: cacheModel.url,
+          type: 'PUT',
+          data: JSON.stringify(cacheModel.attributes)
+        })
+        .then(function(res) {
+          console.log('res', res);
+        },
+
+        function(err) {
+          console.log('err', err);
+        });
     },
 
     /**
@@ -255,6 +293,22 @@ function(
       // remove all player elements and their events
       _.forEach(players, function(player) {
         $(player).remove();
+      });
+    },
+
+    /**
+     * binds all current matches in view to their scoreboard view
+     */
+    bindMatchToScoreboard: function() {
+      var _this = this;
+      var matches = $('.match');
+
+      _.forEach(matches, function(match) {
+        // add events to player
+        $(match).bind('click', function(e) {
+          var mId = $(this).attr('id').replace('match_', '');
+          State.go(_this.model.get('objectId') + '/scoreboard' + '/' + mId);
+        });
       });
     },
 

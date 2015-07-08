@@ -51,12 +51,12 @@ function(
         this.loadView('create');
       },
 
-      scoreboard: function() {
-        this.loadView('scoreboard');
-      },
-
       ':gameId': function(gameId) {
         this.loadView('game', { gameId: gameId });
+      },
+
+      ':gameId/scoreboard/:match': function(gameId, match) {
+        this.loadView('scoreboard', { gameId: gameId, match: match });
       },
 
       '': function() {
