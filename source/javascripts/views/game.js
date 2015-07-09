@@ -24,23 +24,25 @@ function(
 ) {
 
   function parseQuery() {
-    var search = window.location.search.substring(1);
-    return JSON.parse('{' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '}');
+    var s = window.location.search.substring(1);
+    return (typeof s === 'string') ? {} : JSON.parse('{\"' + decodeURI(s).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '\"}');
   }
 
   // TODO:
   // if no edit mode, just layout each of the games with links to their games
   //
   // drag/drop
-  // setup revert
-  // setup capture
-  // auto capture if only 1 left
+  //    setup revert
+  //    setup capture
+  //    auto capture if only 1 left
   // setup championship js/actions
-  // finish “finish”
-  // generate the rest of the matches
-  // unbind drag/drop
-  // setup “players” list of players data
-  // setup helper function to build html of player
+  //    finish “finish”
+  //    generate the rest of the matches
+  //    unbind drag/drop
+  //    setup “players” list of players data
+  //    setup helper function to build html of player
+  // break out editor and other stuff into child views
+  //
 
   // PRIVATE METHODS
   var _rootEl = $('.main-container');
@@ -334,11 +336,12 @@ function(
           droppableActiveClass: 'draghover',
           activeClass: 'dragging',
           shouldEase: false,
-          place:false,
+          place: false,
           initiate: function() {
             // set the absolute positioning so drag can work correctly
             var pl = this.$el[0];
             this.$el.css({
+              position: 'absolute',
               left: pl.offsetLeft,
               top: pl.offsetTop
             });

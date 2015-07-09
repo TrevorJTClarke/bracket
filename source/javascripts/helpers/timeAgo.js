@@ -1,33 +1,3 @@
-Handlebars.registerHelper('gameStatus', function(match) {
-  var typeName = 'default';
-
-  // TODO: check if there is a finalist, and if so, check to see if its me
-  switch (match.status){
-    case 'pending':
-      typeName = 'warning';
-      break;
-    case 'active':
-      typeName = 'success';
-      break;
-    case 'finished':
-      typeName = 'info';
-      break;
-  }
-  return typeName;
-});
-
-Handlebars.registerHelper('gameType', function(match) {
-  return (typeof match.active !== undefined && match.active === true) ? true : false;
-});
-
-Handlebars.registerHelper('initialz', function(user) {
-  return (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
-});
-
-Handlebars.registerHelper('json', function(context) {
-  return JSON.stringify(context);
-});
-
 Handlebars.registerHelper('timeago', function(item) {
   if (!item.updatedAt || !item.createdAt) { return ''; }
 
