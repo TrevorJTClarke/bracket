@@ -8,6 +8,8 @@
  * {{/matchPlayer}}
  */
 Handlebars.registerHelper('matchPlayer', function(context, options) {
+  if (!context) { return; }
+
   var playerData = window.__ap || [];
   var a = context[0];
   var b = context[1];

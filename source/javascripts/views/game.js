@@ -5,7 +5,8 @@ define([
   'models/championship',
   'models/system',
   'collections/players',
-  'views/gameEditor'
+  'views/gameEditor',
+  'views/gameTiers'
 ],
 function(
   $,
@@ -14,7 +15,8 @@ function(
   Championship,
   System,
   Players,
-  GameEditor
+  GameEditor,
+  GameTiers
 ) {
 
   // PRIVATE METHODS
@@ -27,7 +29,6 @@ function(
   var container = '.game-container';
 
   return Backbone.View.extend({
-    isEditor: false,
 
     tagName: 'div',
     className: 'game',
@@ -43,29 +44,37 @@ function(
     initialize: function(options) {
       var _this = this;
       var queryParams = System.parseQuery();
+      this.model.isEditor = (queryParams.editor === 'true');
 
       // TODO: for child views
       // this.listenTo(this.model, 'change:somthing', this.render);
       this.render();
+
+      // setup main childview
+      this.tiersView = new GameTiers({ el: '.game-container', model: this.model });
+
+      // grab all the data needed for the rest of the child views
       this.getBaseData(options)
         .then(function(resGame, resPlayers) {
           var gameData = resGame[0];
           var playersData = PL.formatPlayers(resPlayers[0].results);
 
           window.__ap = playersData || [];
+          _this.model.gamePlayers = playersData || [];
           _this.model.set(gameData);
-          _this.gamePlayers = playersData || [];
 
-          // TODO: for child views
-          // _this.render();
+          _this.tiersView.render();
+
+          if (_this.model.isEditor) {
+            _this.editorView.render();
+          }
         },
 
         function(err) {
           console.log('err', err);
         });
 
-      if (queryParams.editor === 'true') {
-        this.isEditor = true;
+      if (this.model.isEditor) {
         this.editorView = new GameEditor({ el: '.game-editor', model: this.model });
       }
     },
@@ -77,8 +86,8 @@ function(
       this.$root = _rootEl.html(this.$el);
       this.delegateEvents();
 
-      if (this.isEditor) {
-        this.$el.find(container).addClass(editing);
+      if (this.model.isEditor) {
+        this.$el.find('.game-container').addClass('editing');
       }
 
       return this;

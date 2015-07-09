@@ -11,15 +11,6 @@ function(
   Players
 ) {
 
-  // PRIVATE METHODS
-  // var _rootEl = $('.main-container');
-  // var PL = new Players();
-  // var editing   = 'editing';
-  // var active    = 'active';
-  // var empty     = 'empty';
-  // var focussed  = 'focussed';
-  // var container = '.game-container';
-
   return Backbone.View.extend({
 
     template: gameEditorTpl,
@@ -32,95 +23,22 @@ function(
     initialize: function() {
       // Only listen for changes from parent
       this.model.bind('change', this.render, this);
-
       this.render();
-    },
-
-    render: function() {
-      // get allPlayers from internal dataset, not stored in DB
-      var players = this.model.allPlayers;
-
-      // render the template
-      this.$el.html(this.template(players));
 
       return this;
     },
 
-    // TODO:
-    // - break these views into actual child views
-    // logic for using cached templates over new ones
-    buildChildViews: function() {
-      var _this = this;
-      var template;
-      var tierCount = parseInt(_this.model.get('tierCount'), 10);
-      var tmplData = _this.model.attributes;
-      var tiersData = [];
+    render: function() {
+      // get allPlayers from internal dataset, not stored in DB
+      var players = this.model.gamePlayers || [];
 
-      // // TODO: abstract this!
-      // if (_this.isEditor) {
-      //   tmplData.gameEditor = gameEditorTpl({
-      //     gameEditorPlayers: gameEditorPlayerTpl({
-      //       editPlayers: _this.modelCache.allPlayers || []
-      //     })
-      //   });
-      // }
-      //
-      // // If no base tier, generate the first set based on players available
-      // if (_this.modelCache.allPlayers && tierCount === 0) {
-      //   var fakeTotalPlayers = 4;
-      //
-      //   fakeTotalPlayers = _this.modelCache.allPlayers.length;
-      //   _this.model.generateTier(fakeTotalPlayers);
-      //   tierCount = 1;
-      // }
-      //
-      // // find all tier data, and prep for templates
-      // if (tierCount > 0) {
-      //   for (var i = 1; i <= tierCount; i++) {
-      //     var nm = _this.model.tierNamespace + i;
-      //     var tmpTierData = _this.model.get(nm);
-      //
-      //     tiersData[nm] = tmpTierData || [];
-      //   }
-      // }
-      //
-      // tmplData.tiers = [];
-      // for (var k in tiersData) {
-      //   var tmpTier = [];
-      //   var tmpSpacers = [];
-      //
-      //   // Add match templates
-      //   for (var i = 0; i < tiersData[k].length; i++) {
-      //     tmpTier.push({ matchesTpl: matchesTpl(tiersData[k][i])});
-      //   }
-      //
-      //   tmpSpacers.length = Math.round(tmpTier.length / 2);
-      //   tmplData.tiers.push({ spacers: matchesSpacersTpl(tmpSpacers), tiersContainer: tiersContainerTpl(tmpTier)});
-      // }
-      //
-      // var gameElement = gameTpl(tmplData);
-      //
-      // _this.template = _.template(gameElement);
-      // _this.$el.html(this.template);
-    },
+      // render the template
+      this.$el.html(this.template(players));
 
-    setupEditor: function() {
-      var _this = this;
+      // bind all players to dragging
+      this.bindDragElems();
 
-      // grab the full data from DB
-      PL.getAvailablePlayers()
-        .then(function(res) {
-          // console.log("players res",res);
-          _this.modelCache.allPlayers = res;
-          _this.render();
-
-          // Assign some players for testing
-          window.__ap = res || [];
-        },
-
-        function(err) {
-          console.log('err', err);
-        });
+      return this;
     },
 
     /**
@@ -161,7 +79,7 @@ function(
      */
     randomizePlayers: function(e) {
       var _this = this;
-      var players = _this.modelCache.allPlayers.slice(0);
+      var players = _this.model.gamePlayers.slice(0);
 
       // remove old data
       _this.model.clearTiers();
@@ -184,7 +102,7 @@ function(
       _this.model.associatePlayers(randomizeArray(players));
 
       // re-render with new tier setup
-      _this.render(true);
+      _this.render();
       _this.cleanEditorPlayers();
     },
 
@@ -194,6 +112,7 @@ function(
     cleanEditor: function() {
       var finishBtn = $('#doneEditingPlayers');
       var editor = $('.game-editor');
+      var container = '.game-container';
 
       this.cleanEditorPlayers();
 
@@ -227,7 +146,7 @@ function(
       var _this = this;
       var players = $('.game-player');
 
-      if (!_this.modelCache.allPlayers || players.length <= 1) {
+      if (!this.model.gamePlayers || players.length <= 1) {
         return;
       }
 
