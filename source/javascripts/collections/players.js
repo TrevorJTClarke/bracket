@@ -50,6 +50,9 @@ function(
 
   return Backbone.Collection.extend({
 
+    // Helper Exposed
+    formatPlayers: formatList,
+
     // creates mad duplicate players
     // url: PS.CLASSES + PS.CHAMPIONSHIPPLAYERS,
 
@@ -99,7 +102,7 @@ function(
       $.get(mainUrl)
         .success(function(res) {
           // quick filtering of player data
-          var players = formatList(res.results);
+          var players = _this.formatPlayers(res.results);
 
           dfd.resolve(players);
         })
@@ -115,20 +118,9 @@ function(
      * NOTE: this is a safer way of retrieving all list, since regular fetch stores blank references
      */
     getGamePlayers: function(championshipId) {
-      var dfd = Q.defer();
-      var _this = this;
       var url = PS.CLASSES + PS.CHAMPIONSHIPPLAYERS + System.getParseRelatedRef('ChampionshipPlayers', 'Championships', championshipId);
 
-      $.get(url)
-        .success(function(res) {
-          // quick filtering of player data
-          var players = formatList(res.results);
-
-          dfd.resolve(players);
-        })
-        .error(dfd.reject);
-
-      return dfd.promise;
+      return $.get(url);
     }
 
   });

@@ -42,6 +42,11 @@ function(
     getParseRelatedRef: function(name, type, id) {
       type = type + 'Ref';
       return '?where={"' + type + '":{"__type":"Pointer","className":"' + name + '","objectId":"' + id + '"}}';
+    },
+
+    parseQuery: function() {
+      var s = window.location.search.substring(1);
+      return (s.length === 0) ? {} : JSON.parse('{\"' + decodeURI(s).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '\"}');
     }
 
   });

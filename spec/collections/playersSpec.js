@@ -32,7 +32,7 @@ define(['collections/players'], function(Players) {
       it('should retrieve all related player items', function() {
         var relPlayers = plyrs.getGamePlayers();
 
-        expect(relPlayers.promiseDispatch).toBeDefined();
+        expect(relPlayers.promise).toBeDefined();
       });
 
     });

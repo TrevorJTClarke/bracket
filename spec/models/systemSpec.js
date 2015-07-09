@@ -35,5 +35,11 @@ define(['models/system'], function(System) {
       expect(tempRef).toEqual(testParseRef);
     });
 
+    it('can format location search params into JSON', function() {
+      var coolQueryBro = sys.parseQuery();
+      var queryJson = {};
+      expect(coolQueryBro).toEqual(queryJson);
+    });
+
   });
 });

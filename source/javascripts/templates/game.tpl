@@ -1,9 +1,9 @@
-{{{gameEditor}}}
+<div class="game-editor"></div>
 <div class="game-container">
-  {{#each tiers}}
+  <!-- {{#each tiers}}
     {{{tiersContainer}}}
     {{#if spacers}}
       {{{spacers}}}
     {{/if}}
-  {{/each}}
+  {{/each}} -->
 </div>
