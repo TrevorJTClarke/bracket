@@ -184,6 +184,18 @@ function(
         function(err) {
           console.log('err', err);
         });
+
+      PL.getGamePlayers(options.gameId)
+        .then(function(res) {
+          // Assign some players for testing
+          window.__ap = res || [];
+          _this.modelCache.gamePlayers = res;
+          _this.render();
+        },
+
+        function(err) {
+          console.log('err', err);
+        });
     },
 
     setupEditor: function() {
@@ -195,6 +207,9 @@ function(
           // console.log("players res",res);
           _this.modelCache.allPlayers = res;
           _this.render();
+
+          // Assign some players for testing
+          window.__ap = res || [];
         },
 
         function(err) {

@@ -85,7 +85,7 @@ function(
       var url = PS.CLASSES + PS.CHAMPIONSHIPPLAYERS;
 
       // Special query values added
-      url = url + '?where={"UserRef":{"__type":"Pointer","className":"_User","objectId":"' + _this.id + '"}}'
+      url = url + System.getParseRelatedRef('_User', 'User', _this.id);
 
       $.get(url)
         .success(function(res) {
@@ -113,7 +113,7 @@ function(
       if (!plId) { return; }
 
       // Special query values added
-      url = url + '?where={"$relatedTo":{"object":{"__type":"Pointer","className":"ChampionshipPlayers","objectId":"' + plId + '"},"key":"ChampionshipsRef"}}'
+      url = url + System.getParseRelatedRef('ChampionshipPlayers', 'Championships', plId);
 
       $.get(url)
         .success(function(res) {

@@ -90,6 +90,6 @@ gulp.task('serve', function() {
 
 // setup defaults
 gulp.task('default', [
-    'smash',
-    'serve'
+  'smash',
+  'serve'
 ]);

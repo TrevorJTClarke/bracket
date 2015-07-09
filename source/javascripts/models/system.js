@@ -37,6 +37,11 @@ function(
           objectId: id
         }]
       };
+    },
+
+    getParseRelatedRef: function(name, type, id) {
+      type = type + 'Ref';
+      return '?where={"' + type + '":{"__type":"Pointer","className":"' + name + '","objectId":"' + id + '"}}';
     }
 
   });

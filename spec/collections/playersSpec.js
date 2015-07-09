@@ -27,5 +27,15 @@ define(['collections/players'], function(Players) {
 
     });
 
+    describe('.getGamePlayers()', function() {
+
+      it('should retrieve all related player items', function() {
+        var relPlayers = plyrs.getGamePlayers();
+
+        expect(relPlayers.promiseDispatch).toBeDefined();
+      });
+
+    });
+
   });
 });
