@@ -7,15 +7,55 @@
  * {{/tiersFlow}}
  */
 Handlebars.registerHelper('tiersFlow', function(context, options) {
-  if (!context || context.tierCount < 1) { return; }
+  var tierNamespace = 'tier_';
+
+  function createBlankMatch(idx, sort, parent) {
+    return {
+      index: idx,
+      players: [{}, {}],
+      winner: null,
+      status: 'pending',
+      sort: sort,
+      parentTier: parent || 0
+    };
+  }
+
+  function createBlankTier() {
+    // first tier has no data, setup for editor
+    var totalPlayers = window.__ap;
+    var tierData = [];
+
+    if (!totalPlayers || !totalPlayers.length) {
+      return options.fn([{
+        matches: null,
+        spacers: null
+      }]);
+    }
+
+    // Setup only the first tier
+    for (var p = 0; p < (totalPlayers.length / 2); p++) {
+      tierData.push(createBlankMatch(p, p + 1, 1));
+    }
+
+    context[tierNamespace + 1] = tierData;
+
+    // no need to do any other logic
+    return options.fn([{
+      matches: tierData,
+      spacers: null
+    }]);
+  }
+
+  if (!context || context.tierCount < 1) {
+    return createBlankTier();
+  }
 
   var tiers = [];
   var tierLanes = [];
   var tierLaneSort = 0;
-  var tierNamespace = 'tier_';
 
   // check total tierCount and generate future tiers if no data is found
-  if (context[tierNamespace + '1'] !== undefined) {
+  if (context[tierNamespace + 1] !== undefined) {
     var totalMatches = context[tierNamespace + '1'].length;
     var tmpMatchTotal = totalMatches;
     tierLanes[0] = totalMatches;
@@ -50,14 +90,7 @@ Handlebars.registerHelper('tiersFlow', function(context, options) {
       });
     } else {
       for (var p = 0; p < tierLanes[i]; p++) {
-        tierData.push({
-          index: p,
-          players: [{}, {}],
-          winner: null,
-          status: 'pending',
-          sort: p + tierLaneSort,
-          parentTier: k || 0
-        });
+        tierData.push(createBlankMatch(p, p + tierLaneSort, k));
       }
     }
 

@@ -30,6 +30,7 @@ function(
     },
 
     render: function() {
+      if (!this.model.gamePlayers) { return; }
 
       // render the template
       this.$el.html(this.template(this.model.attributes));
@@ -43,7 +44,7 @@ function(
       var matchId = parseInt(navIds[1], 10);
       var tierId = parseInt(navIds[0], 10);
       var gameId = this.model.get('objectId');
-      var tierData = this.model.get('tier_' + tierId);
+      var tierData = this.model.get(this.model.tierNamespace + tierId);
 
       // dirty check for players existing for the clicked match
       if (!tierData || !tierData[matchId] || tierData[matchId] === 'object') {

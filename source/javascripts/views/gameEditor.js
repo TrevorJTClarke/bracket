@@ -45,7 +45,6 @@ function(
      * Save the game to the DB
      */
     finishGame: function() {
-      console.log('finishGame');
       var _this = this;
       var cacheModel = this.model.clone();
       var unsetOpts = ['silent'];
@@ -112,7 +111,6 @@ function(
     cleanEditor: function() {
       var finishBtn = $('#doneEditingPlayers');
       var editor = $('.game-editor');
-      var container = '.game-container';
 
       this.cleanEditorPlayers();
 
@@ -121,7 +119,7 @@ function(
       editor.remove();
 
       // remove editing state
-      this.$el.find(container).removeClass(editing);
+      this.$el.find('.game-container').removeClass('editing');
     },
 
     /**
@@ -228,7 +226,8 @@ function(
     handleDrop: function(container, player) {
       var _this = this;
       var playerId = $(player).data('drag');
-      var matchId = $(container).attr('id').replace('match_', '');
+      var navIds = $(container).data('navigate').split('_');
+      var matchId = parseInt(navIds[1], 10);
 
       matchId = parseInt(matchId, 10);
 

@@ -62,6 +62,7 @@ function(
       // Dynamically updates the UI with the view's template
       this.$el.html(this.template);
       _rootEl.html(_this.$el);
+      this.delegateEvents();
 
       this.toggleSections();
     },
@@ -115,11 +116,6 @@ function(
 
               // bind add/remove events
               _this.bindPlayers();
-
-              // TODO: this should be handled in the events, WHYA?!
-              _this.$el.find('#doneAddingPlayers').on('click', function() {
-                _this.finishCreating();
-              });
             },
 
             function(err) {
@@ -153,10 +149,8 @@ function(
       var champId = _this.model.get('objectId');
       CP.savePlayers(champId, playerIds)
         .then(function(res) {
-
-          console.log('savePlayers finished res', res);
-
-          // TODO: navigation to tier setup flow
+          // navigation to tier setup flow
+          State.go(champId + '?editor=true');
         },
 
         function(err) {

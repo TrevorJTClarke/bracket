@@ -37,7 +37,7 @@ function(
     associatePlayers: function(playersArray) {
       // check for first tier
       var _this = this;
-      var tierId = 'tier_1';
+      var tierId = this.tierNamespace + 1;
       var mainTier = this.get(tierId);
 
       if (!mainTier) {
@@ -95,7 +95,7 @@ function(
     generateTier: function(total) {
       // check for first tier
       var _this = this;
-      var tierId = 'tier_1';
+      var tierId = this.tierNamespace + 1;
       var mainTier = this.get(tierId);
 
       if (mainTier) {

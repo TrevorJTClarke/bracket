@@ -1,5 +1,6 @@
 {{#tiersFlow this}}
   {{#each this}}
+    {{#if matches}}
     <ul class="round">
       {{#each matches}}
       <li class="spacer">&nbsp;</li>
@@ -16,6 +17,7 @@
       {{/each}}
       <li class="spacer">&nbsp;</li>
     </ul>
+    {{/if}}
     {{#if spacers}}
     <ul class="round-spacers">
     {{#each spacers}}
