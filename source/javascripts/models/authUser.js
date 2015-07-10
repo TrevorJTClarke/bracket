@@ -8,29 +8,28 @@ define([
 function(
   Backbone,
   System
-){
+) {
 
   // SETUP
-  var PS = System.get("Parse");
+  var PS = System.get('Parse');
 
   return Backbone.Model.extend({
 
     url: PS.USER,
 
-    initialize: function () {
-
+    initialize: function() {
       return this;
     },
 
     defaults: {
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": "",
-      "color": "",
-      "win": 0,
-      "loss": 0,
-      "tie": 0
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      color: '',
+      win: 0,
+      loss: 0,
+      tie: 0
     },
 
     validation: {

@@ -1,0 +1,36 @@
+/**
+ * Game Styling
+ */
+.game-editor {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+
+.edit-players {
+  background: $grey03;
+  display: flex;
+  flex-direction: column;
+  padding: 13px 20px;
+  position: fixed;
+  left:0;
+  top:62px;
+  bottom:62px;
+
+  .game-player {
+    margin: 7px auto;
+    -webkit-transition: transform 220ms ease-in-out;
+    transition: transform 220ms ease-in-out;
+
+    &.dragging {
+      -webkit-transform: scale(1.5);
+      transform: scale(1.5);
+    }
+  }
+}
+.randomize {
+  background: transparent;
+  border-color: $grey07;
+  color: $grey07;
+  line-height: 56px;
+}

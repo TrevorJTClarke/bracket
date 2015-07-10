@@ -12,9 +12,9 @@ function(
 ) {
 
   // PRIVATE METHODS
-  var elemActive = "active",
-      elemVisible = "visible",
-      offsetDefault = 520;
+  var elemActive = 'active';
+  var elemVisible = 'visible';
+  var offsetDefault = 520;
 
   var Overlay = Backbone.View.extend({
 
@@ -38,7 +38,7 @@ function(
      * @param  {Number} offset a timeout for transition
      * @return {Promise}        Allows for other methods to wait rather than callbacks
      */
-    show: function ( offset ) {
+    show: function(offset) {
       var dfd = Q.defer();
 
       offset = offset || offsetDefault;
@@ -46,7 +46,7 @@ function(
       this.$el.addClass(elemActive);
 
       // use offset to all promise to return at given time offset
-      setTimeout(function(){
+      setTimeout(function() {
         dfd.resolve();
       }, offset);
 
@@ -58,16 +58,16 @@ function(
      * @param  {Number} offset a timeout for transition
      * @return {Promise}        Allows for other methods to wait rather than callbacks
      */
-    hide: function ( offset ) {
-      var dfd = Q.defer(),
-          _self = this;
+    hide: function(offset) {
+      var dfd = Q.defer();
+      var _this = this;
 
       offset = offset || offsetDefault;
       this.$el.removeClass(elemActive);
 
       // use offset to all promise to return at given time offset
-      setTimeout(function(){
-        _self.$el.removeClass(elemVisible);
+      setTimeout(function() {
+        _this.$el.removeClass(elemVisible);
         dfd.resolve();
       }, offset);
 

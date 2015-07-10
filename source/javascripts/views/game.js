@@ -3,67 +3,104 @@ define([
   'backbone',
   'hbars!templates/game',
   'models/championship',
-  'collections/players'
+  'models/system',
+  'collections/players',
+  'views/gameEditor',
+  'views/gameTiers'
 ],
 function(
   $,
   Backbone,
-  template,
+  gameTpl,
   Championship,
-  Players
+  System,
+  Players,
+  GameEditor,
+  GameTiers
 ) {
 
   // PRIVATE METHODS
-  var _rootEl = $(".main-container");
+  var _rootEl = $('.main-container');
   var PL = new Players();
+  var editing   = 'editing';
+  var active    = 'active';
+  var empty     = 'empty';
+  var focussed  = 'focussed';
+  var container = '.game-container';
 
   return Backbone.View.extend({
 
     tagName: 'div',
     className: 'game',
+    template: gameTpl,
 
     model: new Championship(),
 
     events: {
-      // 'click #newChampionship': 'newGame'
+      'click #doneEditingPlayers': 'finishGame',
+      'click #randomize': 'randomizePlayers'
     },
 
     initialize: function(options) {
-      var _self = this;
-      _self.model.set(options);
+      var _this = this;
+      var queryParams = System.parseQuery();
+      this.model.isEditor = (queryParams.editor === 'true');
 
-      _self.render();
-      _self.listenTo(_self.model, 'change', this.render);
+      // TODO: for child views
+      // this.listenTo(this.model, 'change:somthing', this.render);
+      this.render();
 
-      // grab the full data from DB
-      _self.model.fetch({
-          url: _self.model.url + "/" + options.gameId
-        })
-        .then(function (res) {
-          _self.model.set(res);
-          _self.render();
-        },function (err) {
-          console.log("err",err);
+      // setup main childview
+      this.tiersView = new GameTiers({ el: '.game-container', model: this.model });
+
+      // grab all the data needed for the rest of the child views
+      this.getBaseData(options)
+        .then(function(resGame, resPlayers) {
+          var gameData = resGame[0];
+          var playersData = PL.formatPlayers(resPlayers[0].results);
+
+          window.__ap = playersData || [];
+          _this.model.gamePlayers = playersData || [];
+          _this.model.set(gameData);
+
+          _this.tiersView.render();
+
+          if (_this.model.isEditor) {
+            _this.editorView.render();
+          }
+        },
+
+        function(err) {
+          console.log('err', err);
         });
 
-      // grab the full data from DB
-      PL.getAvailablePlayers()
-        .then(function (res) {
-          console.log("players res",res);
-        },function (err) {
-          console.log("err",err);
-        });
+      if (this.model.isEditor) {
+        this.editorView = new GameEditor({ el: '.game-editor', model: this.model });
+      }
     },
 
     render: function() {
-      var _self = this;
+      var _this = this;
 
-      _self.template = _.template(template( _self.model.attributes ));
-      _self.$el.html(this.template);
-      _rootEl.html(_self.$el);
-      _self.delegateEvents();
+      this.$el.html(this.template);
+      this.$root = _rootEl.html(this.$el);
+      this.delegateEvents();
+
+      if (this.model.isEditor) {
+        this.$el.find('.game-container').addClass('editing');
+      }
 
       return this;
+    },
+
+    getBaseData: function(options) {
+      var _this = this;
+      var playersDfd = PL.getGamePlayers(options.gameId);
+      var gameDfd = _this.model.fetch({
+        url: _this.model.url + '/' + options.gameId
+      });
+
+      return $.when(gameDfd, playersDfd);
     }
 
   });

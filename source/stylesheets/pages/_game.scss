@@ -1,17 +1,24 @@
 /**
  * Game Styling
  */
-$round-height-offset: 4px;
-
 .game-container {
-  width: 1000px;
+  width: 420px; // TODO: setup for dynamic
   display: flex;
   flex-direction: row;
   padding: 0 10px;
+
+  &.editing {
+    padding-left: 130px;
+    padding-bottom: 82px;
+  }
 }
 .game {
   width: 100%;
-  overflow: scroll;
+  height: calc(100vh - 62px);
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
 }
 .round{
   display:flex;
@@ -62,8 +69,7 @@ $round-height-offset: 4px;
     }
   }
 
-  .match-first,
-  .match-second {
+  .match-player {
     margin:5px auto;
 
     .avatar {
@@ -71,10 +77,23 @@ $round-height-offset: 4px;
     }
   }
 
-  .match-first {}
-  .match-second {}
+  /* modification for inactive/unfilled avatars */
+  .empty {
+    border: 2px dashed $grey07;
 
+    &.focussed {
+      background: $grey04;
+    }
+  }
 
+  &.draghover,
+  &.active {
+    border-color: $main;
+
+    .match-tag {
+      background: $main;
+    }
+  }
 }
 
 .round-spacers {
@@ -84,15 +103,6 @@ $round-height-offset: 4px;
   width: 50px;
   list-style:none;
   padding:0;
-
-  &:after {
-    position: absolute;
-    content: "";
-    border-top: 1px solid $grey03;
-    width: 25px;
-    top: 50%;
-    right: -25px;
-  }
 
   .line-spacer {
     flex-grow:1;

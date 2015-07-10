@@ -12,21 +12,39 @@ define(['models/system'], function(System) {
 
     it('Parse urls are set properly', function() {
       var PS = sys.get('Parse');
-      expect(PS.ROOT).toEqual("https://api.parse.com/1");
-      expect(PS.REST_KEY).toEqual("vRKLltmPuDjdfxFFNs6ZD7iHuG5su0J6nTh0VT36");
+      expect(PS.ROOT).toEqual('https://api.parse.com/1');
+      expect(PS.REST_KEY).toEqual('vRKLltmPuDjdfxFFNs6ZD7iHuG5su0J6nTh0VT36');
     });
 
-    it('Parse references build correctly', function() {
-      var tempRef = sys.getParseRef( "Championships", "12345" );
+    it('Parse Pointers build correctly', function() {
+      var tempRef = sys.getParseRef('Championships', '12345');
       var testParseRef = {
-        '__op': 'AddRelation',
-        'objects': [{
-          '__type': 'Pointer',
-          'className': 'Championships',
-          'objectId': '12345'
+        __op: 'AddRelation',
+        objects: [{
+          __type: 'Pointer',
+          className: 'Championships',
+          objectId: '12345'
         }]
       };
-      expect( tempRef ).toEqual( testParseRef );
+      expect(tempRef).toEqual(testParseRef);
+    });
+
+    it('Parse Exact Reference Queries build correctly', function() {
+      var tempRef = sys.getExactRef('ChampionshipPlayers', 'Championships', '12345');
+      var testParseRef = '?where={"ChampionshipsRef":{"__type":"Pointer","className":"ChampionshipPlayers","objectId":"12345"}}';
+      expect(tempRef).toEqual(testParseRef);
+    });
+
+    it('Parse Related Reference Queries build correctly', function() {
+      var tempRef = sys.getRelatedRef('ChampionshipPlayers', 'Championships', '12345');
+      var testParseRef = '?where={"$relatedTo":{"object":{"__type":"Pointer","className":"ChampionshipPlayers","objectId":"12345"},"key":"ChampionshipsRef"}}';
+      expect(tempRef).toEqual(testParseRef);
+    });
+
+    it('can format location search params into JSON', function() {
+      var coolQueryBro = sys.parseQuery();
+      var queryJson = {};
+      expect(coolQueryBro).toEqual(queryJson);
     });
 
   });

@@ -7,9 +7,9 @@ define(['models/player'], function(Player) {
     });
 
     it('can store player references correctly', function() {
-      var tempRef = plyr.saveDataRef( "Championships", "12345" );
+      var tempRef = plyr.saveDataRef('Championships', '12345');
 
-      expect( tempRef.promise ).toBeDefined();
+      expect(tempRef.promise).toBeDefined();
     });
 
   });

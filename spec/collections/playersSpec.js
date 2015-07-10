@@ -6,27 +6,33 @@ define(['collections/players'], function(Players) {
       expect(plyrs).toBeDefined();
     });
 
-    it('should have correct url', function() {
-      expect(plyrs.url).toEqual("/classes/ChampionshipPlayers");
-    });
+    describe('.savePlayers()', function() {
 
-    describe('.savePlayers()', function () {
-
-      it('should send batch requests to save all player refs', function () {
-        var playerIds = ["1234XYZ","ABC4321"];
-        var saveIt = plyrs.savePlayers("CHAMPS",playerIds);
+      it('should send batch requests to save all player refs', function() {
+        var playerIds = ['1234XYZ', 'ABC4321'];
+        var saveIt = plyrs.savePlayers('CHAMPS', playerIds);
 
         expect(saveIt.promiseDispatch).toBeDefined();
       });
 
     });
 
-    describe('.getAvailablePlayers()', function () {
+    describe('.getAvailablePlayers()', function() {
 
-      it('should retrieve all player items', function () {
+      it('should retrieve all player items', function() {
         var allPlayers = plyrs.getAvailablePlayers();
 
         expect(allPlayers.promiseDispatch).toBeDefined();
+      });
+
+    });
+
+    describe('.getGamePlayers()', function() {
+
+      it('should retrieve all related player items', function() {
+        var relPlayers = plyrs.getGamePlayers();
+
+        expect(relPlayers.promise).toBeDefined();
       });
 
     });
