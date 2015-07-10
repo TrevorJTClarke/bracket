@@ -59,6 +59,66 @@ Handlebars.registerHelper('matchPlayer', function(context, options) {
   }).join('\n');
 });
 
+/**
+ * Mutates the tier data into usable sets of tiers and spacers
+ * @return {String} returns the template with appropriate data
+ *
+ * USE:
+ * {{#tiersFlow this}}
+ * {{/tiersFlow}}
+ */
+Handlebars.registerHelper('tiersFlow', function(context, options) {
+  if (!context || context.tierCount < 1) { return; }
+
+  var tiers = [];
+  var tierNamespace = 'tier_';
+
+  for (var i = 0; i < context.tierCount; i++) {
+    var k = i + 1;
+    var tierData = context[tierNamespace + k];
+    var spacers = [];
+
+    if (k !== context.tierCount) {
+      spacers.length = Math.round(tierData.length / 2);
+    } else {
+      spacers = null;
+    }
+
+    tiers.push({
+      matches: tierData,
+      spacers: spacers
+    });
+  }
+
+  console.log('newContext', tiers, context);
+
+  // var playerData = window.__ap || [];
+  // var a = context[0];
+  // var b = context[1];
+  //
+  // playerData.map(function(obj, idx) {
+  //   if (obj.objectId === a) {
+  //     context[0] = obj;
+  //   }
+  //
+  //   if (obj.objectId === b) {
+  //     context[1] = obj;
+  //   }
+  // });
+
+  // return context.map(function(item) {
+  //   return '<div class="match-player">' + options.fn(item) + '</div>';
+  // }).join('\n');
+
+  return options.fn(tiers);
+});
+
+// new data structure:
+// var tiers = [{
+//   matches: [{ players: [] }],
+//   spacers: [{}]
+// }];
+
 Handlebars.registerHelper('timeago', function(item) {
   if (!item.updatedAt || !item.createdAt) { return ''; }
 

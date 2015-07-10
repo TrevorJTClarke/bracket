@@ -85,7 +85,7 @@ function(
       var url = PS.CLASSES + PS.CHAMPIONSHIPPLAYERS;
 
       // Special query values added
-      url = url + System.getParseRelatedRef('_User', 'User', _this.id);
+      url = url + System.getExactRef('_User', 'User', _this.id);
 
       $.get(url)
         .success(function(res) {
@@ -113,7 +113,7 @@ function(
       if (!plId) { return; }
 
       // Special query values added
-      url = url + System.getParseRelatedRef('ChampionshipPlayers', 'Championships', plId);
+      url = url + System.getRelatedRef('ChampionshipPlayers', 'Championships', plId);
 
       $.get(url)
         .success(function(res) {

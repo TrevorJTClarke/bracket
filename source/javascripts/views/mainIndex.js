@@ -79,6 +79,7 @@ function(
     constructView: function() {
       var _this = this;
 
+      // TODO: refactor this
       _this.model.getPlayer()
         .then(function(res) {
           delete res.ChampionshipsRef;

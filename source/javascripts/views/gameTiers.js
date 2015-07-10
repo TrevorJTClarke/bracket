@@ -2,8 +2,6 @@ define([
   'jquery',
   'backbone',
   'hbars!templates/tiers_container',
-  'hbars!templates/matches',
-  'hbars!templates/matches_spacers',
   'models/championship',
   'collections/players'
 ],
@@ -11,8 +9,6 @@ function(
   $,
   Backbone,
   tiersContainerTpl,
-  matchesTpl,
-  matchesSpacersTpl,
   Championship,
   Players
 ) {
@@ -33,7 +29,7 @@ function(
     },
 
     render: function() {
-      console.log('this.model.attributes', this.$el);
+      console.log('this.model.attributes', this.model.attributes);
 
       // render the template
       this.$el.html(this.template(this.model.attributes));

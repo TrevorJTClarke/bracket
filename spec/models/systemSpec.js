@@ -29,9 +29,15 @@ define(['models/system'], function(System) {
       expect(tempRef).toEqual(testParseRef);
     });
 
-    it('Parse Related Queries build correctly', function() {
-      var tempRef = sys.getParseRelatedRef('ChampionshipPlayers', 'Championships', '12345');
+    it('Parse Exact Reference Queries build correctly', function() {
+      var tempRef = sys.getExactRef('ChampionshipPlayers', 'Championships', '12345');
       var testParseRef = '?where={"ChampionshipsRef":{"__type":"Pointer","className":"ChampionshipPlayers","objectId":"12345"}}';
+      expect(tempRef).toEqual(testParseRef);
+    });
+
+    it('Parse Related Reference Queries build correctly', function() {
+      var tempRef = sys.getRelatedRef('ChampionshipPlayers', 'Championships', '12345');
+      var testParseRef = '?where={"$relatedTo":{"object":{"__type":"Pointer","className":"ChampionshipPlayers","objectId":"12345"},"key":"ChampionshipsRef"}}';
       expect(tempRef).toEqual(testParseRef);
     });
 

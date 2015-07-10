@@ -118,7 +118,7 @@ function(
      * NOTE: this is a safer way of retrieving all list, since regular fetch stores blank references
      */
     getGamePlayers: function(championshipId) {
-      var url = PS.CLASSES + PS.CHAMPIONSHIPPLAYERS + System.getParseRelatedRef('ChampionshipPlayers', 'Championships', championshipId);
+      var url = PS.CLASSES + PS.CHAMPIONSHIPPLAYERS + System.getExactRef('ChampionshipPlayers', 'Championships', championshipId);
 
       return $.get(url);
     }
