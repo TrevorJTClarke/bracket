@@ -38,9 +38,18 @@ function(
     },
 
     goToScoreboard: function(e) {
-      var match = e.currentTarget.dataset.navigate;
-      var matchId = parseInt(match.replace('match_', ''), 10);
+      var nav = e.currentTarget.dataset.navigate;
+      var navIds = nav.split('_');
+      var matchId = parseInt(navIds[1], 10);
+      var tierId = parseInt(navIds[0], 10);
       var gameId = this.model.get('objectId');
+      var tierData = this.model.get('tier_' + tierId);
+
+      // dirty check for players existing for the clicked match
+      if (!tierData || !tierData[matchId] || tierData[matchId] === 'object') {
+        return;
+      }
+
       State.go(gameId + '/scoreboard/' + matchId);
     }
 

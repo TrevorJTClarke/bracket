@@ -105,13 +105,19 @@ Handlebars.registerHelper('tiersFlow', function(context, options) {
     // check if next tier exists, else setup future games
     if (context[tierNamespace + k]) {
       tierData = context[tierNamespace + k];
+      tierData.forEach(function(obj, idx) {
+        tierData[idx].index = idx;
+        tierData[idx].parentTier = k;
+      });
     } else {
       for (var p = 0; p < tierLanes[i]; p++) {
         tierData.push({
+          index: p,
           players: [{}, {}],
           winner: null,
           status: 'pending',
-          sort: p + tierLaneSort
+          sort: p + tierLaneSort,
+          parentTier: k || 0
         });
       }
     }
