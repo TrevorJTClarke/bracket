@@ -18,6 +18,7 @@ function(
     template: tiersContainerTpl,
 
     events: {
+      'click [data-navigate]': 'goToScoreboard'
     },
 
     initialize: function() {
@@ -29,12 +30,18 @@ function(
     },
 
     render: function() {
-      console.log('this.model.attributes', this.model.attributes);
 
       // render the template
       this.$el.html(this.template(this.model.attributes));
 
       return this;
+    },
+
+    goToScoreboard: function(e) {
+      var match = e.currentTarget.dataset.navigate;
+      var matchId = parseInt(match.replace('match_', ''), 10);
+      var gameId = this.model.get('objectId');
+      State.go(gameId + '/scoreboard/' + matchId);
     }
 
   });

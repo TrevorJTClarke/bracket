@@ -3,7 +3,7 @@
     <ul class="round">
       {{#each matches}}
       <li class="spacer">&nbsp;</li>
-      <li class="match{{#if winner}} active{{/if}}"{{#if sort}} id="match_{{sort}}"{{/if}}>
+      <li class="match{{#if winner}} active{{/if}}"{{#if sort}} data-navigate="match_{{sort}}"{{/if}}>
         <div class="match-tag"><span>{{sort}}</span></div>
         {{#matchPlayer players}}
           {{#if firstName}}
