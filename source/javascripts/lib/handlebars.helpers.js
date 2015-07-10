@@ -71,53 +71,67 @@ Handlebars.registerHelper('tiersFlow', function(context, options) {
   if (!context || context.tierCount < 1) { return; }
 
   var tiers = [];
+  var tierLanes = [];
+  var tierLaneSort = 0;
   var tierNamespace = 'tier_';
 
-  for (var i = 0; i < context.tierCount; i++) {
-    var k = i + 1;
-    var tierData = context[tierNamespace + k];
-    var spacers = [];
+  // check total tierCount and generate future tiers if no data is found
+  if (context[tierNamespace + '1'] !== undefined) {
+    var totalMatches = context[tierNamespace + '1'].length;
+    var tmpMatchTotal = totalMatches;
+    tierLanes[0] = totalMatches;
 
-    if (k !== context.tierCount) {
-      spacers.length = Math.round(tierData.length / 2);
+    function calcTotals() {
+      if (Math.floor(tmpMatchTotal / 2) % 2 === 0) {
+        tmpMatchTotal = Math.floor(tmpMatchTotal / 2);
+        tierLanes.push(tmpMatchTotal);
+        calcTotals();
+      } else {
+        tierLanes.push(1);
+      }
+    }
+
+    calcTotals();
+  }
+
+  // loop through tiers, and setup data for view
+  for (var i = 0; i < tierLanes.length; i++) {
+    var k = i + 1;
+    var spacers = [];
+    var tierData = [];
+
+    tierLaneSort += tierLanes[i];
+
+    // check if next tier exists, else setup future games
+    if (context[tierNamespace + k]) {
+      tierData = context[tierNamespace + k];
+    } else {
+      for (var p = 0; p < tierLanes[i]; p++) {
+        tierData.push({
+          players: [{}, {}],
+          winner: null,
+          status: 'pending',
+          sort: p + tierLaneSort
+        });
+      }
+    }
+
+    // setup needed spacers, if there is a future tier
+    if (tierLanes[k]) {
+      spacers.length = Math.round(tierLanes[i] / 2);
     } else {
       spacers = null;
     }
 
+    // assemble data
     tiers.push({
       matches: tierData,
       spacers: spacers
     });
   }
 
-  console.log('newContext', tiers, context);
-
-  // var playerData = window.__ap || [];
-  // var a = context[0];
-  // var b = context[1];
-  //
-  // playerData.map(function(obj, idx) {
-  //   if (obj.objectId === a) {
-  //     context[0] = obj;
-  //   }
-  //
-  //   if (obj.objectId === b) {
-  //     context[1] = obj;
-  //   }
-  // });
-
-  // return context.map(function(item) {
-  //   return '<div class="match-player">' + options.fn(item) + '</div>';
-  // }).join('\n');
-
   return options.fn(tiers);
 });
-
-// new data structure:
-// var tiers = [{
-//   matches: [{ players: [] }],
-//   spacers: [{}]
-// }];
 
 Handlebars.registerHelper('timeago', function(item) {
   if (!item.updatedAt || !item.createdAt) { return ''; }
