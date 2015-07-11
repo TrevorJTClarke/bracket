@@ -67,6 +67,7 @@ function(
       var _this = this;
       var tierData = _this.get(tierId) || [];
       var baseData = {
+        // TODO: change this sort value!
         sort: tierData.length + 1 || 1,
         players: players,
         winner: null,
@@ -170,31 +171,23 @@ function(
 
       // TODO: refactor this cheezbiznesss
       // assess area to place the player
-      function processMatchPlayer(id) {
-        var mPlayers = tierData[id].players;
+      var mPlayers = tierData[matchId].players;
 
-        if (typeof mPlayers[0] === 'string') {
-          if (typeof mPlayers[1] === 'string') {
-            // add the player to first position
-            tierData[id].players[0] = userId;
-          } else {
-            // add the player to first position
-            tierData[id].players[1] = userId;
-          }
+      if (typeof mPlayers[0] === 'string') {
+        if (typeof mPlayers[1] === 'string') {
+          // add the player to first position
+          tierData[matchId].players[0] = userId;
         } else {
           // add the player to first position
-          tierData[id].players[0] = userId;
+          tierData[matchId].players[1] = userId;
         }
+      } else {
+        // add the player to first position
+        tierData[matchId].players[0] = userId;
       }
 
-      tierData.forEach(function(obj, idx) {
-        if (obj.sort === matchId) {
-          processMatchPlayer(idx);
-        }
-      });
-
       // update data to main model
-      _this.get(tierName, tierData);
+      _this.set(tierName, tierData);
     }
 
   });

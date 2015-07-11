@@ -37,7 +37,7 @@ Handlebars.registerHelper('tiersFlow', function(context, options) {
       tierData.push(createBlankMatch(p, p + 1, 1));
     }
 
-    context[tierNamespace + 1] = tierData;
+    // context[tierNamespace + 1] = tierData;
 
     // no need to do any other logic
     return options.fn([{
