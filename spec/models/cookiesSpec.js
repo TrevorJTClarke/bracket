@@ -1,12 +1,12 @@
 define(['models/cookies'], function(Cookies) {
   describe('Cookies Model', function() {
     var Cookie = Cookies;
-    var testToken = "fdsa543-fds54-234k-23476-fjdskSI";
+    var testToken = 'fdsa543-fds54-234k-23476-fjdskSI';
 
     function createFakeCookies() {
-      Cookie.store("A", "234ABC");
-      Cookie.store("B", "23sd4ABC");
-      Cookie.store("C", "234AfdsaBC");
+      Cookie.store('A', '234ABC');
+      Cookie.store('B', '23sd4ABC');
+      Cookie.store('C', '234AfdsaBC');
     }
 
     it('should be defined', function() {
@@ -22,10 +22,10 @@ define(['models/cookies'], function(Cookies) {
       beforeEach(function() {
         spyOn(Cookie, 'store').and.callThrough();
 
-        Cookie.store("token", testToken);
+        Cookie.store('token', testToken);
       });
 
-      afterEach(function () {
+      afterEach(function() {
         Cookie.clearAll();
       });
 
@@ -35,22 +35,22 @@ define(['models/cookies'], function(Cookies) {
       });
 
       it('can store the token', function() {
-        expect(Cookie.store).toHaveBeenCalledWith("token", testToken);
+        expect(Cookie.store).toHaveBeenCalledWith('token', testToken);
       });
     });
 
     // All the find Method tests
     describe('.find()', function() {
-      var gotToken = "";
+      var gotToken = '';
 
       beforeEach(function() {
         spyOn(Cookie, 'find').and.callThrough();
-        Cookie.store("token", testToken);
+        Cookie.store('token', testToken);
 
-        gotToken = Cookie.find("token");
+        gotToken = Cookie.find('token');
       });
 
-      afterEach(function () {
+      afterEach(function() {
         Cookie.clearAll();
       });
 
@@ -60,7 +60,7 @@ define(['models/cookies'], function(Cookies) {
       });
 
       it('can find the token', function() {
-        expect(Cookie.find).toHaveBeenCalledWith("token");
+        expect(Cookie.find).toHaveBeenCalledWith('token');
       });
 
       it('find method returns correct data', function() {
@@ -72,16 +72,15 @@ define(['models/cookies'], function(Cookies) {
     describe('.remove()', function() {
       beforeEach(function(done) {
         spyOn(Cookie, 'remove').and.callThrough();
-        Cookie.store("token", testToken);
+        Cookie.store('token', testToken);
 
-
-        setTimeout(function(){
-          Cookie.remove("token");
+        setTimeout(function() {
+          Cookie.remove('token');
           done();
-        },4);
+        }, 4);
       });
 
-      afterEach(function () {
+      afterEach(function() {
         Cookie.clearAll();
       });
 
@@ -91,19 +90,19 @@ define(['models/cookies'], function(Cookies) {
       });
 
       it('can remove the token', function() {
-        expect(Cookie.remove).toHaveBeenCalledWith("token");
+        expect(Cookie.remove).toHaveBeenCalledWith('token');
       });
 
       it('remove method can remove correctly', function(done) {
         var removedToken;
 
-        setTimeout(function () {
-          removedToken = Cookie.find("token");
+        setTimeout(function() {
+          removedToken = Cookie.find('token');
 
           done();
-        },10);
-        expect(removedToken).toBeUndefined();
+        }, 10);
 
+        expect(removedToken).toBeUndefined();
       });
 
     });
@@ -121,16 +120,18 @@ define(['models/cookies'], function(Cookies) {
 
       it('clearAll method can remove all cookies correctly', function(done) {
         var finalCookies;
+
         // create some fake cookies
         createFakeCookies();
 
         // then clear all the cookies
         Cookie.clearAll();
 
-        setTimeout(function () {
-          finalCookies = Cookie.find("C");
+        setTimeout(function() {
+          finalCookies = Cookie.find('C');
           done();
-        },4);
+        }, 4);
+
         expect(finalCookies).toBeUndefined();
       });
 
