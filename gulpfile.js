@@ -102,7 +102,4 @@ gulp.task('default', [
 gulp.task('build', [
   'smash',
   'templatify'
-], function() {
-  console.log('\n--------------------------\n BUILD FINISHED\n--------------------------');
-  process.exit();
-});
+]);

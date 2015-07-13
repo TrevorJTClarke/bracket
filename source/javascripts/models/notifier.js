@@ -1,12 +1,10 @@
 define([
   'underscore',
-  'backbone',
-  'hbars!templates/notifier'
+  'backbone'
 ],
 function(
   _,
-  Backbone,
-  notifyTpl
+  Backbone
 ) {
 
   // Quick model setup
@@ -33,7 +31,7 @@ function(
 
     render: function(data) {
       data = data || {};
-      this.template = _.template(notifyTpl(data));
+      this.template = _.template(bracket.notifier(data));
       this.$el.html(this.template);
     },
 

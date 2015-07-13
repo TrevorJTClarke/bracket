@@ -1,7 +1,6 @@
 define([
   'jquery',
   'backbone',
-  'hbars!templates/game',
   'models/championship',
   'models/system',
   'collections/players',
@@ -11,7 +10,6 @@ define([
 function(
   $,
   Backbone,
-  gameTpl,
   Championship,
   System,
   Players,
@@ -32,7 +30,7 @@ function(
 
     tagName: 'div',
     className: 'game',
-    template: gameTpl,
+    template: bracket.game,
 
     model: new Championship(),
 

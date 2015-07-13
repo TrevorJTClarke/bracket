@@ -1,16 +1,12 @@
 define([
   'jquery',
   'backbone',
-  'hbars!templates/main_index',
-  'hbars!templates/championship_items',
   'models/user',
   'models/session'
 ],
 function(
   $,
   Backbone,
-  profileTpl,
-  gamesTpl,
   User,
   Session
 ) {
@@ -60,15 +56,12 @@ function(
       _this.$el.empty();
 
       if (_this.gamesData) {
-        tmplData.gamesTpl = gamesTpl({
+        tmplData.gamesTpl = bracket.championshipItems({
           games: _this.gamesData
         });
       }
-      setTimeout(function() {
-        console.log('bracket[]', bracket);
-      },2000);
 
-      _this.template = _.template(profileTpl(tmplData));
+      _this.template = _.template(bracket.mainIndex(tmplData));
       _this.$el.html(this.template);
       _rootEl.html(_this.$el);
       _this.delegateEvents();

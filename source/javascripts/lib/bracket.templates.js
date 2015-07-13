@@ -1,5 +1,5 @@
 define(['Handlebars'],function(Handlebars){this["bracket"] = this["bracket"] || {};
-this["bracket"]["championship_items"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+this["bracket"]["championshipItems"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "<li data-navigate=\"/"
@@ -27,7 +27,7 @@ this["bracket"]["championship_items"] = Handlebars.template({"1":function(depth0
 
   return ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.games : depth0),{"name":"each","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
 },"useData":true});
-this["bracket"]["create_championship"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+this["bracket"]["createChampionship"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper;
 
   return "<div id=\"sectionFirst\" class=\"row\">\n  <div class=\"col-md-6 col-md-offset-3\">\n    <h3>New Championship</h3>\n    <div class=\"form-group\">\n      <input type=\"text\" id=\"chTitle\" placeholder=\"Title\">\n    </div>\n    <button id=\"newChampionship\" class=\"btn btn-default btn-fixed-bottom\">Next</button>\n  </div>\n</div>\n<div id=\"sectionSecond\" class=\"row\">\n  <div class=\"col-md-6 col-md-offset-3\">\n    <h3>Add Players</h3>\n    <div class=\"create-players\">\n      "
@@ -37,7 +37,7 @@ this["bracket"]["create_championship"] = Handlebars.template({"compiler":[6,">= 
 this["bracket"]["game"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     return "<div class=\"game-editor\"></div>\n<div class=\"game-container\"></div>\n";
 },"useData":true});
-this["bracket"]["game_editor"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+this["bracket"]["gameEditor"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "  <div class=\"game-player\" data-drag=\""
@@ -54,7 +54,7 @@ this["bracket"]["game_editor"] = Handlebars.template({"1":function(depth0,helper
     + ((stack1 = helpers.each.call(depth0,depth0,{"name":"each","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "</div>\n<button id=\"doneEditingPlayers\" class=\"btn btn-default btn-fixed-bottom\">Finish</button>\n";
 },"useData":true});
-this["bracket"]["game_editor_player"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+this["bracket"]["gameEditorPlayer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "<div class=\"game-player\" data-drag=\""
@@ -84,10 +84,10 @@ this["bracket"]["header"] = Handlebars.template({"1":function(depth0,helpers,par
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.firstName : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\">\n      <button class=\"btn btn-action\">\n        <i class=\"glyphicon glyphicon-log-in\"></i>\n      </button>\n    </div>\n  </nav>\n</header>\n";
 },"useData":true});
-this["bracket"]["login_signup"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+this["bracket"]["loginSignup"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     return "<div class=\"row ls-tabs\">\n  <div class=\"col-md-6 col-md-offset-3\">\n    <div class=\"btn-group\" role=\"group\" aria-label=\"...\">\n      <button type=\"button\" id=\"tabLogin\" class=\"btn btn-tabs\">Login</button>\n      <button type=\"button\" id=\"tabSignup\" class=\"btn btn-tabs\">Sign Up</button>\n    </div>\n  </div>\n</div>\n\n<div id=\"loginSection\" class=\"row ls-section\">\n  <div class=\"col-md-6 col-md-offset-3\">\n    <form id=\"loginForm\">\n      <div class=\"form-group email\">\n        <input type=\"email\" name=\"email\" placeholder=\"Email\" required>\n      </div>\n      <div class=\"form-group password\">\n        <input type=\"password\" name=\"password\" placeholder=\"Password\" required>\n      </div>\n      <button id=\"loginSubmit\" type=\"submit\" class=\"btn btn-default btn-fixed-bottom\">Login</button>\n    </form>\n  </div>\n</div>\n<div id=\"signupSection\" class=\"row ls-section\">\n  <div class=\"col-md-6 col-md-offset-3\">\n    <form id=\"signupForm\">\n      <div class=\"form-group firstName\">\n        <input type=\"text\" name=\"firstName\" placeholder=\"First Name\" required>\n      </div>\n      <div class=\"form-group lastName\">\n        <input type=\"text\" name=\"lastName\" placeholder=\"Last Name\" required>\n      </div>\n      <div class=\"form-group emailSignup\">\n        <input type=\"email\" name=\"email\" placeholder=\"Email\" required>\n      </div>\n      <div class=\"form-group passwordSignup\">\n        <input type=\"password\" name=\"password\" placeholder=\"Password\" required>\n      </div>\n      <div class=\"form-group color\">\n        <input type=\"color\" value=\"#2FAB70\" name=\"color\" pattern=\"^#([A-Fa-f0-9]{6})$\" required title=\"Hexadecimal value required\">\n      </div>\n      <button id=\"signupSubmit\" type=\"submit\" class=\"btn btn-default btn-fixed-bottom\">Create Account</button>\n    </form>\n  </div>\n</div>\n";
 },"useData":true});
-this["bracket"]["main_index"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+this["bracket"]["mainIndex"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "<div class=\"row profile\">\n  <div class=\"col-md-6 col-md-offset-3\">\n    <div class=\"profile-meta\">\n      <h3>"
@@ -116,7 +116,7 @@ this["bracket"]["notifier"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.
 this["bracket"]["overlay"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     return "<div class=\"overlay-bold\"></div>\n<div class=\"overlay-lite\"></div>\n";
 },"useData":true});
-this["bracket"]["player_listing_item"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+this["bracket"]["playerListingItem"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "<div class=\"player\">\n  <div class=\"avatar\" style=\"background:#"
@@ -148,7 +148,7 @@ this["bracket"]["player_listing_item"] = Handlebars.template({"1":function(depth
 this["bracket"]["scoreboard"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     return "<div class=\"row\">\n  <div class=\"score-panel\">\n    <div class=\"panel-item\" style=\"background: #0076AE;\">\n      <div class=\"score-total\">7</div>\n      <div class=\"score-user\">mdeol</div>\n    </div>\n    <div class=\"panel-item\" style=\"background: #2fab70;\">\n      <div class=\"score-total\">12</div>\n      <div class=\"score-user\">tclarke</div>\n    </div>\n  </div>\n</div>\n<div class=\"score-actions\">\n  <button id=\"score_0\" class=\"btn btn-score\">+</button>\n  <button id=\"score_1\" class=\"btn btn-score\">+</button>\n</div>\n<div class=\"scoreboard-footer\">\n  <div class=\"score-timer\">\n    <i class=\"glyphicon glyphicon-time\"></i> <span>3:24 mins</span>\n  </div>\n  <button class=\"btn btn-rematch\">\n    <i class=\"glyphicon glyphicon-repeat\"></i> <span>Re-match</span>\n  </button>\n</div>\n";
 },"useData":true});
-this["bracket"]["tiers_container"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+this["bracket"]["tiersContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = helpers.each.call(depth0,depth0,{"name":"each","hash":{},"fn":this.program(2, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");

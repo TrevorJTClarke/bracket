@@ -1,14 +1,12 @@
 define([
   'jquery',
   'backbone',
-  'Q',
-  'hbars!templates/overlay'
+  'Q'
 ],
 function(
   $,
   Backbone,
-  Q,
-  template
+  Q
 ) {
 
   // PRIVATE METHODS
@@ -27,7 +25,7 @@ function(
 
     render: function() {
 
-      this.template = _.template(template({}));
+      this.template = _.template(bracket.overlay({}));
       this.$el.html(this.template);
 
       return this;

@@ -16,15 +16,13 @@ require.config({
     // -------
     text: 'javascripts/lib/text',
     Helpers: 'javascripts/lib/handlebars.helpers',
-    hbars: 'javascripts/lib/hbars',
 
     // Base Files
     // ----------
-    btemplates: 'javascripts/lib/bracket.templates',
+    templates: 'javascripts/lib/bracket.templates',
     views: 'javascripts/views',
     models: 'javascripts/models',
     routers: 'javascripts/routers',
-    templates: 'javascripts/templates',
     collections: 'javascripts/collections'
   },
 
@@ -37,14 +35,10 @@ require.config({
       exports: 'Handlebars'
     },
     Helpers: ['Handlebars'],
-    btemplates: ['Handlebars'],
+    templates: ['Handlebars'],
     Q: {
       exports: 'Q'
     }
-  },
-
-  hbars: {
-    extension: '.tpl'
   }
 
 });
@@ -55,7 +49,7 @@ require([
   'models/validator',
   'models/notifier',
   'Helpers',
-  'btemplates',
+  'templates',
   'pep'
 ],
 function(Router, State) {
