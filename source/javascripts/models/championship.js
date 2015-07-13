@@ -172,6 +172,13 @@ function(
       var tierName = _this.tierNamespace + tierId;
       var tierData = _this.get(tierName);
 
+      // we don't have the match yet, so setup the data
+      if (!tierData || !tierData[matchId]) {
+        _this.addMatch([userId, {}], tierName);
+        _this.set('tierCount', 1);
+        return;
+      }
+
       // TODO: refactor this cheezbiznesss
       // assess area to place the player
       var mPlayers = tierData[matchId].players;

@@ -14,12 +14,11 @@ require.config({
 
     // Plugins
     // -------
-    text: 'javascripts/lib/text',
     Helpers: 'javascripts/lib/handlebars.helpers',
+    templates: 'javascripts/lib/bracket.templates',
 
     // Base Files
     // ----------
-    templates: 'javascripts/lib/bracket.templates',
     views: 'javascripts/views',
     models: 'javascripts/models',
     routers: 'javascripts/routers',
@@ -31,14 +30,8 @@ require.config({
     backbone: ['Handlebars'],
     'backbone.validation': ['backbone'],
     pep: ['jquery'],
-    Handlebars: {
-      exports: 'Handlebars'
-    },
     Helpers: ['Handlebars'],
-    templates: ['Handlebars'],
-    Q: {
-      exports: 'Q'
-    }
+    templates: ['Handlebars']
   }
 
 });

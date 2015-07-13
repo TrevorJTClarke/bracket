@@ -50,7 +50,7 @@ function(
 
       // Setting the view's template property using the Underscore template method
       this.template = _.template(bracket.createChampionship({
-        playerListTpl: bracket.playerList({
+        playerListTpl: bracket.playerListingItem({
           players: players
         })
       }));

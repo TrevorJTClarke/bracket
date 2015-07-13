@@ -226,6 +226,7 @@ function(
       var playerId = $(player).data('drag');
       var navIds = $(container).data('navigate').split('_');
       var matchId = parseInt(navIds[1], 10);
+      console.log('matchId', matchId);
 
       // remove el from start
       $(player).remove();

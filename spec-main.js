@@ -29,8 +29,10 @@ window.State = window.State || {
   go: function() {}
 };
 
+window.bracket = window.bracket || {};
+
 // Stub the baseline file
-(function() {
+(function(bracket) {
   var tmpl = '<div class="header"></div>' +
               '<div class="container warp">' +
                 '<div class="main-container"></div>' +
@@ -42,7 +44,7 @@ window.State = window.State || {
   var template = document.createElement('div');
   template.innerHTML = tmpl;
   body.appendChild(template);
-})();
+})(window.bracket);
 
 require.config({
   baseUrl: '/base/source/javascripts',
@@ -55,22 +57,20 @@ require.config({
     underscore: 'lib/underscore',
     backbone: 'lib/backbone',
     'backbone.validation': 'lib/backbone.validation.min',
-    text: 'lib/text',
     Handlebars: 'lib/handlebars',
     Helpers: 'lib/handlebars.helpers',
-    hbars: 'lib/hbars'
+    templates: 'lib/bracket.templates'
   },
   shim: {
+    backbone: ['Handlebars'],
     'backbone.validation': ['backbone'],
     pep: ['jquery'],
+    templates: ['Handlebars'],
     Q: {
       exports: 'Q'
     },
     underscore: {
       exports: '_'
-    },
-    Handlebars: {
-      exports: 'Handlebars'
     },
     Helpers: ['Handlebars'],
     jasmineajax: {
@@ -79,9 +79,6 @@ require.config({
     jasminequery: {
       exports: 'jasminequery'
     }
-  },
-  hbars: {
-    extension: '.tpl'
   },
   deps: allTestFiles,
   callback: window.__karma__.start

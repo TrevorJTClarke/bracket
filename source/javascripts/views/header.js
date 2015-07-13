@@ -45,6 +45,7 @@ function(
       var action = (isAuthed === true) ? 'add' : 'remove';
       this.$el.find('.profile')[action + 'Class']('show');
       this.$el.find('.nav-action')[action + 'Class']('show');
+      this.delegateEvents();
     },
 
     viewProfile: function(e) {
