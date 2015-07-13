@@ -1,15 +1,16 @@
 define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], function(Session, $, Ajax, Cookie) {
   describe('Session Model', function() {
     var testCreds = {
-      "email": "tclarke@billabong.com",
-      "password": "testtest"
+      email: 'tclarke@billabong.com',
+      password: 'testtest'
     };
-    var baseUrl = "https://api.parse.com/1";
-    var mockedUrl = "https://api.parse.com/1/login?username=tclarke&password=testtest";
+    var baseUrl = 'https://api.parse.com/1';
+    var mockedUrl = 'https://api.parse.com/1/login?username=tclarke&password=testtest';
 
     beforeEach(function() {
       jasmine.Ajax.install();
     });
+
     afterEach(function() {
       jasmine.Ajax.uninstall();
     });
@@ -24,12 +25,12 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
 
     describe('Requests Setup', function() {
 
-      it("Base Url is setup", function() {
-        var doneFn = jasmine.createSpy("success");
+      it('Base Url is setup', function() {
+        var doneFn = jasmine.createSpy('success');
 
         $.ajax().then(function(args) {
           if (this.readyState == this.DONE) {
-            if(this.url.search(baseUrl) > -1){
+            if (this.url.search(baseUrl) > -1) {
               doneFn(args);
             }
           }
@@ -39,21 +40,20 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
 
         // fire the request
         jasmine.Ajax.requests.mostRecent().respondWith({
-          "status": 200,
-          "contentType": 'text/plain',
-          "responseText": ""
+          status: 200,
+          contentType: 'text/plain',
+          responseText: ''
         });
 
-        expect(doneFn).toHaveBeenCalledWith("");
+        expect(doneFn).toHaveBeenCalledWith('');
       });
 
-
-      it("Base Headers are setup", function() {
-        var doneFn = jasmine.createSpy("success");
+      it('Base Headers are setup', function() {
+        var doneFn = jasmine.createSpy('success');
         var headers;
 
-        $.get({ url: "/" })
-          .then(function(args,event,xhrMethods) {
+        $.get({ url: '/' })
+          .then(function(args, event, xhrMethods) {
             if (this.readyState == this.DONE) {
               doneFn(args);
             }
@@ -64,21 +64,21 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
         expect(doneFn).not.toHaveBeenCalled();
 
         jasmine.Ajax.requests.mostRecent().respondWith({
-          "status": 200,
-          "contentType": 'text/plain',
-          "responseText": 'awesome response'
+          status: 200,
+          contentType: 'text/plain',
+          responseText: 'awesome response'
         });
 
         expect(doneFn).toHaveBeenCalledWith('awesome response');
-        expect(headers["X-Parse-Application-Id"]).toEqual('pPeLQpgxgY9GcPuihyQ1boIH51vod9yK4nMZ1ibA');
-        expect(headers["X-Parse-REST-API-Key"]).toEqual('vRKLltmPuDjdfxFFNs6ZD7iHuG5su0J6nTh0VT36');
+        expect(headers['X-Parse-Application-Id']).toEqual('pPeLQpgxgY9GcPuihyQ1boIH51vod9yK4nMZ1ibA');
+        expect(headers['X-Parse-REST-API-Key']).toEqual('vRKLltmPuDjdfxFFNs6ZD7iHuG5su0J6nTh0VT36');
       });
 
     });
 
     describe('.login()', function() {
 
-      beforeEach(function () {
+      beforeEach(function() {
         spyOn(Session, 'login').and.callThrough();
       });
 
@@ -87,27 +87,29 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
       });
 
       it('should store token in cookie', function() {
-        var token = Cookie.find("token");
+        var token = Cookie.find('token');
 
         expect(token).not.toBeUndefined();
       });
 
       it('should login a user', function(done) {
 
-        Session.login( testCreds )
+        Session.login(testCreds)
           .then(function(res) {
             done(res.responseText);
-          },function(err) {
+          },
+
+          function(err) {
             done(err.responseText);
           });
 
         jasmine.Ajax.requests.mostRecent().respondWith({
-          "status": 200,
-          "contentType": 'text/plain',
-          "responseText": 'yep, nope'
+          status: 200,
+          contentType: 'text/plain',
+          responseText: 'yep, nope'
         });
 
-        expect(jasmine.Ajax.requests.mostRecent().url).toBe( mockedUrl );
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe(mockedUrl);
         expect(Session.login).toHaveBeenCalled();
         expect(Session.login).toHaveBeenCalledWith('yep, nope');
       });
@@ -129,60 +131,23 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
         done();
 
         jasmine.Ajax.requests.mostRecent().respondWith({
-          "status": 200,
-          "contentType": 'text/plain',
-          "responseText": 'yep, nope'
+          status: 200,
+          contentType: 'text/plain',
+          responseText: 'yep, nope'
         });
 
-        expect(jasmine.Ajax.requests.mostRecent().url).toBe( baseUrl + "/logout" );
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe(baseUrl + '/logout');
         expect(Session.logout).toHaveBeenCalled();
         expect(Session.logout).toHaveBeenCalledWith('yep, nope');
       });
 
     });
 
-    describe('.getAuth()', function() {
-
-      beforeEach(function() {
-        spyOn(Session, 'getAuth').and.callThrough();
-      });
-
-      it('should be defined', function() {
-        expect(Session.getAuth).toBeDefined();
-      });
-
-      it('should return a user session', function(done) {
-        var doneFn = jasmine.createSpy("then");
-
-        expect(doneFn).not.toHaveBeenCalled();
-
-        Session.getAuth()
-          .then(function (res, data, stuff) {
-            doneFn(res.responseText);
-            done();
-          },function (err) {
-            doneFn(err.responseText);
-            done();
-          });
-
-        jasmine.Ajax.requests.mostRecent().respondWith({
-          "status": 200,
-          "contentType": 'text/plain',
-          "responseText": 'SESSIONTOKEN'
-        });
-
-        expect(jasmine.Ajax.requests.mostRecent().url).toBe( baseUrl + "/users/me" );
-        expect(Session.getAuth).toHaveBeenCalled();
-        expect(doneFn).toHaveBeenCalledWith('SESSIONTOKEN');
-      });
-
-    });
-
     describe('.setAuth()', function() {
       var testAuthData = {
-      		objectId: "C36uCWNESq",
-      		createdAt: "2015-06-19T15:08:54.750Z",
-      		sessionToken: "5afsHGliHVFhMGRlQ1odOYa1n"
+        objectId: 'C36uCWNESq',
+        createdAt: '2015-06-19T15:08:54.750Z',
+        sessionToken: '5afsHGliHVFhMGRlQ1odOYa1n'
       };
 
       beforeEach(function() {
@@ -196,13 +161,13 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
       it('stores session correctly', function() {
         var doneFn = jasmine.createSpy();
         var foundSession;
-        Session.setAuth( testAuthData );
+        Session.setAuth(testAuthData);
 
-        foundSession = Cookie.find("token");
-        doneFn( foundSession );
+        foundSession = Cookie.find('token');
+        doneFn(foundSession);
 
         expect(Session.setAuth).toHaveBeenCalled();
-        expect( doneFn ).toHaveBeenCalledWith( testAuthData.sessionToken );
+        expect(doneFn).toHaveBeenCalledWith(testAuthData.sessionToken);
       });
 
     });
@@ -226,6 +191,47 @@ define(['models/session', 'jquery', 'lib/jasmine-ajax', 'models/cookies'], funct
         Session.logout();
         var isInvalid = Session.checkAuth();
         expect(isInvalid).toBeFalsy();
+      });
+
+    });
+
+    describe('.getAuth()', function() {
+
+      beforeEach(function() {
+        spyOn(Session, 'getAuth').and.callThrough();
+      });
+
+      it('should be defined', function() {
+        expect(Session.getAuth).toBeDefined();
+      });
+
+      it('should return a user session', function(done) {
+
+        // requires a token to be present
+        var doneFn = jasmine.createSpy('then');
+
+        expect(doneFn).not.toHaveBeenCalled();
+
+        Session.getAuth()
+          .then(function(res, data, stuff) {
+            doneFn(res.responseText);
+            done();
+          },
+
+          function(err) {
+            doneFn(err.responseText);
+            done();
+          });
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+          status: 200,
+          contentType: 'text/plain',
+          responseText: 'SESSIONTOKEN'
+        });
+
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe(baseUrl + '/users/me');
+        expect(Session.getAuth).toHaveBeenCalled();
+        expect(doneFn).toHaveBeenCalledWith('SESSIONTOKEN');
       });
 
     });

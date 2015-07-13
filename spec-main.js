@@ -25,7 +25,9 @@ function Mock() {
 window.localStorage = new Mock();
 localStorage = new Mock();
 
-window.State = window.State || {};
+window.State = window.State || {
+  go: function() {}
+};
 
 // Stub the baseline file
 (function() {

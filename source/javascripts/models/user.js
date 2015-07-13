@@ -76,7 +76,7 @@ function(
     },
 
     /**
-     * gets the user data with all references inside the DB
+     * gets the user data with all references inside the DB, used for storing the non-secure data for the user
      * @return {Promise}
      */
     getPlayer: function() {
@@ -89,6 +89,8 @@ function(
 
       $.get(url)
         .success(function(res) {
+          if (!res || !res.results || !res.results[0]) { return; }
+
           var data = res.results[0];
           _this.set('playerId', data.objectId);
 

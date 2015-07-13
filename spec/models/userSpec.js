@@ -57,48 +57,22 @@ define(['models/user'], function(User) {
 
     });
 
-    describe('TODO: .getPlayer()', function() {
+    describe('.getPlayer()', function() {
+      it('should retrieve the related player item', function() {
+        var gotPlayer = user.getPlayer();
 
-      // beforeEach(function() {
-      //   spyOn(user, 'remove').and.callThrough();
-      //   user.remove();
-      // });
-      //
-      // it('should have method', function() {
-      //   expect(user.remove).toBeDefined();
-      // });
-      // 
-      // it('should remove cached user data', function() {
-      //   expect(user.remove).toHaveBeenCalled();
-      // });
-      //
-      // it('verified cleared user data from localStorage', function() {
-      //   var userData = localStorage.getItem('br-user');
-      //   expect(userData).toBeNull();
-      // });
-
+        expect(gotPlayer.promiseDispatch).toBeDefined();
+      });
     });
 
-    describe('TODO: .getAllChampionships()', function() {
+    describe('.getAllChampionships()', function() {
+      it('should retrieve the related championship items', function() {
+        // need to set the player ID before we can run the request
+        user.set('playerId', '123456');
+        var gotChamps = user.getAllChampionships();
 
-      // beforeEach(function() {
-      //   spyOn(user, 'remove').and.callThrough();
-      //   user.remove();
-      // });
-      //
-      // it('should have method', function() {
-      //   expect(user.remove).toBeDefined();
-      // });
-      //
-      // it('should remove cached user data', function() {
-      //   expect(user.remove).toHaveBeenCalled();
-      // });
-      //
-      // it('verified cleared user data from localStorage', function() {
-      //   var userData = localStorage.getItem('br-user');
-      //   expect(userData).toBeNull();
-      // });
-
+        expect(gotChamps.promiseDispatch).toBeDefined();
+      });
     });
 
   });
