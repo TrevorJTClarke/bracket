@@ -45,9 +45,6 @@ function(
       var _this = this;
       var queryParams = System.parseQuery();
       this.model.isEditor = (queryParams.editor === 'true');
-
-      // TODO: for child views
-      // this.listenTo(this.model, 'change:somthing', this.render);
       this.render();
 
       // setup main childview
@@ -62,7 +59,6 @@ function(
           window.__ap = playersData || [];
           _this.model.gamePlayers = playersData || [];
           _this.model.set(gameData);
-
           _this.tiersView.render();
 
           if (_this.model.isEditor) {
@@ -71,7 +67,7 @@ function(
         },
 
         function(err) {
-          console.log('err', err);
+          // console.log('err', err);
         });
 
       if (this.model.isEditor) {
@@ -94,7 +90,11 @@ function(
     },
 
     getBaseData: function(options) {
+      options = options || {};
       var _this = this;
+
+      if (!options.gameId) { return; }
+
       var playersDfd = PL.getGamePlayers(options.gameId);
       var gameDfd = _this.model.fetch({
         url: _this.model.url + '/' + options.gameId

@@ -5,11 +5,11 @@ define(['views/overlay', 'jquery', 'jasminequery'], function(Overlay, $) {
       expect(Overlay).toBeDefined();
     });
 
-    describe('when view is rendered', function () {
+    describe('when view is rendered', function() {
 
-      it ('should have child elements', function () {
-        expect( $("body .overlay").html() ).toContain('overlay-bold');
-        expect( $("body .overlay").html() ).toContain('overlay-lite');
+      it ('should have child elements', function() {
+        expect($('body .overlay').html()).toContain('overlay-bold');
+        expect($('body .overlay').html()).toContain('overlay-lite');
       });
 
     });
@@ -26,8 +26,8 @@ define(['views/overlay', 'jquery', 'jasminequery'], function(Overlay, $) {
 
       it('should add active state', function() {
         Overlay.show();
-        expect( $("body .overlay") ).toHaveClass("active");
-        expect( $("body .overlay") ).toHaveClass("visible");
+        expect($('body .overlay')).toHaveClass('active');
+        expect($('body .overlay')).toHaveClass('visible');
       });
 
       it('should return a promise', function() {
@@ -49,7 +49,7 @@ define(['views/overlay', 'jquery', 'jasminequery'], function(Overlay, $) {
 
       it('should remove active state', function() {
         Overlay.hide();
-        expect( $("body .overlay") ).not.toHaveClass("active");
+        expect($('body .overlay')).not.toHaveClass('active');
       });
 
       it('should return a promise', function() {

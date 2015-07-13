@@ -1,7 +1,7 @@
-define(['views/createChampionship'], function(CreateChampionshipView) {
-  describe('SetupIntroView', function() {
+define(['views/game'], function(GameView) {
+  describe('GameView - the parent view', function() {
     beforeEach(function() {
-      this.view = new CreateChampionshipView();
+      this.view = new GameView({ gameId: '74389jief' });
     });
 
     it('should be defined', function() {
@@ -18,6 +18,10 @@ define(['views/createChampionship'], function(CreateChampionshipView) {
 
       expect(events).toBeDefined();
       expect(eventLngth).toBeGreaterThan(0);
+    });
+
+    it('should have .getBaseData() method', function() {
+      expect(this.view.getBaseData).toBeDefined();
     });
   });
 });

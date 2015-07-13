@@ -1,7 +1,7 @@
 define(['routers/state', 'models/cookies', 'backbone'], function(State, Cookie, Backbone) {
   describe('State Router', function() {
 
-    afterEach(function () {
+    afterEach(function() {
       Cookie.clearAll();
     });
 
@@ -21,16 +21,17 @@ define(['routers/state', 'models/cookies', 'backbone'], function(State, Cookie, 
 
       // Dumb setTimeouts
       it('should use correct timing for transitions', function(done) {
-        var indexUrl = "";
+        var indexUrl = '';
+
         // Make sure we have a token
-        Cookie.store("token", "fjsdkafjkdfjksadlfs");
+        Cookie.store('token', 'fjsdkafjkdfjksadlfs');
 
         State.go(indexUrl);
 
-        setTimeout(function(){
+        setTimeout(function() {
           done();
-          expect( indexUrl ).toEqual( window.location.hash );
-        },530);
+          expect(indexUrl).toEqual(window.location.hash);
+        }, 530);
 
       });
 
@@ -48,25 +49,25 @@ define(['routers/state', 'models/cookies', 'backbone'], function(State, Cookie, 
 
       // Dumb setTimeouts
       it('should use correct timing for transitions', function(done) {
-        var halfIsGood,
-            fullIsGood;
+        var halfIsGood;
+        var fullIsGood;
 
         // Make sure we have a token
-        Cookie.store("token", "fjsdkafjkdfjksadlfs");
+        Cookie.store('token', 'fjsdkafjkdfjksadlfs');
 
         // fire off the method to check
         State.controlFlow();
 
-        setTimeout(function(){
+        setTimeout(function() {
           halfIsGood = State.isTransitioning;
           expect(halfIsGood).toBeTruthy();
-        },260);
+        }, 260);
 
-        setTimeout(function(){
+        setTimeout(function() {
           fullIsGood = State.isTransitioning;
           expect(fullIsGood).toBeFalsy();
           done();
-        },510);
+        }, 510);
 
       });
 

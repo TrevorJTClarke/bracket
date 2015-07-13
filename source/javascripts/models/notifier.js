@@ -40,8 +40,9 @@ function(
     // THIS IS HACK:Y!
     fire: function(data) {
       if (!data) { return; }
+
       var _this = this;
-      var dur = parseInt(_this.model.get("duration"),10);
+      var dur = parseInt(_this.model.get('duration'), 10);
 
       if (_this.isActive === true) {
         _this.clearAll();
@@ -75,6 +76,7 @@ function(
 
   // SETUP
   Backbone.Notifier = {};
+  Backbone.Notifier.__view__ = Notifier;
   _.extend(Backbone.Notifier, Backbone.Events);
 
   Backbone.Notifier.on('NOTIFY:GLOBAL', function(args) {
