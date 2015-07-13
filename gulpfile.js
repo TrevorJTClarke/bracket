@@ -6,6 +6,9 @@ var uglify      = require('gulp-uglifyjs');
 var concat      = require('gulp-concat');
 var template    = require('gulp-template-compile');
 var jasmine     = require('gulp-jasmine-phantom');
+var handlebars  = require('gulp-handlebars');
+var wrap        = require('gulp-wrap');
+var declare     = require('gulp-declare');
 var sass        = require('gulp-sass');
 var rjs         = require('gulp-requirejs');
 var modRewrite  = require('connect-modrewrite');
@@ -18,36 +21,37 @@ gulp.task('smash', function() {
       './source/javascripts/helpers/*.js'
   ])
   .pipe(concat('handlebars.helpers.js'))
-  .pipe(gulp.dest('./source/javascripts/lib/'));
+  .pipe(wrap('define([\'Handlebars\'],function(Handlebars){<%= contents %>});'))
+  .pipe(gulp.dest('./source/javascripts/lib/'))
+  .on('error', console.log);
 });
-
-// // compress the js into mangled goodness
-// gulp.task('compress', function() {
-//     return gulp.src('./dist/bracket.js')
-//         .pipe(uglify('bracket.min.js', {
-//             mangle: true
-//         }))
-//         .pipe(gulp.dest('dist'));
-// });
-// compile all the templates into something worth using
 
 gulp.task('templatify', function() {
   gulp.src('./source/javascripts/templates/*.tpl')
-    .pipe(template())
-    .pipe(concat('templates.js'))
-    .pipe(gulp.dest('dist'));
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'bracket',
+      noRedeclare: true
+    }))
+    .pipe(concat('bracket.templates.js'))
+    .pipe(wrap('define([\'Handlebars\'],function(Handlebars){<%= contents %>});'))
+    .pipe(gulp.dest('./source/javascripts/lib'))
+    .on('error', console.log);
 });
 
 // copy index over to dist
 gulp.task('copy', function() {
   gulp.src('./source/index.html')
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist'))
+    .on('error', console.log);
 });
 
 gulp.task('sass', function() {
   gulp.src('./source/stylesheets/**/*.scss')
     .pipe(sass('bracket.css').on('error', sass.logError))
-    .pipe(gulp.dest('./source/stylesheets'));
+    .pipe(gulp.dest('./source/stylesheets'))
+    .on('error', console.log);
 });
 
 gulp.task('sass:watch', function() {
@@ -93,3 +97,12 @@ gulp.task('default', [
   'smash',
   'serve'
 ]);
+
+// setup all things for a build
+gulp.task('build', [
+  'smash',
+  'templatify'
+], function() {
+  console.log('\n--------------------------\n BUILD FINISHED\n--------------------------');
+  process.exit();
+});

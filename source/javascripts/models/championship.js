@@ -33,6 +33,8 @@ function(
 
     /**
      * insert players into assigned match slots, used for randomizer function
+     *
+     * NOTE: this should only be used for a complete re-write of the first tier assignment
      */
     associatePlayers: function(playersArray) {
       // check for first tier
@@ -91,7 +93,8 @@ function(
     },
 
     /**
-     *
+     * generates a blank initial tier
+     * TODO: assess for need!!
      */
     generateTier: function(total) {
       // check for first tier
@@ -117,6 +120,7 @@ function(
 
     /**
      * removes all data from all tiers
+     * TODO: assess for need!!
      */
     clearTiers: function() {
       var _this = this;
@@ -134,7 +138,7 @@ function(
 
     /**
       * returns a specific tier data object
-      * @param  {String} tierId is the unique ID of the tier, Example: "tier_1"
+      * @param  {String} tierId is the unique ID of the tier, Example: "1" for "tier_1"
       * @return {Object}        tier data object, see example for a sample
       *
       * Example:
@@ -146,11 +150,9 @@ function(
       * }]
       */
     getTierById: function(tierId) {
-      var _this = this;
-      var tierName = _this.tierNamespace + tierId;
-      var tierData = _this.get(tierName);
+      if (!tierId) { return null; }
 
-      return tierData;
+      return this.get(this.tierNamespace + tierId);
     },
 
     /**
@@ -159,6 +161,7 @@ function(
       * @param  {String} userId   the unique ID of the user to add to the tier, based off of the user ID hash
       * @param  {number} matchId (Optional) - sets the user at a specific match
       * @param  {number} matchPosition (Optional) - sets the user at a specific match position
+      * TODO: assess for accuracy!!
       */
     addPlayerToTier: function(tierId, userId, matchId, matchPosition) {
       if (!tierId || !userId) {

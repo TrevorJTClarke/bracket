@@ -64,6 +64,9 @@ function(
           games: _this.gamesData
         });
       }
+      setTimeout(function() {
+        console.log('bracket[]', bracket);
+      },2000);
 
       _this.template = _.template(profileTpl(tmplData));
       _this.$el.html(this.template);
