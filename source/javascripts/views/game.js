@@ -67,7 +67,7 @@ function(
         },
 
         function(err) {
-          console.log('err', err);
+          // console.log('err', err);
         });
 
       if (this.model.isEditor) {
@@ -90,7 +90,11 @@ function(
     },
 
     getBaseData: function(options) {
+      options = options || {};
       var _this = this;
+
+      if (!options.gameId) { return; }
+
       var playersDfd = PL.getGamePlayers(options.gameId);
       var gameDfd = _this.model.fetch({
         url: _this.model.url + '/' + options.gameId
