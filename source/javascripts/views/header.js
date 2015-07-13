@@ -2,15 +2,13 @@ define([
   'jquery',
   'backbone',
   'models/user',
-  'models/session',
-  'hbars!templates/header'
+  'models/session'
 ],
 function(
   $,
   Backbone,
   User,
-  Session,
-  template
+  Session
 ) {
 
   return Backbone.View.extend({
@@ -35,7 +33,7 @@ function(
     render: function() {
       var _this = this;
 
-      this.template = _.template(template(_this.model.attributes));
+      this.template = _.template(bracket.header(_this.model.attributes));
       this.$el.html(this.template);
       this.delegateEvents();
 

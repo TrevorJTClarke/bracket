@@ -1,14 +1,12 @@
 define([
   'jquery',
   'backbone',
-  'hbars!templates/scoreboard',
   'models/user',
   'models/session'
 ],
 function(
   $,
   Backbone,
-  template,
   User,
   Session
 ) {
@@ -37,7 +35,7 @@ function(
     render: function() {
       var _this = this;
 
-      _this.template = _.template(template(_this.model.attributes));
+      _this.template = _.template(bracket.scoreboard(_this.model.attributes));
       _this.$el.html(this.template);
       _rootEl.html(_this.$el);
 

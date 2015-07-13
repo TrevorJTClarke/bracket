@@ -48,7 +48,7 @@ require.config({
   baseUrl: '/base/source/javascripts',
   paths: {
     Q: 'lib/q.min',
-    jquery: 'lib/jquery',
+    jquery: 'lib/jquery.min',
     jasminequery: 'lib/jasmine-jquery',
     jasmineajax: 'lib/jasmine-ajax',
     pep: 'lib/jquery.pep.min',

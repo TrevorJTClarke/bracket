@@ -3,7 +3,6 @@ define([
   'backbone',
   'models/authUser',
   'models/user',
-  'hbars!templates/login_signup',
   'models/system',
   'models/session',
   'models/player',
@@ -15,7 +14,6 @@ function(
   Backbone,
   AuthUser,
   User,
-  userTpl,
   System,
   Session,
   Player
@@ -69,7 +67,7 @@ function(
     },
 
     render: function() {
-      this.template = _.template(userTpl({}));
+      this.template = _.template(bracket.loginSignup({}));
       this.$el.html(this.template);
       _rootEl.html(this.$el);
 

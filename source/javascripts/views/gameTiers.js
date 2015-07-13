@@ -1,21 +1,19 @@
 define([
   'jquery',
   'backbone',
-  'hbars!templates/tiers_container',
   'models/championship',
   'collections/players'
 ],
 function(
   $,
   Backbone,
-  tiersContainerTpl,
   Championship,
   Players
 ) {
 
   return Backbone.View.extend({
 
-    template: tiersContainerTpl,
+    template: bracket.tiersContainer,
 
     events: {
       'click [data-navigate]': 'goToScoreboard'

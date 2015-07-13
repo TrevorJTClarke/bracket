@@ -1,4 +1,4 @@
-Handlebars.registerHelper('gameStatus', function(match) {
+define(['Handlebars'],function(Handlebars){Handlebars.registerHelper('gameStatus', function(match) {
   var typeName = 'default';
 
   // TODO: check if there is a finalist, and if so, check to see if its me
@@ -273,4 +273,5 @@ Handlebars.registerHelper('timeago', function(item) {
   }
 
   return timeAgo.inWords(distance(ts));
+});
 });

@@ -4,8 +4,6 @@ define([
   'backbone',
   'models/championship',
   'collections/players',
-  'hbars!templates/create_championship',
-  'hbars!templates/player_listing_item',
   'models/system',
   'models/notifier'
 ],
@@ -15,8 +13,6 @@ function(
   Backbone,
   Championship,
   Players,
-  createChampionshipTpl,
-  playerListTpl,
   System
 ) {
   // SETUP
@@ -53,8 +49,8 @@ function(
       var _this = this;
 
       // Setting the view's template property using the Underscore template method
-      this.template = _.template(createChampionshipTpl({
-        playerListTpl: playerListTpl({
+      this.template = _.template(bracket.createChampionship({
+        playerListTpl: bracket.playerList({
           players: players
         })
       }));

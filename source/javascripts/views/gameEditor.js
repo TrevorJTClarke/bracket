@@ -1,19 +1,17 @@
 define([
   'jquery',
   'backbone',
-  'hbars!templates/game_editor',
   'collections/players'
 ],
 function(
   $,
   Backbone,
-  gameEditorTpl,
   Players
 ) {
 
   return Backbone.View.extend({
 
-    template: gameEditorTpl,
+    template: bracket.gameEditor,
 
     events: {
       'click #doneEditingPlayers': 'finishGame',
